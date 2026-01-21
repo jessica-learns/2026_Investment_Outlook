@@ -52,16 +52,16 @@ export default function AIMarketThemesReportV8() {
   const trendLineData = [{ x: -30, y: -15 }, { x: 140, y: 70 }];
 
   const s = {
-    coverTitle: { color: p.strong, fontFamily: "'Playfair Display', serif", fontSize: '58px', fontWeight: 900, lineHeight: 1.1, marginBottom: '16px' },
-    sectionNum: { color: p.border, fontFamily: "'Playfair Display', serif", fontSize: '72px', fontWeight: 300, lineHeight: 1 },
-    sectionTitle: { color: p.strong, fontFamily: "'Playfair Display', serif", fontSize: '32px', fontWeight: 900, margin: 0 },
-    themeTitle: { color: p.strong, fontFamily: "'Playfair Display', serif", fontSize: '18px', fontWeight: 600, marginBottom: '3px' },
-    h4: { color: p.strong, fontFamily: "'Poppins', sans-serif", fontWeight: 800, fontSize: '16px', marginBottom: '3px' },
-    subhead: { color: p.strong, fontFamily: "'Poppins', sans-serif", fontWeight: 800, fontSize: '20px', marginBottom: '6px' },
-    body: { color: p.neutral, fontSize: '14px', lineHeight: 1.7 },
-    bodyLg: { color: p.neutral, fontSize: '16px', lineHeight: 1.7 },
-    label: { fontSize: '11px', fontWeight: 600, letterSpacing: '0.15em' },
-    stat: { color: p.action, fontFamily: "'Poppins', sans-serif", fontSize: '28px', fontWeight: 800 },
+    coverTitle: { color: p.strong, fontFamily: "'Playfair Display', serif", fontSize: '64px', fontWeight: 900, lineHeight: 1.1, marginBottom: '16px' },
+    sectionNum: { color: p.border, fontFamily: "'Playfair Display', serif", fontSize: '80px', fontWeight: 300, lineHeight: 1 },
+    sectionTitle: { color: p.strong, fontFamily: "'Playfair Display', serif", fontSize: '36px', fontWeight: 900, margin: 0 },
+    themeTitle: { color: p.strong, fontFamily: "'Playfair Display', serif", fontSize: '20px', fontWeight: 600, marginBottom: '3px' },
+    h4: { color: p.strong, fontFamily: "'Poppins', sans-serif", fontWeight: 800, fontSize: '18px', marginBottom: '3px' },
+    subhead: { color: p.strong, fontFamily: "'Poppins', sans-serif", fontWeight: 800, fontSize: '22px', marginBottom: '6px' },
+    body: { color: p.neutral, fontSize: '16px', lineHeight: 1.7 },
+    bodyLg: { color: p.neutral, fontSize: '18px', lineHeight: 1.7 },
+    label: { fontSize: '12px', fontWeight: 600, letterSpacing: '0.15em' },
+    stat: { color: p.action, fontFamily: "'Poppins', sans-serif", fontSize: '32px', fontWeight: 800 },
     mono: { fontFamily: "'JetBrains Mono', monospace" },
     section: { padding: '48px', maxWidth: '900px', margin: '0 auto' },
     card: { padding: '24px', marginBottom: '24px', backgroundColor: p.surface2, borderLeft: `3px solid ${p.accent}` },
@@ -73,20 +73,20 @@ export default function AIMarketThemesReportV8() {
     mb32: { marginBottom: '32px' },
     mb48: { marginBottom: '48px' },
     // Table styles (centralized)
-    tableLabel: { fontSize: '11px', fontWeight: 700, letterSpacing: '0.12em', color: p.action, textTransform: 'uppercase' },
-    tableTitle: { fontFamily: "'Playfair Display', serif", fontSize: '24px', fontWeight: 800, color: p.strong, margin: 0 },
+    tableLabel: { fontSize: '12px', fontWeight: 700, letterSpacing: '0.12em', color: p.action, textTransform: 'uppercase' },
+    tableTitle: { fontFamily: "'Playfair Display', serif", fontSize: '26px', fontWeight: 800, color: p.strong, margin: 0 },
     tableTicker: { padding: '12px 14px', fontSize: '16px', color: p.strong, fontWeight: 900, fontFamily: "'Poppins', sans-serif" },
-    tableCompany: { padding: '12px 14px', fontSize: '14px', color: p.strong, fontWeight: 400, fontFamily: "'Poppins', sans-serif" },
-    tableNum: { padding: '12px 14px', fontSize: '14px', color: '#2D3748', textAlign: 'center', fontFamily: "'Poppins', sans-serif", fontVariantNumeric: 'tabular-nums', fontWeight: 500 },
-    tableNumActive: { padding: '12px 14px', fontSize: '14px', color: '#2D3748', textAlign: 'center', fontFamily: "'Poppins', sans-serif", fontVariantNumeric: 'tabular-nums', fontWeight: 600 },
-    tableDesc: { padding: '0 14px 14px 14px', fontSize: '13px', color: p.neutral, fontStyle: 'italic', lineHeight: 1.5, fontFamily: "'Poppins', sans-serif" },
-    tableHeader: { padding: '12px 14px', fontSize: '12px', fontWeight: 600, letterSpacing: '0.03em', fontFamily: "'Poppins', sans-serif", userSelect: 'none' },
+    tableCompany: { padding: '12px 14px', fontSize: '15px', color: p.strong, fontWeight: 400, fontFamily: "'Poppins', sans-serif" },
+    tableNum: { padding: '12px 14px', fontSize: '15px', color: '#2D3748', textAlign: 'center', fontFamily: "'Poppins', sans-serif", fontVariantNumeric: 'tabular-nums', fontWeight: 500 },
+    tableNumActive: { padding: '12px 14px', fontSize: '15px', color: '#2D3748', textAlign: 'center', fontFamily: "'Poppins', sans-serif", fontVariantNumeric: 'tabular-nums', fontWeight: 600 },
+    tableDesc: { padding: '0 14px 14px 14px', fontSize: '14px', color: p.neutral, fontStyle: 'italic', lineHeight: 1.5, fontFamily: "'Poppins', sans-serif" },
+    tableHeader: { padding: '12px 14px', fontSize: '13px', fontWeight: 600, letterSpacing: '0.03em', fontFamily: "'Poppins', sans-serif", userSelect: 'none' },
     // Callout styles
     calloutNote: { padding: '16px 20px', backgroundColor: `${p.accent}10`, borderLeft: `3px solid ${p.accent}`, marginTop: '32px' },
     calloutHook: { padding: '12px 16px', backgroundColor: `${p.accent}08`, borderLeft: `3px solid ${p.accent}`, marginTop: '-8px' },
     // Text utilities
-    caption: { fontSize: '13px', color: p.neutral },
-    captionSm: { fontSize: '12px', color: p.neutral },
+    caption: { fontSize: '14px', color: p.neutral },
+    captionSm: { fontSize: '13px', color: p.neutral },
     strong: { color: p.strong, fontWeight: 600 },
     // Section dividers
     dividerTop: { borderTop: `2px solid ${p.border}`, paddingTop: '32px', marginTop: '48px' },
@@ -415,7 +415,7 @@ export default function AIMarketThemesReportV8() {
         <span style={s.sectionNum}>{num}</span>
         <h2 style={s.sectionTitle}>{title}</h2>
       </div>
-      {subtitle && <p style={{ color: p.neutral, fontSize: '14px', marginLeft: '88px', marginTop: 0 }}>{subtitle}</p>}
+      {subtitle && <p style={{ color: p.neutral, fontSize: '16px', marginLeft: '88px', marginTop: 0 }}>{subtitle}</p>}
     </div>
   );
 
@@ -644,8 +644,8 @@ export default function AIMarketThemesReportV8() {
         <div style={{ ...s.label, color: p.action, marginBottom: '48px' }}>BROADSTREET HIGH GROWTH SLEEVE</div>
         <div style={{ maxWidth: '700px' }}>
           <h1 style={s.coverTitle}>The Control Premium:<br />A 2026 Thesis</h1>
-          <p style={{ color: p.neutral, fontFamily: "'Poppins', sans-serif", fontSize: '22px', fontWeight: 600, lineHeight: 1.5, marginBottom: '12px' }}>Why Markets Move Before Fundamentals—and Where to Position in 2026</p>
-          <p style={{ color: p.neutral, fontSize: '16px', fontStyle: 'italic' }}>AI Chokepoints · Power Bottlenecks · Supply Chain Reshoring · Defense Modernization · Strategic Commodities</p>
+          <p style={{ color: p.neutral, fontFamily: "'Poppins', sans-serif", fontSize: '24px', fontWeight: 600, lineHeight: 1.5, marginBottom: '12px' }}>Why Markets Move Before Fundamentals—and Where to Position in 2026</p>
+          <p style={{ color: p.neutral, fontSize: '17px', fontStyle: 'italic' }}>AI Chokepoints · Power Bottlenecks · Supply Chain Reshoring · Defense Modernization · Strategic Commodities</p>
         </div>
       </div>
       <div style={{ ...s.grid4, paddingTop: '24px', borderTop: `2px solid ${p.action}` }}>
