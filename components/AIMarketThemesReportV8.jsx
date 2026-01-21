@@ -32,7 +32,7 @@ export default function AIMarketThemesReportV8() {
     { theme: "Semi Equipment", category: "High Conviction", stockCount: 65, medianReturn6M: 47.16, medianReturn3M: 15.0, medianRevGrowth: 9.67, pctMarginImproving: 59.4 },
     { theme: "US Wholesale Power", category: "Watchlist", stockCount: 9, medianReturn6M: 34.55, medianReturn3M: -3.06, medianRevGrowth: 11.25, pctMarginImproving: 75.0 },
     { theme: "Defense & Aerospace", category: "High Conviction", stockCount: 28, medianReturn6M: 32.19, medianReturn3M: 13.41, medianRevGrowth: 10.38, pctMarginImproving: 32.1 },
-    { theme: "Space & Satellite", category: "High Conviction", stockCount: 38, medianReturn6M: 31.53, medianReturn3M: 22.24, medianRevGrowth: 13.84, pctMarginImproving: 55.6 },
+    { theme: "Space & Satellites", category: "High Conviction", stockCount: 38, medianReturn6M: 31.53, medianReturn3M: 22.24, medianRevGrowth: 13.84, pctMarginImproving: 55.6 },
     { theme: "Specialty Contracting", category: "Watchlist", stockCount: 30, medianReturn6M: 31.51, medianReturn3M: 13.7, medianRevGrowth: 14.13, pctMarginImproving: 42.9 },
     { theme: "Power Gen Equipment", category: "High Conviction", stockCount: 36, medianReturn6M: 29.07, medianReturn3M: -2.39, medianRevGrowth: 15.97, pctMarginImproving: 45.2 },
     { theme: "Interconnects", category: "Watchlist", stockCount: 21, medianReturn6M: 24.07, medianReturn3M: 7.82, medianRevGrowth: 22.09, pctMarginImproving: 61.9 },
@@ -68,7 +68,28 @@ export default function AIMarketThemesReportV8() {
     themeBlock: { padding: '24px', marginBottom: '24px', backgroundColor: p.surface2 },
     flexRow: { display: 'flex', alignItems: 'baseline', gap: '16px', marginBottom: '4px' },
     grid4: { display: 'grid', gridTemplateColumns: 'repeat(4, 1fr)', gap: '20px' },
+    // Spacing utilities
+    mb24: { marginBottom: '24px' },
+    mb32: { marginBottom: '32px' },
     mb48: { marginBottom: '48px' },
+    // Table styles (centralized)
+    tableLabel: { fontSize: '11px', fontWeight: 700, letterSpacing: '0.12em', color: p.action, textTransform: 'uppercase' },
+    tableTitle: { fontFamily: "'Playfair Display', serif", fontSize: '24px', fontWeight: 800, color: p.strong, margin: 0 },
+    tableTicker: { padding: '12px 14px', fontSize: '16px', color: p.strong, fontWeight: 900, fontFamily: "'Poppins', sans-serif" },
+    tableCompany: { padding: '12px 14px', fontSize: '14px', color: p.strong, fontWeight: 400, fontFamily: "'Poppins', sans-serif" },
+    tableNum: { padding: '12px 14px', fontSize: '14px', color: '#2D3748', textAlign: 'center', fontFamily: "'Poppins', sans-serif", fontVariantNumeric: 'tabular-nums', fontWeight: 500 },
+    tableNumActive: { padding: '12px 14px', fontSize: '14px', color: '#2D3748', textAlign: 'center', fontFamily: "'Poppins', sans-serif", fontVariantNumeric: 'tabular-nums', fontWeight: 600 },
+    tableDesc: { padding: '0 14px 14px 14px', fontSize: '13px', color: p.neutral, fontStyle: 'italic', lineHeight: 1.5, fontFamily: "'Poppins', sans-serif" },
+    tableHeader: { padding: '12px 14px', fontSize: '12px', fontWeight: 600, letterSpacing: '0.03em', fontFamily: "'Poppins', sans-serif", userSelect: 'none' },
+    // Callout styles
+    calloutNote: { padding: '16px 20px', backgroundColor: `${p.accent}10`, borderLeft: `3px solid ${p.accent}`, marginTop: '32px' },
+    calloutHook: { padding: '12px 16px', backgroundColor: `${p.accent}08`, borderLeft: `3px solid ${p.accent}`, marginTop: '-8px' },
+    // Text utilities
+    caption: { fontSize: '13px', color: p.neutral },
+    captionSm: { fontSize: '12px', color: p.neutral },
+    strong: { color: p.strong, fontWeight: 600 },
+    // Section dividers
+    dividerTop: { borderTop: `2px solid ${p.border}`, paddingTop: '32px', marginTop: '48px' },
   };
 
   // ==========================================================================
@@ -327,7 +348,7 @@ export default function AIMarketThemesReportV8() {
       ],
     },
     {
-      title: "Space & Satellite",
+      title: "Space & Satellites",
       color: p.strong,
       stats: { m6: 101.9, m3: 55.0, margin: 6.3 },
       dataKey: "space",
@@ -413,28 +434,174 @@ export default function AIMarketThemesReportV8() {
     </div>
   );
 
-  const DataTable = ({ data, columns }) => {
+  // Standard columns for legacy data format (used in Defense, Power, Physical Buildout sections)
+  const stdCols = (showPS = true) => [
+    { key: 'ticker', label: 'Ticker', align: 'left', sortable: true },
+    { key: 'name', label: 'Company', align: 'left', sortable: true },
+    { key: 'mktCap', label: 'Mkt Cap', align: 'center', sortable: true, render: fmtCap },
+    { key: 'm1', label: '1M', align: 'center', sortable: true, render: (v) => <Pct v={v} /> },
+    { key: 'revGr', label: 'Rev Gr', align: 'center', sortable: true, render: (v) => v > 100 ? '>100%' : <Pct v={v} /> },
+    { key: 'm3', label: '3M', align: 'center', sortable: true, render: (v) => <Pct v={v} /> },
+    { key: 'm6', label: '6M', align: 'center', sortable: true, render: (v) => v !== null ? <Pct v={v} /> : '—' },
+    ...(showPS ? [{ key: 'ps', label: 'P/S', align: 'center', sortable: true, render: (v) => `${v.toFixed(1)}x` }] : []),
+  ];
+
+  // ==========================================================================
+  // REUSABLE TABLE COMPONENTS
+  // ==========================================================================
+  
+  // Reusable header for all table sections (buckets, themes, metals categories)
+  const TableHeader = ({ label, id, title, tagline, insight }) => (
+    <div style={{ marginBottom: '16px' }}>
+      <div style={{ display: 'flex', alignItems: 'center', gap: '12px', marginBottom: '8px' }}>
+        <span style={s.tableLabel}>{label} {id}</span>
+        <h4 style={s.tableTitle}>{title}</h4>
+      </div>
+      {tagline && <p style={{ ...s.caption, fontStyle: 'italic', marginBottom: '4px' }}>{tagline}</p>}
+      {insight && <p style={{ ...s.captionSm, color: p.accent }}>{insight}</p>}
+    </div>
+  );
+
+  // Reusable callout for data source notes
+  const DataNote = ({ children }) => (
+    <div style={s.calloutNote}>
+      <p style={{ ...s.captionSm, margin: 0 }}>{children}</p>
+    </div>
+  );
+
+  // Reusable callout for mispricing hooks
+  const HookCallout = ({ hook }) => (
+    <div style={s.calloutHook}>
+      <p style={{ ...s.caption, margin: 0 }}><strong style={s.strong}>Mispricing hook:</strong> {hook}</p>
+    </div>
+  );
+
+  // Reusable sortable stock table - ONE component for ALL tables
+  const SortableStockTable = ({ 
+    data, // accepts either 'data' or 'stocks' for backwards compatibility
+    stocks,
+    columns: customColumns,
+    showDescriptions = true, 
+    defaultSort = { key: 'return1M', direction: 'desc' } 
+  }) => {
     const [hovered, setHovered] = useState(null);
+    const [sortConfig, setSortConfig] = useState(defaultSort);
+    
+    // Use data or stocks (backwards compatibility)
+    const tableData = data || stocks || [];
+    
+    // Default columns for bucket/theme data format
+    const defaultColumns = [
+      { key: 'ticker', label: 'Ticker', align: 'left', sortable: true },
+      { key: 'company', label: 'Company', align: 'left', sortable: true },
+      { key: 'mktCap', label: 'Mkt Cap', align: 'center', sortable: true },
+      { key: 'return1M', label: '1M', align: 'center', sortable: true },
+      { key: 'return3M', label: '3M', align: 'center', sortable: true },
+      { key: 'return6M', label: '6M', align: 'center', sortable: true },
+      { key: 'revGrYoY', label: 'Rev Gr (YoY)', align: 'center', sortable: true },
+      { key: 'opMargin', label: 'OpM', align: 'center', sortable: true },
+      { key: 'pS', label: 'P/S', align: 'center', sortable: true },
+    ];
+    
+    const columns = customColumns || defaultColumns;
+    
+    const parseValue = (val) => {
+      if (val === null || val === undefined || val === '-' || val === '—') return -Infinity;
+      if (typeof val === 'number') return val;
+      const str = String(val);
+      if (str.includes('$')) {
+        const num = parseFloat(str.replace(/[$,BMK]/g, ''));
+        if (str.includes('T')) return num * 1000000;
+        if (str.includes('B')) return num * 1000;
+        if (str.includes('M')) return num;
+        return num;
+      }
+      return parseFloat(str.replace(/[+%x*]/g, '')) || 0;
+    };
+    
+    const handleSort = (key) => {
+      setSortConfig(prev => ({
+        key,
+        direction: prev.key === key && prev.direction === 'desc' ? 'asc' : 'desc'
+      }));
+    };
+    
+    const sortedData = [...tableData].sort((a, b) => {
+      if (!sortConfig.key) return 0;
+      const aVal = parseValue(a[sortConfig.key]);
+      const bVal = parseValue(b[sortConfig.key]);
+      return sortConfig.direction === 'asc' ? aVal - bVal : bVal - aVal;
+    });
+
+    const SortIndicator = ({ isActive, direction }) => (
+      <span style={{
+        display: 'flex', alignItems: 'center', justifyContent: 'center',
+        width: isActive ? '18px' : '14px', minWidth: isActive ? '18px' : '14px',
+        height: isActive ? '18px' : '14px', minHeight: isActive ? '18px' : '14px',
+        borderRadius: '50%', backgroundColor: isActive ? p.action : 'transparent',
+        transition: 'all 0.15s', flexShrink: 0,
+      }}>
+        <svg width="10" height="10" viewBox="0 0 10 10" style={{ 
+          opacity: isActive ? 1 : 0.4, transition: 'all 0.15s',
+          transform: isActive && direction === 'asc' ? 'rotate(180deg)' : 'rotate(0deg)',
+        }}>
+          <path d="M2 3.5 L5 6.5 L8 3.5" stroke={isActive ? p.strong : p.surface1} strokeWidth="1.5" strokeLinecap="round" strokeLinejoin="round" fill="none" />
+        </svg>
+      </span>
+    );
+    
+    // Get cell style based on column
+    const getCellStyle = (col, isActiveSort) => {
+      if (col.key === 'ticker') return s.tableTicker;
+      if (col.key === 'company' || col.key === 'name') return s.tableCompany;
+      return isActiveSort ? s.tableNumActive : s.tableNum;
+    };
+    
+    // Get cell value - handle render functions or raw values
+    const getCellValue = (row, col) => {
+      if (col.render) return col.render(row[col.key], row);
+      return row[col.key];
+    };
+    
     return (
       <div style={{ border: `1px solid ${p.border}`, marginBottom: '24px' }}>
         <table style={{ width: '100%', borderCollapse: 'collapse' }}>
           <thead>
             <tr style={{ backgroundColor: p.strong, color: p.surface1 }}>
-              {columns.map(c => (
-                <th key={c.key} style={{ padding: '10px 12px', fontSize: '12px', fontWeight: 600, textAlign: c.align || 'left', letterSpacing: '0.05em' }}>{c.label}</th>
-              ))}
+              {columns.map(c => {
+                const isActive = sortConfig.key === c.key;
+                const sortable = c.sortable !== false; // default to sortable
+                const justify = c.align === 'center' ? 'center' : (c.align === 'right' ? 'flex-end' : 'flex-start');
+                return (
+                  <th key={c.key} onClick={() => sortable && handleSort(c.key)}
+                    style={{ ...s.tableHeader, textAlign: c.align || 'left', cursor: sortable ? 'pointer' : 'default' }}>
+                    <span style={{ display: 'flex', alignItems: 'center', justifyContent: justify, gap: '6px' }}>
+                      {c.label}
+                      {sortable && <SortIndicator isActive={isActive} direction={sortConfig.direction} />}
+                    </span>
+                  </th>
+                );
+              })}
             </tr>
           </thead>
           <tbody>
-            {data.map((row, i) => (
-              <tr key={row.ticker || i} onMouseEnter={() => setHovered(i)} onMouseLeave={() => setHovered(null)}
-                style={{ backgroundColor: hovered === i ? p.surface2 : (i % 2 === 0 ? p.surface1 : p.surface2), borderBottom: `1px solid ${p.border}`, transition: 'background-color 0.15s' }}>
-                {columns.map(c => (
-                  <td key={c.key} style={{ padding: '10px 12px', fontSize: '13px', textAlign: c.align || 'left', color: c.key === 'ticker' ? p.accent : p.neutral, fontWeight: c.key === 'ticker' ? 700 : 400, fontFamily: c.mono ? "'JetBrains Mono', monospace" : 'inherit' }}>
-                    {c.render ? c.render(row[c.key], row) : row[c.key]}
-                  </td>
-                ))}
-              </tr>
+            {sortedData.map((row, i) => (
+              <React.Fragment key={row.ticker || i}>
+                <tr onMouseEnter={() => setHovered(i)} onMouseLeave={() => setHovered(null)}
+                  style={{ backgroundColor: hovered === i ? p.surface2 : (i % 2 === 0 ? p.surface1 : p.surface2), transition: 'background-color 0.15s' }}>
+                  {columns.map(col => (
+                    <td key={col.key} style={getCellStyle(col, sortConfig.key === col.key)}>
+                      {getCellValue(row, col)}
+                    </td>
+                  ))}
+                </tr>
+                {showDescriptions && row.description && (
+                  <tr style={{ backgroundColor: i % 2 === 0 ? p.surface1 : p.surface2, borderBottom: `1px solid ${p.border}` }}>
+                    <td></td>
+                    <td colSpan={columns.length - 1} style={s.tableDesc}>{row.description}</td>
+                  </tr>
+                )}
+              </React.Fragment>
             ))}
           </tbody>
         </table>
@@ -442,32 +609,29 @@ export default function AIMarketThemesReportV8() {
     );
   };
 
-  // Standard columns for most tables
-  const stdCols = (showPS = true) => [
-    { key: 'ticker', label: 'Ticker', align: 'left' },
-    { key: 'name', label: 'Company', align: 'left' },
-    { key: 'mktCap', label: 'Mkt Cap', align: 'right', render: fmtCap },
-    { key: 'revGr', label: 'Rev Gr', align: 'right', render: (v) => v > 100 ? '>100%' : <Pct v={v} /> },
-    { key: 'm3', label: '3M', align: 'right', render: (v) => <Pct v={v} /> },
-    { key: 'm6', label: '6M', align: 'right', render: (v) => v !== null ? <Pct v={v} /> : '—' },
-    ...(showPS ? [{ key: 'ps', label: 'P/S', align: 'right', mono: true, render: (v) => `${v.toFixed(1)}x` }] : []),
-  ];
+  // Wrapper for bucket tables (Semi Equipment, Space/Defense)
+  const BucketTable = ({ bucket }) => (
+    <div style={s.mb32}>
+      <TableHeader label="BUCKET" id={bucket.id} title={bucket.name} tagline={bucket.tagline} insight={bucket.insight} />
+      <SortableStockTable stocks={bucket.stocks} showDescriptions={true} />
+    </div>
+  );
 
   // ==========================================================================
   // NAVIGATION CONFIG
   // ==========================================================================
   const sections = [
     { id: 'cover', num: '', title: 'Cover' },
-    { id: 'why', num: '01', title: 'Why This Report Exists' },
+    { id: 'why', num: '01', title: 'Investment Thesis' },
     { id: 'methodology', num: '02', title: 'Analytical Methodology' },
     { id: 'analysis', num: '03', title: 'Theme Analysis' },
     { id: 'semi-equip', num: '04', title: 'Semiconductor Equip.' },
-    { id: 'space', num: '05', title: 'Space & Satellite' },
-    { id: 'defense', num: '06', title: 'Defense & Aerospace' },
-    { id: 'power-gen', num: '07', title: 'Power Generation' },
-    { id: 'watchlist', num: '08', title: 'Watchlist' },
-    { id: 'biotech', num: '09', title: 'Biotech' },
-    { id: 'strategic-metals', num: '10', title: 'Strategic Metals' },
+    { id: 'space', num: '05', title: 'Space & Satellites' },
+    { id: 'biotech', num: '06', title: 'Biotech' },
+    { id: 'defense', num: '07', title: 'Defense & Aerospace' },
+    { id: 'metals-materials', num: '08', title: 'Metals & Materials' },
+    { id: 'power-gen', num: '09', title: 'Power Generation' },
+    { id: 'watchlist', num: '10', title: 'Watchlist' },
     { id: 'buildout', num: '11', title: 'Physical Buildout' },
   ];
 
@@ -476,11 +640,13 @@ export default function AIMarketThemesReportV8() {
   // ==========================================================================
   const renderCover = () => (
     <section style={{ minHeight: '100vh', display: 'flex', flexDirection: 'column', justifyContent: 'space-between', padding: '48px', backgroundColor: p.surface2 }}>
-      <div><div style={{ ...s.label, color: p.action, marginBottom: '16px' }}>BROADSTREET HIGH GROWTH SLEEVE</div></div>
-      <div style={{ maxWidth: '700px' }}>
-        <h1 style={s.coverTitle}>Leveraging Bottlenecks<br />to Generate Alpha</h1>
-        <p style={{ color: p.neutral, fontFamily: "'Poppins', sans-serif", fontSize: '22px', fontWeight: 600, lineHeight: 1.5, marginBottom: '12px' }}>Which themes to own, which to watch, and which to avoid — January 2026</p>
-        <p style={{ color: p.neutral, fontSize: '16px', fontStyle: 'italic' }}>Thematic focus: Aerospace & Defense, Semiconductor Equipment, Power Generation</p>
+      <div>
+        <div style={{ ...s.label, color: p.action, marginBottom: '48px' }}>BROADSTREET HIGH GROWTH SLEEVE</div>
+        <div style={{ maxWidth: '700px' }}>
+          <h1 style={s.coverTitle}>The Control Premium:<br />A 2026 Thesis</h1>
+          <p style={{ color: p.neutral, fontFamily: "'Poppins', sans-serif", fontSize: '22px', fontWeight: 600, lineHeight: 1.5, marginBottom: '12px' }}>Why Markets Move Before Fundamentals—and Where to Position in 2026</p>
+          <p style={{ color: p.neutral, fontSize: '16px', fontStyle: 'italic' }}>AI Chokepoints · Power Bottlenecks · Supply Chain Reshoring · Defense Modernization · Strategic Commodities</p>
+        </div>
       </div>
       <div style={{ ...s.grid4, paddingTop: '24px', borderTop: `2px solid ${p.action}` }}>
         <StatBox value="3,021" label="Stocks Analyzed" />
@@ -493,128 +659,403 @@ export default function AIMarketThemesReportV8() {
 
   const renderSection01 = () => (
     <section style={s.section}>
-      <SectionHeader num="01" title="Why This Report Exists" subtitle="The investment thesis driving this analysis" />
-      <div style={{ ...s.bodyLg, marginBottom: '40px' }}>
-        <p style={{ marginBottom: '20px' }}>The Broadstreet High Growth Sleeve targets stocks with credible 40%+ upside over 6-12 months. Our edge comes from focusing capital where exploding demand, defensible value capture, and hard bottlenecks intersect. We seek asymmetric outliers through mispricing and constraint-based opportunities.</p>
-        <p style={{ marginBottom: '20px' }}>This report systematically screens the investable universe to identify <strong style={{ color: p.strong }}>which themes have momentum</strong>, <strong style={{ color: p.strong }}>where valuations are attractive</strong>, and <strong style={{ color: p.strong }}>which stocks within those themes offer the best risk-adjusted opportunities</strong>.</p>
-        <p>We organize analysis around demand drivers and constraint-resolution rather than traditional sector classifications. The strongest-performing investment themes aren't clustered by categories like "Technology" or "Industrials" — they represent solutions to specific bottlenecks in high-growth systems.</p>
+      <SectionHeader num="01" title="Investment Thesis" subtitle="The Control Premium: A 2026 Thesis" />
+      
+      <div style={s.mb32}>
+        <h4 style={s.h4}>On Control, Constraints, and Why the Best Returns Come Before the Headlines</h4>
+        <p style={s.body}>In January 2023, a small Taiwanese company that few investors could name correctly held the fate of the entire artificial intelligence revolution in its hands. TSMC's advanced packaging facility—a single building in Taoyuan—had become the narrowest chokepoint in a trillion-dollar supply chain. Every AI chip that mattered passed through those doors. The company's stock had already doubled. The earnings hadn't yet moved.</p>
+        <p style={{ ...s.body, marginTop: '16px' }}>This wasn't speculation. It was anticipation—the market doing exactly what it's supposed to do, just faster than most investors are comfortable with.</p>
+        <p style={{ ...s.body, marginTop: '16px' }}>We are living through one of the great capital reallocation events in modern markets. Trillions of dollars are being repositioned around a handful of physical constraints that cannot be solved with money or urgency. The winners and losers of the next decade are being determined now—not in earnings releases, but in the quiet reassignment of control over systems that the world increasingly cannot function without.</p>
+        <p style={{ ...s.body, marginTop: '16px' }}>Most investors will miss it. Not because they aren't smart. Because they're waiting for permission that will never come.</p>
       </div>
 
-      <div style={{ padding: '32px', backgroundColor: p.surface2, border: `1px solid ${p.border}`, marginBottom: '40px' }}>
-        <div style={{ ...s.label, color: p.strong, marginBottom: '24px' }}>THE QUESTIONS WE'RE ANSWERING</div>
-        {[["Which themes have momentum?", "1M, 3M, 6M performance comparison"], ["Where is momentum accelerating?", "Time-series trend analysis"], ["What's attractively valued?", "Momentum vs. valuation matrix"], ["Which stocks to own?", "Composite scoring within themes"]].map(([q, a], i) => (
-          <div key={q} style={{ borderTop: i > 0 ? `1px solid ${p.border}` : 'none', paddingTop: i > 0 ? '20px' : 0, marginTop: i > 0 ? '20px' : 0 }}>
-            <div style={{ fontSize: '16px', fontWeight: 600, color: p.strong, marginBottom: '4px' }}>{q}</div>
-            <div style={{ fontSize: '14px', color: p.neutral }}>{a}</div>
-          </div>
-        ))}
+      <div style={s.mb32}>
+        <h4 style={s.h4}>The Permission Trap</h4>
+        <p style={s.body}>Conventional investment wisdom demands confirmation. Wait for the earnings. Wait for the guidance. Wait for the analysts to revise. Wait until the story is clean.</p>
+        <p style={{ ...s.body, marginTop: '16px' }}>This approach works in normal markets. It fails catastrophically in constrained ones.</p>
+        <p style={{ ...s.body, marginTop: '16px' }}>When demand collides with a bottleneck that cannot expand on investor time horizons, the usual rules break down. Price does not equilibrate supply and demand. Time does. And time doesn't negotiate.</p>
+        <p style={{ ...s.body, marginTop: '16px' }}>Think about what this means. When a data center operator needs power but the grid interconnection queue is 47 months deep, no amount of money accelerates that timeline. When an AI lab needs advanced packaging capacity but TSMC's CoWoS lines are fully allocated through 2026, desperation doesn't create new fabs. When a defense contractor needs rare earth magnets but China controls 90% of global processing, urgency doesn't build supply chains.</p>
+        <p style={{ ...s.body, marginTop: '16px' }}>In these environments, the market asks a fundamentally different question. Not: who is producing today? But: who is most likely to control production tomorrow?</p>
+        <p style={{ ...s.body, marginTop: '16px' }}>That question gets answered—and stocks reprice—long before the income statement confirms it.</p>
       </div>
-      <h3 style={{ ...s.subhead, marginTop: '48px', marginBottom: '24px' }}>Data & Screening</h3>
-      <div style={{ padding: '24px', backgroundColor: p.surface2, marginBottom: '32px' }}>
-        <div style={{ display: 'grid', gridTemplateColumns: '1fr 1fr', gap: '24px' }}>
-          {[["Source", "Finviz Screener"], ["As of", "January 18, 2026"], ["Universe", "3,021 stocks"], ["Market Cap Floor", "$400M"]].map(([l, v]) => (
-            <div key={l}><div style={{ fontSize: '14px', color: p.neutral }}>{l}</div><div style={{ fontSize: '16px', fontWeight: 600, color: p.strong }}>{v}</div></div>
-          ))}
-        </div>
+
+      <div style={s.mb32}>
+        <h4 style={s.h4}>Control Is Not Production</h4>
+        <p style={s.body}>This distinction matters more than almost anything else in investing right now.</p>
+        <p style={{ ...s.body, marginTop: '16px' }}>Production is measurable. You can count units, calculate utilization, model capacity. Production shows up in earnings reports, neatly organized and audited.</p>
+        <p style={{ ...s.body, marginTop: '16px' }}>Control is different. Control is probabilistic. It exists in permits not yet issued, in relationships not yet monetized, in technical mastery not yet visible to analysts, in network positions that compound with every new connection. Control is the answer to a question about the future, not a measurement of the present.</p>
+        <p style={{ ...s.body, marginTop: '16px' }}>Here is the uncomfortable truth: by the time control becomes visible in the numbers, the equity return is largely behind you. The investors who waited for confirmation bought certainty. The investors who recognized control early bought asymmetry.</p>
+        <p style={{ ...s.body, marginTop: '16px' }}>This isn't reckless speculation. It's pattern recognition applied to systems under stress.</p>
       </div>
-      <h3 style={{ ...s.subhead, marginBottom: '16px' }}>Size Tiers (Market Cap)</h3>
-      <div style={{ marginBottom: '32px' }}>
-        {[["SMID", "$400M – <$20B (2,421 stocks)"], ["Large+", "≥$20B (600 stocks)"]].map(([t, d]) => (
-          <div key={t} style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center', paddingBottom: '12px', borderBottom: `1px solid ${p.border}`, marginBottom: '12px' }}>
-            <div style={{ fontSize: '16px', fontWeight: 600, color: p.strong }}>{t}</div>
-            <div style={{ fontSize: '14px', color: p.neutral }}>{d}</div>
-          </div>
-        ))}
+
+      <div style={s.mb32}>
+        <h4 style={s.h4}>Two Returns, Two Mindsets</h4>
+        <p style={s.body}>Every constrained system produces two distinct phases of equity returns.</p>
+        <p style={{ ...s.body, marginTop: '16px' }}>The first phase is violent and uncomfortable. Prices move on policy signals, on technical milestones, on narrative shifts that feel more like rumors than analysis. Volatility is extreme. The fundamentals are a mess. The dispersion between winners and losers is staggering. Most professional investors hate this phase. It feels undisciplined. It doesn't fit neatly into quarterly reviews.</p>
+        <p style={{ ...s.body, marginTop: '16px' }}>But this is where the returns are made.</p>
+        <p style={{ ...s.body, marginTop: '16px' }}>The second phase is calm and respectable. Winners have emerged. Execution matters. Margins expand. Cash flows materialize. The story is clean enough to present to investment committees. Volatility compresses. This phase feels safe.</p>
+        <p style={{ ...s.body, marginTop: '16px' }}>But most of the repricing is already done.</p>
+        <p style={{ ...s.body, marginTop: '16px' }}>The paradox is this: the phase that feels dangerous is where the opportunity lives. The phase that feels safe is often where it dies. Investors who insist on waiting for comfort systematically miss the highest-beta portion of the return curve and then overpay for certainty later.</p>
       </div>
-      <div style={s.card}>
-        <div style={{ ...s.label, color: p.accent, marginBottom: '12px' }}>WHY SMID FOCUS?</div>
-        <p style={s.body}>The Broadstreet High Growth Sleeve specifically targets small and mid-cap stocks ($400M–$20B) where inefficiencies persist and 40%+ upside opportunities are more common. We use FactSet's RBICS (Revere Business Industry Classification System) taxonomy to identify granular sub-industries where constraint-based tailwinds concentrate. Unlike broad sector ETFs, RBICS allows us to isolate specific value chain segments — like "Semiconductor Packaging" or "Electrical Contracting" — where small-cap leaders often outperform before graduating to large-cap indices.</p>
+
+      <div style={s.mb32}>
+        <h4 style={s.h4}>What Makes Optionality Credible</h4>
+        <p style={s.body}>Early is not the same as speculative. The difference is anchoring.</p>
+        <p style={{ ...s.body, marginTop: '16px' }}>A credible claim on future control usually satisfies at least one of four conditions. The company controls an asset or permit that cannot be replicated quickly—a grid interconnection, a processing license, a mineral reserve. It aligns with an explicit regulatory or policy trajectory where the direction is clear even if the timing is not. It demonstrates learning curve advantages that compound with each iteration. Or it occupies a coordination point in a complex system where capital alone cannot substitute for position.</p>
+        <p style={{ ...s.body, marginTop: '16px' }}>Speculation lacks these anchors. Credible optionality attracts them.</p>
+        <p style={{ ...s.body, marginTop: '16px' }}>Markets are better at making this distinction than many investors realize. The stocks that reprice early on narrative usually have something real behind them—a contract, a permit, a technical demonstration, a policy tailwind. The ones that collapse were never anchored in the first place.</p>
+      </div>
+
+      <div style={s.mb32}>
+        <h4 style={s.h4}>Why This Moment Is Different</h4>
+        <p style={s.body}>We are not in a normal market.</p>
+        <p style={{ ...s.body, marginTop: '16px' }}>The simultaneous arrival of artificial intelligence, energy transition, supply chain restructuring, and great power competition has created a generational collision of demand and constraint. Each of these forces individually would be significant. Together, they are reshaping the global economy in real time.</p>
+        <p style={{ ...s.body, marginTop: '16px' }}>Power demand is accelerating while grid infrastructure ages. Semiconductor complexity is increasing while fabs take years to build. Critical minerals are essential while processing remains concentrated. Defense spending is surging while industrial bases have hollowed out.</p>
+        <p style={{ ...s.body, marginTop: '16px' }}>These are not temporary dislocations. They are structural features of the decade ahead. The companies that control the chokepoints in these systems will capture extraordinary value. The companies that merely participate will compete it away.</p>
+        <p style={{ ...s.body, marginTop: '16px' }}>The opportunity is not to predict which technologies win. It is to identify where physical constraints bind, and to position before that control is widely recognized.</p>
+      </div>
+
+      <div style={{ marginBottom: '40px' }}>
+        <h4 style={s.h4}>An Invitation</h4>
+        <p style={s.body}>This framework demands something uncomfortable: the willingness to act before certainty arrives.</p>
+        <p style={{ ...s.body, marginTop: '16px' }}>It does not demand recklessness. Position sizing discipline. Milestone awareness. Intellectual honesty about what's anchored and what's hope. These are not optional.</p>
+        <p style={{ ...s.body, marginTop: '16px' }}>But it does demand engagement with uncertainty rather than avoidance of it. The best investments in constrained systems look uncomfortable at the time. They only look obvious later.</p>
+        <p style={{ ...s.body, marginTop: '16px' }}>Markets are not inefficient. They are anticipatory. They move when the probability distribution of future control shifts—not when the income statement confirms it. Investors who insist on waiting for confirmation may feel prudent, but they are systematically late.</p>
+        <p style={{ ...s.body, marginTop: '16px' }}>The returns are made in the gap between recognition and confirmation. That gap is where we intend to be.</p>
       </div>
     </section>
   );
 
-  const renderSection02 = () => (
-    <section style={s.section}>
-      <SectionHeader num="02" title="Analytical Methodology" subtitle="How we identify high-conviction themes" />
+  const renderSection02 = () => {
+    const [hoveredQuadrant, setHoveredQuadrant] = useState(null);
+    const [hoveredTheme, setHoveredTheme] = useState(null);
+
+    const quadrantData = {
+      highConviction: {
+        title: 'HIGH CONVICTION',
+        subtitle: 'Strong momentum + Strong fundamentals',
+        themes: ['Semi Equipment', 'Space & Satellites', 'Defense & Aerospace', 'Power Gen Equipment'],
+        color: '#0077B6',
+        bgGradient: 'linear-gradient(135deg, rgba(0, 119, 182, 0.08) 0%, rgba(0, 119, 182, 0.02) 100%)',
+        hoverBg: 'linear-gradient(135deg, rgba(0, 119, 182, 0.15) 0%, rgba(0, 119, 182, 0.05) 100%)',
+        icon: '◆',
+      },
+      watchlist: {
+        title: 'WATCHLIST',
+        subtitle: 'Strong fundamentals, momentum building',
+        themes: ['Precious Metals', 'Data Storage', 'Interconnects', 'US Wholesale Power', 'Specialty Contracting', 'Behind-the-Meter', 'Respiratory Pharma', 'Immunology Pharma'],
+        color: '#023E8A',
+        bgGradient: 'linear-gradient(135deg, rgba(2, 62, 138, 0.06) 0%, rgba(2, 62, 138, 0.01) 100%)',
+        hoverBg: 'linear-gradient(135deg, rgba(2, 62, 138, 0.12) 0%, rgba(2, 62, 138, 0.03) 100%)',
+        icon: '○',
+      },
+      avoid: {
+        title: 'AVOID',
+        subtitle: 'Weak fundamentals, fading momentum',
+        themes: ['AI Software', 'Design Software', 'Internet Hosting'],
+        color: '#94A3B8',
+        bgGradient: 'linear-gradient(135deg, rgba(148, 163, 184, 0.04) 0%, rgba(148, 163, 184, 0.01) 100%)',
+        hoverBg: 'linear-gradient(135deg, rgba(148, 163, 184, 0.08) 0%, rgba(148, 163, 184, 0.02) 100%)',
+        icon: '▽',
+      },
+      excluded: {
+        title: 'EXCLUDED',
+        subtitle: 'Outside investment mandate',
+        themes: ['Mortgage REITs', 'Investment Banking'],
+        color: '#CBD5E1',
+        bgGradient: 'linear-gradient(135deg, rgba(203, 213, 225, 0.04) 0%, rgba(203, 213, 225, 0.01) 100%)',
+        hoverBg: 'linear-gradient(135deg, rgba(203, 213, 225, 0.08) 0%, rgba(203, 213, 225, 0.02) 100%)',
+        icon: '×',
+      },
+    };
+
+    const QuadrantCell = ({ quadrantKey, position }) => {
+      const q = quadrantData[quadrantKey];
+      const isHovered = hoveredQuadrant === quadrantKey;
+      const isHighConviction = quadrantKey === 'highConviction';
       
-      {/* Methodology Explanation */}
-      <p style={{ ...s.bodyLg, marginBottom: '32px' }}>The highest-returning investment themes increasingly represent solutions to economic bottlenecks preventing high-growth systems from scaling. To identify which industries serve the same constraint, we used Anthropic's Claude Opus 4.5 to synthesize expert research from sources with proven track records: Sequoia, Andreessen Horowitz, Michael Cembalest (Chairman of Market and Investment Strategy, J.P. Morgan Asset & Wealth Management), SemiAnalysis, and custom biotech and commodities analysis generated through Google's NotebookLM.</p>
+      const borderStyles = {
+        topLeft: { borderRight: `2px solid ${p.accent}`, borderBottom: `2px solid ${p.accent}` },
+        topRight: { borderBottom: `2px solid ${p.accent}` },
+        bottomLeft: { borderRight: `2px solid ${p.accent}` },
+        bottomRight: {},
+      };
 
-      {/* Process Steps */}
-      <div style={{ display: 'grid', gridTemplateColumns: '1fr auto 1fr auto 1fr', gap: '16px', alignItems: 'center', marginBottom: '40px', padding: '32px', backgroundColor: p.surface2 }}>
-        <div style={{ textAlign: 'center' }}>
-          <div style={{ ...s.label, color: p.action, marginBottom: '8px' }}>SCREEN</div>
-          <div style={{ fontSize: '32px', fontWeight: 800, color: p.strong, fontFamily: "'Poppins', sans-serif", marginBottom: '4px' }}>3,021</div>
-          <div style={{ fontSize: '13px', color: p.neutral }}>stocks across 150 RBICS Industry Groups for momentum acceleration and fundamental quality</div>
+      return (
+        <div
+          onMouseEnter={() => setHoveredQuadrant(quadrantKey)}
+          onMouseLeave={() => setHoveredQuadrant(null)}
+          style={{
+            padding: '28px 32px',
+            background: isHovered ? q.hoverBg : q.bgGradient,
+            transition: 'all 0.3s ease',
+            transform: isHovered ? 'scale(1.02)' : 'scale(1)',
+            zIndex: isHovered ? 10 : 1,
+            position: 'relative',
+            cursor: 'pointer',
+            ...borderStyles[position],
+          }}
+        >
+          {/* Quadrant Header */}
+          <div style={{ display: 'flex', alignItems: 'center', gap: '10px', marginBottom: '8px' }}>
+            <span style={{ 
+              fontSize: isHighConviction ? '20px' : '16px', 
+              color: q.color,
+              opacity: isHovered ? 1 : 0.7,
+              transition: 'opacity 0.3s ease',
+            }}>
+              {q.icon}
+            </span>
+            <h4 style={{ 
+              fontSize: isHighConviction ? '18px' : '15px', 
+              fontWeight: 700, 
+              color: q.color, 
+              margin: 0,
+              letterSpacing: '0.05em',
+            }}>
+              {q.title}
+            </h4>
+          </div>
+          
+          {/* Subtitle */}
+          <p style={{ 
+            fontSize: '11px', 
+            color: p.neutral, 
+            margin: '0 0 16px 0',
+            opacity: isHovered ? 1 : 0.7,
+            transition: 'opacity 0.3s ease',
+          }}>
+            {q.subtitle}
+          </p>
+          
+          {/* Theme Pills */}
+          <div style={{ display: 'flex', flexWrap: 'wrap', gap: '8px' }}>
+            {q.themes.map((theme, i) => {
+              const isThemeHovered = hoveredTheme === `${quadrantKey}-${i}`;
+              return (
+                <span
+                  key={theme}
+                  onMouseEnter={() => setHoveredTheme(`${quadrantKey}-${i}`)}
+                  onMouseLeave={() => setHoveredTheme(null)}
+                  style={{
+                    display: 'inline-block',
+                    padding: isHighConviction ? '8px 14px' : '6px 12px',
+                    backgroundColor: isThemeHovered ? q.color : (isHighConviction ? `${q.color}15` : `${q.color}08`),
+                    color: isThemeHovered ? '#FFFFFF' : (isHighConviction ? p.strong : p.neutral),
+                    fontSize: isHighConviction ? '13px' : '12px',
+                    fontWeight: isHighConviction ? 600 : 400,
+                    borderRadius: '20px',
+                    border: `1px solid ${isThemeHovered ? q.color : (isHighConviction ? `${q.color}30` : `${q.color}15`)}`,
+                    transition: 'all 0.2s ease',
+                    cursor: 'pointer',
+                    transform: isThemeHovered ? 'translateY(-2px)' : 'translateY(0)',
+                    boxShadow: isThemeHovered ? `0 4px 12px ${q.color}30` : 'none',
+                  }}
+                >
+                  {theme}
+                </span>
+              );
+            })}
+          </div>
         </div>
-        <div style={{ fontSize: '24px', color: p.border }}>→</div>
-        <div style={{ textAlign: 'center' }}>
-          <div style={{ ...s.label, color: p.action, marginBottom: '8px' }}>CLUSTER</div>
-          <div style={{ fontSize: '32px', fontWeight: 800, color: p.strong, fontFamily: "'Poppins', sans-serif", marginBottom: '4px' }}>17</div>
-          <div style={{ fontSize: '13px', color: p.neutral }}>investable themes based on shared demand drivers and constraint resolution</div>
-        </div>
-        <div style={{ fontSize: '24px', color: p.border }}>→</div>
-        <div style={{ textAlign: 'center' }}>
-          <div style={{ ...s.label, color: p.action, marginBottom: '8px' }}>FILTER</div>
-          <div style={{ fontSize: '32px', fontWeight: 800, color: p.strong, fontFamily: "'Poppins', sans-serif", marginBottom: '4px' }}>2×2</div>
-          <div style={{ fontSize: '13px', color: p.neutral }}>dual-filter framework classifying themes by momentum trajectory and fundamentals quality</div>
-        </div>
-      </div>
+      );
+    };
 
-      {/* Closing Context */}
-      <p style={{ ...s.body, marginBottom: '40px' }}>This constraint-based approach is built for aggressive growth mandates targeting asymmetric returns in the SMID-cap universe, where mis-pricing persists longer and bottleneck resolution drives durable value capture.</p>
+    return (
+      <section style={s.section}>
+        <SectionHeader num="02" title="Analytical Methodology" subtitle="How we identify high-conviction themes" />
+        
+        {/* Methodology Explanation */}
+        <p style={{ ...s.bodyLg, marginBottom: '32px' }}>The highest-returning investment themes increasingly represent solutions to economic bottlenecks preventing high-growth systems from scaling. To identify which industries serve the same constraint, we used Anthropic's Claude Opus 4.5 to synthesize expert research from sources with proven track records: Sequoia, Andreessen Horowitz, Michael Cembalest (Chairman of Market and Investment Strategy, J.P. Morgan Asset & Wealth Management), SemiAnalysis, and custom biotech and commodities analysis generated through Google's NotebookLM.</p>
 
-      <h3 style={{ ...s.subhead, marginBottom: '32px', textAlign: 'center' }}>Synthesis: Which Themes Pass Both Filters?</h3>
-      
-      {/* Axis Cross Design */}
-      <div style={{ display: 'grid', gridTemplateColumns: '1fr 1fr', gridTemplateRows: 'auto auto', gap: '0', marginBottom: '40px' }}>
-        {/* Axis Labels */}
-        <div style={{ gridColumn: '1 / -1', textAlign: 'center', marginBottom: '8px' }}>
-          <span style={{ fontSize: '11px', fontWeight: 600, letterSpacing: '0.1em', color: p.neutral }}>↑ FUNDAMENTALS</span>
+        {/* Process Flow Diagram */}
+        {(() => {
+          const [hoveredStep, setHoveredStep] = useState(null);
+          const steps = [
+            { id: 1, label: "UNIVERSE", value: "3,021", desc: "US-listed stocks from FactSet growth screen", type: "auto" },
+            { id: 2, label: "QUANT SCREEN", value: "RBICS", desc: "Filter by momentum, growth, and margin trajectory", type: "auto" },
+            { id: 3, label: "AI CLUSTERING", value: "17", desc: "Claude groups industries by shared constraints", type: "auto" },
+            { id: 4, label: "ANALYST OVERLAY", value: "+40", desc: "Human review adds names missed by RBICS", type: "human" },
+            { id: 5, label: "FINAL UNIVERSE", value: "87", desc: "Curated stocks across 3 high-conviction themes", type: "auto" },
+          ];
+          return (
+            <div style={{ 
+              backgroundColor: p.surface1, 
+              padding: '56px 32px 40px 32px', 
+              borderRadius: '12px',
+              border: `1px solid ${p.border}`,
+              marginBottom: '40px',
+              boxShadow: '0 2px 12px rgba(0,0,0,0.04)',
+            }}>
+              <div style={{ display: 'flex', alignItems: 'flex-start', gap: '0', position: 'relative' }}>
+                {steps.map((step, idx) => {
+                  const isHovered = hoveredStep === step.id;
+                  const isHuman = step.type === 'human';
+                  const circleColor = isHuman ? p.action : p.strong;
+                  return (
+                    <div 
+                      key={step.id}
+                      style={{ flex: 1, display: 'flex', flexDirection: 'column', alignItems: 'center', position: 'relative' }}
+                      onMouseEnter={() => setHoveredStep(step.id)}
+                      onMouseLeave={() => setHoveredStep(null)}
+                    >
+                      {idx < steps.length - 1 && (
+                        <div style={{
+                          position: 'absolute', top: '32px', left: '50%', width: '100%', height: '3px',
+                          background: idx === 2 ? `linear-gradient(90deg, ${p.strong} 0%, ${p.action} 100%)` : idx === 3 ? `linear-gradient(90deg, ${p.action} 0%, ${p.strong} 100%)` : p.strong,
+                          zIndex: 0,
+                        }}>
+                          <div style={{ position: 'absolute', right: '0', top: '-4px', width: 0, height: 0, borderTop: '5px solid transparent', borderBottom: '5px solid transparent', borderLeft: `8px solid ${idx === 2 ? p.action : p.strong}` }} />
+                        </div>
+                      )}
+                      {isHuman && (
+                        <div style={{
+                          position: 'absolute', top: '-32px', left: '50%', transform: 'translateX(-50%)',
+                          backgroundColor: p.strong, color: p.surface1, fontSize: '9px', padding: '4px 10px',
+                          borderRadius: '10px', fontWeight: 700, letterSpacing: '0.05em', whiteSpace: 'nowrap',
+                        }}>
+                          👤 HUMAN
+                        </div>
+                      )}
+                      <div style={{
+                        width: '64px', height: '64px', borderRadius: '50%', backgroundColor: circleColor,
+                        display: 'flex', alignItems: 'center', justifyContent: 'center', zIndex: 1,
+                        transition: 'all 0.2s ease', transform: isHovered ? 'scale(1.1)' : 'scale(1)',
+                        boxShadow: isHovered ? `0 8px 24px ${circleColor}50` : `0 4px 12px ${circleColor}30`,
+                        cursor: 'pointer', border: `3px solid rgba(255,255,255,0.2)`,
+                      }}>
+                        <span style={{ color: p.surface1, fontSize: step.value.length > 3 ? '12px' : '18px', fontWeight: 800, fontFamily: "'Poppins', sans-serif" }}>
+                          {step.value}
+                        </span>
+                      </div>
+                      <div style={{ marginTop: '16px', textAlign: 'center' }}>
+                        <div style={{ fontSize: '10px', fontWeight: 700, letterSpacing: '0.1em', color: isHuman ? p.action : p.strong, marginBottom: '6px' }}>
+                          {step.label}
+                        </div>
+                        <div style={{ fontSize: '11px', color: p.neutral, maxWidth: '110px', lineHeight: 1.5, opacity: isHovered ? 1 : 0.8, transition: 'opacity 0.2s ease' }}>
+                          {step.desc}
+                        </div>
+                      </div>
+                    </div>
+                  );
+                })}
+              </div>
+            </div>
+          );
+        })()}
+
+        {/* Closing Context */}
+        <p style={{ ...s.body, marginBottom: '48px' }}>This constraint-based approach is built for aggressive growth mandates targeting asymmetric returns in the SMID-cap universe, where mis-pricing persists longer and bottleneck resolution drives durable value capture.</p>
+
+        {/* Quadrant Section Header */}
+        <div style={{ textAlign: 'center', marginBottom: '32px' }}>
+          <h3 style={{ 
+            ...s.subhead, 
+            marginBottom: '8px',
+            background: `linear-gradient(135deg, ${p.strong} 0%, ${p.accent} 100%)`,
+            WebkitBackgroundClip: 'text',
+            WebkitTextFillColor: 'transparent',
+            backgroundClip: 'text',
+          }}>Synthesis: Which Themes Pass Both Filters?</h3>
+          <p style={{ fontSize: '13px', color: p.neutral }}>Hover over quadrants and themes to explore</p>
         </div>
         
-        {/* Top Row */}
-        <div style={{ padding: '24px 32px', borderRight: `2px solid ${p.action}`, borderBottom: `2px solid ${p.action}` }}>
-          <h4 style={{ fontSize: '18px', fontWeight: 700, color: p.accent, marginBottom: '16px' }}>WATCHLIST</h4>
-          <div style={{ display: 'flex', flexDirection: 'column', gap: '6px' }}>
-            {['Precious Metals', 'Data Storage', 'Interconnects', 'US Wholesale Power', 'Specialty Contracting', 'Behind-the-Meter', 'Respiratory Pharma', 'Immunology Pharma'].map(t => (
-              <span key={t} style={{ fontSize: '14px', color: p.neutral }}>{t}</span>
-            ))}
+        {/* Enhanced Quadrant Grid */}
+        <div style={{ 
+          position: 'relative',
+          border: `1px solid ${p.border}`,
+          borderRadius: '12px',
+          overflow: 'visible',
+          boxShadow: '0 4px 24px rgba(0, 0, 0, 0.06)',
+          marginLeft: '40px',
+          marginBottom: '24px',
+        }}>
+          {/* Y-Axis Label (Fundamentals - Left side, pointing UP) */}
+          <div style={{ 
+            position: 'absolute', 
+            left: '-36px', 
+            top: '50%',
+            transform: 'translateY(-50%) rotate(-90deg)',
+            transformOrigin: 'center',
+            display: 'flex',
+            alignItems: 'center',
+            gap: '6px',
+          }}>
+            <span style={{ 
+              fontSize: '11px', 
+              fontWeight: 700, 
+              letterSpacing: '0.12em', 
+              color: p.accent,
+              textTransform: 'uppercase',
+              whiteSpace: 'nowrap',
+            }}>
+              ↑ Fundamentals
+            </span>
+          </div>
+          
+          {/* X-Axis Label (Momentum - Bottom, pointing RIGHT) */}
+          <div style={{ 
+            position: 'absolute', 
+            bottom: '-24px', 
+            left: '50%',
+            transform: 'translateX(-50%)',
+            display: 'flex',
+            alignItems: 'center',
+            gap: '6px',
+          }}>
+            <span style={{ 
+              fontSize: '11px', 
+              fontWeight: 700, 
+              letterSpacing: '0.12em', 
+              color: p.accent,
+              textTransform: 'uppercase',
+            }}>
+              Momentum →
+            </span>
+          </div>
+
+          {/* Grid */}
+          <div style={{ 
+            display: 'grid', 
+            gridTemplateColumns: '1fr 1fr', 
+            gridTemplateRows: 'auto auto',
+          }}>
+            <QuadrantCell quadrantKey="watchlist" position="topLeft" />
+            <QuadrantCell quadrantKey="highConviction" position="topRight" />
+            <QuadrantCell quadrantKey="avoid" position="bottomLeft" />
+            <QuadrantCell quadrantKey="excluded" position="bottomRight" />
           </div>
         </div>
-        
-        <div style={{ padding: '24px 32px', borderBottom: `2px solid ${p.action}`, position: 'relative' }}>
-          <h4 style={{ fontSize: '18px', fontWeight: 700, color: p.action, marginBottom: '16px' }}>HIGH CONVICTION</h4>
-          <div style={{ display: 'flex', flexDirection: 'column', gap: '6px' }}>
-            {['Semi Equipment', 'Space & Satellite', 'Defense & Aerospace', 'Power Gen Equipment'].map(t => (
-              <span key={t} style={{ fontSize: '14px', fontWeight: 600, color: p.strong }}>{t}</span>
-            ))}
-          </div>
-          {/* Momentum label positioned above horizontal axis */}
-          <div style={{ position: 'absolute', bottom: '24px', right: '0', fontSize: '11px', fontWeight: 600, letterSpacing: '0.1em', color: p.neutral }}>MOMENTUM →</div>
+
+        {/* Legend */}
+        <div style={{ 
+          display: 'flex', 
+          justifyContent: 'center', 
+          gap: '32px', 
+          marginTop: '24px',
+          padding: '16px',
+          backgroundColor: p.surface2,
+          borderRadius: '8px',
+        }}>
+          {Object.entries(quadrantData).map(([key, q]) => (
+            <div key={key} style={{ display: 'flex', alignItems: 'center', gap: '8px' }}>
+              <span style={{ fontSize: '14px', color: q.color }}>{q.icon}</span>
+              <span style={{ fontSize: '12px', color: p.neutral }}>{q.title}</span>
+              <span style={{ 
+                fontSize: '11px', 
+                color: p.neutral, 
+                backgroundColor: `${q.color}15`,
+                padding: '2px 8px',
+                borderRadius: '10px',
+              }}>
+                {q.themes.length}
+              </span>
+            </div>
+          ))}
         </div>
-        
-        {/* Bottom Row */}
-        <div style={{ padding: '24px 32px', borderRight: `2px solid ${p.action}` }}>
-          <h4 style={{ fontSize: '16px', fontWeight: 600, color: p.border, marginBottom: '16px' }}>AVOID</h4>
-          <div style={{ display: 'flex', flexDirection: 'column', gap: '6px' }}>
-            {['AI Software', 'Design Software', 'Internet Hosting'].map(t => (
-              <span key={t} style={{ fontSize: '13px', color: p.border }}>{t}</span>
-            ))}
-          </div>
-        </div>
-        
-        <div style={{ padding: '24px 32px' }}>
-          <h4 style={{ fontSize: '16px', fontWeight: 600, color: p.border, marginBottom: '16px' }}>EXCLUDED</h4>
-          <div style={{ display: 'flex', flexDirection: 'column', gap: '6px' }}>
-            {['Mortgage REITs', 'Investment Banking'].map(t => (
-              <span key={t} style={{ fontSize: '13px', color: p.border }}>{t}</span>
-            ))}
-          </div>
-        </div>
-      </div>
-    </section>
-  );;
+      </section>
+    );
+  };
 
   const renderSection03 = () => {
     const ThemeTooltip = ({ active, payload }) => {
@@ -752,82 +1193,13 @@ export default function AIMarketThemesReportV8() {
           ))}
         </div>
         
-        <DataTable data={stockData[theme.dataKey]} columns={stdCols(theme.showPS)} />
+        <SortableStockTable data={stockData[theme.dataKey]} columns={stdCols(theme.showPS)} defaultSort={{ key: 'm1', direction: 'desc' }} showDescriptions={false} />
         {theme.note && <p style={{ fontSize: '12px', color: p.neutral, fontStyle: 'italic', marginTop: '-16px' }}>{theme.note}</p>}
       </section>
     );
   };
 
-  // Custom bucket table component for semi equipment
-  const BucketTable = ({ bucket }) => {
-    const [hovered, setHovered] = useState(null);
-    const bucketCols = [
-      { key: 'ticker', label: 'Ticker', align: 'left' },
-      { key: 'company', label: 'Company', align: 'left' },
-      { key: 'mktCap', label: 'Mkt Cap', align: 'right' },
-      { key: 'return1M', label: '1M', align: 'right' },
-      { key: 'return3M', label: '3M', align: 'right' },
-      { key: 'return6M', label: '6M', align: 'right' },
-      { key: 'revGrYoY', label: 'Rev Gr (YoY)', align: 'right' },
-      { key: 'opMargin', label: 'OpM', align: 'right' },
-      { key: 'pS', label: 'P/S', align: 'right' },
-    ];
-    const getReturnColor = (val) => {
-      if (!val || val === '-') return p.neutral;
-      const num = parseFloat(val.replace('%', '').replace('+', ''));
-      return num >= 0 ? p.positive : p.negative;
-    };
-    return (
-      <div style={{ marginBottom: '32px' }}>
-        <div style={{ marginBottom: '16px' }}>
-          <div style={{ display: 'flex', alignItems: 'center', gap: '12px', marginBottom: '6px' }}>
-            <span style={{ ...s.label, color: p.action, letterSpacing: '0.1em' }}>BUCKET {bucket.id}</span>
-            <h4 style={{ ...s.themeTitle, margin: 0, fontSize: '16px' }}>{bucket.name}</h4>
-          </div>
-          <p style={{ ...s.body, fontSize: '13px', fontStyle: 'italic', marginBottom: '4px' }}>{bucket.tagline}</p>
-          <p style={{ ...s.body, fontSize: '12px', color: p.accent }}>{bucket.insight}</p>
-        </div>
-        <div style={{ border: `1px solid ${p.border}` }}>
-          <table style={{ width: '100%', borderCollapse: 'collapse' }}>
-            <thead>
-              <tr style={{ backgroundColor: p.strong, color: p.surface1 }}>
-                {bucketCols.map(c => (
-                  <th key={c.key} style={{ padding: '12px 14px', fontSize: '12px', fontWeight: 600, textAlign: c.align || 'left', letterSpacing: '0.03em' }}>{c.label}</th>
-                ))}
-              </tr>
-            </thead>
-            <tbody>
-              {bucket.stocks.map((stock, i) => (
-                <React.Fragment key={stock.ticker}>
-                  {/* Main data row */}
-                  <tr onMouseEnter={() => setHovered(i)} onMouseLeave={() => setHovered(null)}
-                    style={{ backgroundColor: hovered === i ? p.surface2 : (i % 2 === 0 ? p.surface1 : p.surface2), transition: 'background-color 0.15s' }}>
-                    <td style={{ padding: '12px 14px', fontSize: '14px', color: p.accent, fontWeight: 700 }}>{stock.ticker}</td>
-                    <td style={{ padding: '12px 14px', fontSize: '14px', color: p.strong, fontWeight: 500 }}>{stock.company}</td>
-                    <td style={{ padding: '12px 14px', fontSize: '14px', color: p.neutral, textAlign: 'right', fontFamily: "'JetBrains Mono', monospace" }}>{stock.mktCap}</td>
-                    <td style={{ padding: '12px 14px', fontSize: '14px', color: getReturnColor(stock.return1M), textAlign: 'right', fontWeight: 500, fontFamily: "'JetBrains Mono', monospace" }}>{stock.return1M}</td>
-                    <td style={{ padding: '12px 14px', fontSize: '14px', color: getReturnColor(stock.return3M), textAlign: 'right', fontWeight: 500, fontFamily: "'JetBrains Mono', monospace" }}>{stock.return3M}</td>
-                    <td style={{ padding: '12px 14px', fontSize: '14px', color: getReturnColor(stock.return6M), textAlign: 'right', fontWeight: 500, fontFamily: "'JetBrains Mono', monospace" }}>{stock.return6M}</td>
-                    <td style={{ padding: '12px 14px', fontSize: '14px', color: getReturnColor(stock.revGrYoY), textAlign: 'right', fontWeight: 500, fontFamily: "'JetBrains Mono', monospace" }}>{stock.revGrYoY}</td>
-                    <td style={{ padding: '12px 14px', fontSize: '14px', color: p.neutral, textAlign: 'right', fontFamily: "'JetBrains Mono', monospace" }}>{stock.opMargin}</td>
-                    <td style={{ padding: '12px 14px', fontSize: '14px', color: p.neutral, textAlign: 'right', fontFamily: "'JetBrains Mono', monospace" }}>{stock.pS}</td>
-                  </tr>
-                  {/* Description row */}
-                  <tr style={{ backgroundColor: i % 2 === 0 ? p.surface1 : p.surface2, borderBottom: `1px solid ${p.border}` }}>
-                    <td></td>
-                    <td colSpan={8} style={{ padding: '0 14px 14px 14px', fontSize: '13px', color: p.neutral, fontStyle: 'italic', lineHeight: 1.5 }}>
-                      {stock.description}
-                    </td>
-                  </tr>
-                </React.Fragment>
-              ))}
-            </tbody>
-          </table>
-        </div>
-      </div>
-    );
-  };
-
+  // Custom bucket table component for semi equipment (wrapper using SortableStockTable)
   // Custom Section 04 with integrated thematic bucket tables
   const renderSection04 = () => {
     const theme = highConvictionThemes[0];
@@ -874,16 +1246,16 @@ export default function AIMarketThemesReportV8() {
         })}
 
         {/* Data Source Note */}
-        <div style={{ padding: '16px 20px', backgroundColor: `${p.accent}10`, borderLeft: `3px solid ${p.accent}`, marginTop: '32px' }}>
-          <p style={{ ...s.body, fontSize: '12px', margin: 0 }}>
-            <strong style={{ color: p.strong }}>Data as of January 18, 2026.</strong> Rev Gr (YoY) = Revenue growth, year-over-year, most recent quarter vs same quarter prior year. Returns are total returns including dividends.
+        <div style={s.calloutNote}>
+          <p style={{ ...s.captionSm, margin: 0 }}>
+            <strong style={s.strong}>Data as of January 18, 2026.</strong> Rev Gr (YoY) = Revenue growth, year-over-year, most recent quarter vs same quarter prior year. Returns are total returns including dividends.
           </p>
         </div>
       </section>
     );
   };
   const renderSection05Theme = () => {
-    const theme = highConvictionThemes[1]; // Space & Satellite
+    const theme = highConvictionThemes[1]; // Space & Satellites
     // Map paragraphs to relevant buckets (using spaceDefenseBuckets with their IDs)
     const paragraphBucketMap = [
       { paragraphIndex: 0, bucketIds: [5] },       // "95% Cost Collapse" → Launch, Satellite Manufacturing
@@ -893,74 +1265,6 @@ export default function AIMarketThemesReportV8() {
       { paragraphIndex: 4, bucketIds: [4] },       // "Defense as Revenue Anchor" → Test, Integration, Sustainment
       { paragraphIndex: 5, bucketIds: [] },        // "Where Value Accrues" → Summary, no table
     ];
-
-    // Helper to render space/defense bucket tables (using same BucketTable style)
-    const SpaceDefenseBucketTable = ({ bucket }) => {
-      const [hovered, setHovered] = useState(null);
-      const bucketCols = [
-        { key: 'ticker', label: 'Ticker', align: 'left' },
-        { key: 'company', label: 'Company', align: 'left' },
-        { key: 'mktCap', label: 'Mkt Cap', align: 'right' },
-        { key: 'return1M', label: '1M', align: 'right' },
-        { key: 'return3M', label: '3M', align: 'right' },
-        { key: 'return6M', label: '6M', align: 'right' },
-        { key: 'revGrYoY', label: 'Rev Gr (YoY)', align: 'right' },
-        { key: 'opMargin', label: 'OpM', align: 'right' },
-        { key: 'pS', label: 'P/S', align: 'right' },
-      ];
-      const getReturnColor = (val) => {
-        if (!val || val === '-') return p.neutral;
-        const num = parseFloat(val.replace('%', '').replace('+', '').replace('x', ''));
-        return num >= 0 ? p.positive : p.negative;
-      };
-      return (
-        <div style={{ marginBottom: '32px' }}>
-          <div style={{ marginBottom: '16px' }}>
-            <div style={{ display: 'flex', alignItems: 'center', gap: '12px', marginBottom: '6px' }}>
-              <span style={{ ...s.label, color: p.action, letterSpacing: '0.1em' }}>BUCKET {bucket.id}</span>
-              <h4 style={{ ...s.themeTitle, margin: 0, fontSize: '16px' }}>{bucket.name}</h4>
-            </div>
-            <p style={{ ...s.body, fontSize: '13px', fontStyle: 'italic', marginBottom: '4px' }}>{bucket.tagline}</p>
-            <p style={{ ...s.body, fontSize: '12px', color: p.accent }}>{bucket.insight}</p>
-          </div>
-          <div style={{ border: `1px solid ${p.border}` }}>
-            <table style={{ width: '100%', borderCollapse: 'collapse' }}>
-              <thead>
-                <tr style={{ backgroundColor: p.strong, color: p.surface1 }}>
-                  {bucketCols.map(c => (
-                    <th key={c.key} style={{ padding: '12px 14px', fontSize: '12px', fontWeight: 600, textAlign: c.align || 'left', letterSpacing: '0.03em' }}>{c.label}</th>
-                  ))}
-                </tr>
-              </thead>
-              <tbody>
-                {bucket.stocks.map((stock, i) => (
-                  <React.Fragment key={stock.ticker}>
-                    <tr onMouseEnter={() => setHovered(i)} onMouseLeave={() => setHovered(null)}
-                      style={{ backgroundColor: hovered === i ? p.surface2 : (i % 2 === 0 ? p.surface1 : p.surface2), transition: 'background-color 0.15s' }}>
-                      <td style={{ padding: '12px 14px', fontSize: '14px', color: p.accent, fontWeight: 700 }}>{stock.ticker}</td>
-                      <td style={{ padding: '12px 14px', fontSize: '14px', color: p.strong, fontWeight: 500 }}>{stock.company}</td>
-                      <td style={{ padding: '12px 14px', fontSize: '14px', color: p.neutral, textAlign: 'right', fontFamily: "'JetBrains Mono', monospace" }}>{stock.mktCap}</td>
-                      <td style={{ padding: '12px 14px', fontSize: '14px', color: getReturnColor(stock.return1M), textAlign: 'right', fontWeight: 500, fontFamily: "'JetBrains Mono', monospace" }}>{stock.return1M}</td>
-                      <td style={{ padding: '12px 14px', fontSize: '14px', color: getReturnColor(stock.return3M), textAlign: 'right', fontWeight: 500, fontFamily: "'JetBrains Mono', monospace" }}>{stock.return3M}</td>
-                      <td style={{ padding: '12px 14px', fontSize: '14px', color: getReturnColor(stock.return6M), textAlign: 'right', fontWeight: 500, fontFamily: "'JetBrains Mono', monospace" }}>{stock.return6M}</td>
-                      <td style={{ padding: '12px 14px', fontSize: '14px', color: getReturnColor(stock.revGrYoY), textAlign: 'right', fontWeight: 500, fontFamily: "'JetBrains Mono', monospace" }}>{stock.revGrYoY}</td>
-                      <td style={{ padding: '12px 14px', fontSize: '14px', color: getReturnColor(stock.opMargin), textAlign: 'right', fontFamily: "'JetBrains Mono', monospace" }}>{stock.opMargin}</td>
-                      <td style={{ padding: '12px 14px', fontSize: '14px', color: p.neutral, textAlign: 'right', fontFamily: "'JetBrains Mono', monospace" }}>{stock.pS}</td>
-                    </tr>
-                    <tr style={{ backgroundColor: i % 2 === 0 ? p.surface1 : p.surface2, borderBottom: `1px solid ${p.border}` }}>
-                      <td></td>
-                      <td colSpan={8} style={{ padding: '0 14px 14px 14px', fontSize: '13px', color: p.neutral, fontStyle: 'italic', lineHeight: 1.5 }}>
-                        {stock.description}
-                      </td>
-                    </tr>
-                  </React.Fragment>
-                ))}
-              </tbody>
-            </table>
-          </div>
-        </div>
-      );
-    };
 
     return (
       <section style={s.section}>
@@ -983,7 +1287,7 @@ export default function AIMarketThemesReportV8() {
               {relatedBuckets.length > 0 && (
                 <div style={{ marginLeft: '0px', paddingLeft: '0px' }}>
                   {relatedBuckets.map(bucket => (
-                    <SpaceDefenseBucketTable key={bucket.id} bucket={bucket} />
+                    <BucketTable key={bucket.id} bucket={bucket} />
                   ))}
                 </div>
               )}
@@ -992,20 +1296,20 @@ export default function AIMarketThemesReportV8() {
         })}
 
         {/* Data Source Note */}
-        <div style={{ padding: '16px 20px', backgroundColor: `${p.accent}10`, borderLeft: `3px solid ${p.accent}`, marginTop: '32px' }}>
-          <p style={{ ...s.body, fontSize: '12px', margin: 0 }}>
-            <strong style={{ color: p.strong }}>Data as of January 18, 2026.</strong> Rev Gr (YoY) = Revenue growth, year-over-year, most recent quarter vs same quarter prior year. Returns are total returns including dividends.
+        <div style={s.calloutNote}>
+          <p style={{ ...s.captionSm, margin: 0 }}>
+            <strong style={s.strong}>Data as of January 18, 2026.</strong> Rev Gr (YoY) = Revenue growth, year-over-year, most recent quarter vs same quarter prior year. Returns are total returns including dividends.
           </p>
         </div>
       </section>
     );
   };
-  const renderSection06Theme = () => renderThemeSection(2, '06');
-  const renderSection07Theme = () => renderThemeSection(3, '07');
+  const renderSection06Theme = () => renderThemeSection(2, '07');
+  const renderSection07Theme = () => renderThemeSection(3, '09');
 
   const renderSection08 = () => (
     <section style={s.section}>
-      <SectionHeader num="08" title="Watchlist" subtitle="Themes with fading momentum but intact fundamentals — wait for re-entry" />
+      <SectionHeader num="10" title="Watchlist" subtitle="Themes with fading momentum but intact fundamentals — wait for re-entry" />
       <p style={{ ...s.bodyLg, marginBottom: '32px' }}>These themes had strong 6-month runs but recent momentum has cooled. Fundamentals remain solid — margins are still expanding — but the 3-month returns suggest the easy gains have been made. These are candidates for re-entry on pullbacks.</p>
       <div style={{ display: 'grid', gridTemplateColumns: '1fr 1fr', gap: '16px', marginBottom: '40px' }}>
         {[
@@ -1045,90 +1349,288 @@ export default function AIMarketThemesReportV8() {
       {subsections.map((sub, i) => (
         <div key={i}>
           <h3 style={{ ...s.themeTitle, marginTop: '40px', marginBottom: '4px' }}>{sub.title}</h3>
-          <p style={{ fontSize: '12px', color: p.neutral, marginBottom: '16px' }}>{sub.caption}</p>
+          <p style={{ ...s.captionSm, marginBottom: '16px' }}>{sub.caption}</p>
           {sub.stats && (
             <div style={{ display: 'grid', gridTemplateColumns: 'repeat(3, 1fr)', gap: '20px', padding: '20px', backgroundColor: p.surface2, marginBottom: '20px' }}>
               {sub.stats.map(st => (
-                <div key={st.label}><div style={{ fontSize: '24px', fontWeight: 600, color: p.accent, ...s.mono, marginBottom: '4px' }}>{st.value}</div><div style={{ fontSize: '12px', color: p.neutral }}>{st.label}</div></div>
+                <div key={st.label}><div style={{ fontSize: '24px', fontWeight: 600, color: p.accent, ...s.mono, marginBottom: '4px' }}>{st.value}</div><div style={s.captionSm}>{st.label}</div></div>
               ))}
             </div>
           )}
-          {sub.data && <DataTable data={sub.data} columns={sub.columns || stdCols(true)} />}
-          {sub.note && <p style={{ fontSize: '12px', color: p.neutral, marginTop: '-16px' }}>{sub.note}</p>}
+          {sub.data && <SortableStockTable data={sub.data} columns={sub.columns || stdCols(true)} defaultSort={{ key: 'm1', direction: 'desc' }} showDescriptions={false} />}
+          {sub.note && <p style={{ ...s.captionSm, marginTop: '-16px' }}>{sub.note}</p>}
           {sub.body && <p style={s.body}>{sub.body}</p>}
         </div>
       ))}
     </section>
   );
 
-  const renderSection09 = () => (
-    <section style={s.section}>
-      <SectionHeader num="09" title="Biotech" subtitle="Regulatory constraint easing creates asymmetric opportunity" />
-      
-      <div style={{ marginBottom: '32px' }}>
-        <h4 style={s.h4}>A Different Type of Decoupling</h4>
-        <p style={s.body}>While most of this report focuses on physical bottlenecks, biotech presents a regulatory bottleneck that is finally compressing. The FDA 2.0 initiative has accelerated approval timelines by 30-40%, reducing the time-to-revenue for clinical-stage companies. Meanwhile, roughly 20% of biotechs now trade below their cash value — a historically extreme dislocation that creates asymmetric entry points for patient capital.</p>
-      </div>
+  // ==========================================================================
+  // BIOTECH THEMATIC DATA
+  // ==========================================================================
+  const biotechThemes = [
+    {
+      id: 1,
+      name: "Precision Diagnostics as the Gatekeeper to Treatment",
+      intro: "Healthcare cannot treat what it cannot reliably detect. Precision diagnostics sit upstream of nearly every modern therapy, determining who gets treated, when, and with what. The system is shifting rapidly toward earlier, more frequent testing because treatment outcomes and costs diverge sharply depending on stage and timing. By 2025, over 70% of oncology drug trials required a companion diagnostic, up from less than 40% a decade ago, effectively turning diagnostics into mandatory infrastructure rather than optional add-ons. At the same time, multi-cancer early detection and transplant monitoring are pushing testing volumes higher without requiring new physicians or facilities. Companies embedded at this decision point benefit from rising utilization and workflow lock-in, not just innovation cycles. Once a diagnostic becomes standard of care, it controls patient flow for years.",
+      stocks: [
+        { ticker: "EXAS", company: "Exact Sciences", mktCap: "$19.5B", return1M: "+1%", return3M: "+67%", return6M: "+91%", revGrYoY: "+20%", opMargin: "1.9%", pS: "6.3x", description: "Leader in cancer screening and early detection. Benefits from rising testing frequency and expansion beyond colorectal cancer." },
+        { ticker: "GH", company: "Guardant Health", mktCap: "$14.5B", return1M: "+12%", return3M: "+66%", return6M: "+135%", revGrYoY: "+39%", opMargin: "-37.3%", pS: "15.5x", description: "Liquid biopsy platform embedded in oncology decision-making. Volume growth driven by therapy-linked testing requirements." },
+        { ticker: "CDNA", company: "CareDx", mktCap: "$1.0B", return1M: "+3%", return3M: "+33%", return6M: "+4%", revGrYoY: "+21%", opMargin: "2.0%", pS: "3.0x", description: "Controls post-transplant monitoring, a high-value, recurring testing niche with strong switching costs." },
+        { ticker: "ILMN", company: "Illumina", mktCap: "$21.6B", return1M: "+8%", return3M: "+48%", return6M: "+46%", revGrYoY: "+0%", opMargin: "21.3%", pS: "5.1x", description: "Core infrastructure provider for genomic testing. Benefits from higher testing volumes regardless of which diagnostics win." },
+      ]
+    },
+    {
+      id: 2,
+      name: "Immunology Commercialization and Margin Inflection",
+      intro: "Immunology is moving from experimental to operational. Autoimmune and inflammatory diseases affect roughly 1 in 10 adults globally, and that prevalence is rising faster than overall population growth due to better diagnosis and longer lifespans. Historically, most patients were treated with broad immunosuppression. Today, targeted therapies are expanding addressable populations while improving safety and durability. By 2026, targeted biologics account for more than half of new autoimmune prescriptions, compared with roughly one-third in the mid-2010s. The investment opportunity is not just scientific success, but the transition from trial-stage assets to repeat, chronic revenue with operating leverage. When immunology drugs work and gain coverage, persistence rates are high and margins expand quickly.",
+      stocks: [
+        { ticker: "ALMS", company: "Alumis", mktCap: "$3.0B", return1M: "+109%", return3M: "+418%", return6M: "+594%", revGrYoY: "—", opMargin: "-5585%", pS: "112.3x", description: "High-momentum immunology platform targeting chronic inflammatory disease. Positioned for rapid repricing if trials succeed." },
+        { ticker: "GLUE", company: "Monte Rosa Therapeutics", mktCap: "$1.8B", return1M: "+27%", return3M: "+130%", return6M: "+323%", revGrYoY: "+39%", opMargin: "-258%", pS: "10.8x", description: "Uses targeted protein degradation to address immune pathways previously considered undruggable." },
+        { ticker: "KYTX", company: "Kyverna Therapeutics", mktCap: "$478M", return1M: "-18%", return3M: "+19%", return6M: "+105%", revGrYoY: "—", opMargin: "—", pS: "—", description: "Applies cell therapy to autoimmune disease, aiming for durable immune reset rather than symptom control." },
+        { ticker: "VRDN", company: "Viridian Therapeutics", mktCap: "$3.2B", return1M: "+1%", return3M: "+45%", return6M: "+98%", revGrYoY: "+81958%", opMargin: "-57%", pS: "38.4x", description: "Focused on a clearly defined autoimmune niche with strong pricing and persistence economics." },
+        { ticker: "ATXS", company: "Astria Therapeutics", mktCap: "$712M", return1M: "-3%", return3M: "+3%", return6M: "+97%", revGrYoY: "—", opMargin: "-4831%", pS: "1024.6x", description: "Develops targeted biologics for rare inflammatory diseases with high unmet need." },
+        { ticker: "IMVT", company: "Immunovant", mktCap: "$5.3B", return1M: "-1%", return3M: "+51%", return6M: "+48%", revGrYoY: "—", opMargin: "—", pS: "—", description: "FcRn-based platform with multiple autoimmune indications, positioning it as a strategic acquisition candidate." },
+        { ticker: "KNSA", company: "Kiniksa Pharmaceuticals", mktCap: "$3.0B", return1M: "-5%", return3M: "+1%", return6M: "+39%", revGrYoY: "+61%", opMargin: "13.3%", pS: "5.3x", description: "One of the cleaner execution stories in immunology, with growing revenue and improving margins." },
+        { ticker: "TGTX", company: "TG Therapeutics", mktCap: "$4.9B", return1M: "-1%", return3M: "-12%", return6M: "-21%", revGrYoY: "+93%", opMargin: "18.2%", pS: "9.3x", description: "Commercial-stage immunology company benefiting from improving adoption and operating leverage." },
+      ]
+    },
+    {
+      id: 3,
+      name: "Respiratory and Pulmonary Under-Treatment",
+      intro: "Respiratory disease is one of the most under-penetrated areas in biotech despite massive need. Chronic respiratory conditions affect over 10% of the global population, yet fewer than 25% of patients receive advanced or disease-modifying therapies, largely due to limited options and delivery challenges. Hospitalizations for respiratory exacerbations remain a leading cause of preventable admissions, signaling unmet demand rather than lack of diagnosis. New inhaled biologics and gene-based approaches are changing what is treatable, not just how symptoms are managed. As of 2025, more than 40% of late-stage respiratory pipelines involve novel delivery or genetic modalities, a sharp shift from traditional small molecules. When effective therapies emerge, adoption tends to be fast because the alternative is repeated acute care.",
+      stocks: [
+        { ticker: "UPB", company: "Upstream Bio", mktCap: "$1.7B", return1M: "+6%", return3M: "+39%", return6M: "+184%", revGrYoY: "+13%", opMargin: "-5539%", pS: "597.3x", description: "Focused on severe respiratory disease where effective therapies can drive rapid uptake." },
+        { ticker: "SVRA", company: "Savara", mktCap: "$1.2B", return1M: "-9%", return3M: "+63%", return6M: "+152%", revGrYoY: "—", opMargin: "—", pS: "—", description: "Targets rare lung diseases with limited competition and high unmet need." },
+        { ticker: "SION", company: "Sionna Therapeutics", mktCap: "$1.7B", return1M: "-9%", return3M: "+20%", return6M: "+112%", revGrYoY: "—", opMargin: "—", pS: "—", description: "Addresses cystic fibrosis patients not well served by existing therapies." },
+        { ticker: "TBPH", company: "Theravance Biopharma", mktCap: "$1.0B", return1M: "+14%", return3M: "+43%", return6M: "+72%", revGrYoY: "+19%", opMargin: "-32%", pS: "12.9x", description: "Commercial respiratory portfolio with royalty-like economics and leverage to inhaled therapies." },
+        { ticker: "INVA", company: "Innoviva", mktCap: "$1.5B", return1M: "-2%", return3M: "+13%", return6M: "-4%", revGrYoY: "+20%", opMargin: "31.1%", pS: "4.1x", description: "Generates high-margin cash flows tied to established respiratory drugs." },
+        { ticker: "VRTX", company: "Vertex Pharmaceuticals", mktCap: "$112.0B", return1M: "-3%", return3M: "+8%", return6M: "-6%", revGrYoY: "+12%", opMargin: "41.0%", pS: "9.7x", description: "Category leader in cystic fibrosis with optionality to expand into broader pulmonary indications." },
+      ]
+    },
+    {
+      id: 4,
+      name: "Biotech Enablers and Platform Infrastructure",
+      intro: "Some of the most attractive biotech economics sit outside drug discovery entirely. Platform companies that improve delivery, dosing, or patient experience monetize the success of other people's drugs rather than betting on a single asset. These businesses benefit from faster regulatory timelines, increasing biologic complexity, and pharma's desire to extend product lifecycles without rebuilding infrastructure internally. When platforms are validated, they tend to behave more like healthcare infrastructure than biotech, with recurring revenue, high margins, and exposure across multiple therapeutic areas.",
+      stocks: [
+        { ticker: "HALO", company: "Halozyme Therapeutics", mktCap: "$8.4B", return1M: "+10%", return3M: "+6%", return6M: "+23%", revGrYoY: "+22%", opMargin: "61.5%", pS: "7.0x", description: "Enables subcutaneous delivery for biologics, earning royalties across many partnered drugs." },
+        { ticker: "IRMD", company: "IRadimed", mktCap: "$1.3B", return1M: "+6%", return3M: "+35%", return6M: "+78%", revGrYoY: "+16%", opMargin: "32.2%", pS: "16.3x", description: "Niche medical device company with recurring demand tied to hospital imaging workflows." },
+      ]
+    },
+    {
+      id: 5,
+      name: "Biotech Valuation Dislocation and Strategic M&A Optionality",
+      intro: "Biotech valuations reflect capitulation, not fundamentals. Roughly 20% of public biotechs trade below net cash, an extreme rarely sustained once capital markets stabilize. At the same time, large pharmaceutical companies face a patent cliff exceeding $200 billion in revenue over the next five years, pushing them toward acquisition rather than internal development. Aggregate M&A capacity across big pharma now exceeds $1 trillion, creating an asymmetric setup where downside is limited by balance sheets while upside is driven by strategic value. In this environment, platform depth, validated modalities, and commercial traction matter more than single-trial outcomes.",
+      stocks: [
+        { ticker: "ALMS", company: "Alumis", mktCap: "$3.0B", return1M: "+109%", return3M: "+418%", return6M: "+594%", revGrYoY: "—", opMargin: "-5585%", pS: "112.3x", description: "Platform depth and momentum." },
+        { ticker: "IMVT", company: "Immunovant", mktCap: "$5.3B", return1M: "-1%", return3M: "+51%", return6M: "+48%", revGrYoY: "—", opMargin: "—", pS: "—", description: "FcRn exposure with strategic relevance." },
+        { ticker: "GLUE", company: "Monte Rosa Therapeutics", mktCap: "$1.8B", return1M: "+27%", return3M: "+130%", return6M: "+323%", revGrYoY: "+39%", opMargin: "-258%", pS: "10.8x", description: "Differentiated modality." },
+        { ticker: "UPB", company: "Upstream Bio", mktCap: "$1.7B", return1M: "+6%", return3M: "+39%", return6M: "+184%", revGrYoY: "+13%", opMargin: "-5539%", pS: "597.3x", description: "Clean pulmonary acquisition target." },
+      ]
+    },
+  ];
 
-      <div style={{ marginBottom: '32px' }}>
-        <h4 style={s.h4}>The Setup</h4>
-        <p style={s.body}>Big pharma faces a patent cliff exceeding $200 billion in revenue over the next five years. Their response has been predictable: acquire innovation rather than build it. M&A dry powder at major pharmaceutical companies now exceeds $1 trillion. This creates a put option under quality biotech assets — even failed trials often result in platform acquisitions at premiums to pre-announcement prices.</p>
-      </div>
+  const otherHealthcareCategories = [
+    {
+      name: "Neurology & CNS",
+      stocks: [
+        { ticker: "AXSM", company: "Axsome Therapeutics", mktCap: "$8.9B", return1M: "+21%", return3M: "+42%", return6M: "+59%", revGrYoY: "+63%", opMargin: "-19.3%", pS: "15.8x" },
+        { ticker: "AVDL", company: "Avadel Pharmaceuticals", mktCap: "$2.1B", return1M: "+1%", return3M: "+43%", return6M: "+102%", revGrYoY: "+55%", opMargin: "2.5%", pS: "8.8x" },
+        { ticker: "BWAY", company: "Brainsway", mktCap: "$457M", return1M: "+37%", return3M: "+45%", return6M: "+91%", revGrYoY: "+29%", opMargin: "9.3%", pS: "8.9x" },
+      ]
+    },
+    {
+      name: "Specialty Pharma",
+      stocks: [
+        { ticker: "LLY", company: "Eli Lilly", mktCap: "$981.7B", return1M: "-2%", return3M: "+27%", return6M: "+32%", revGrYoY: "+54%", opMargin: "47.6%", pS: "15.7x" },
+        { ticker: "FOLD", company: "Amicus Therapeutics", mktCap: "$4.4B", return1M: "+32%", return3M: "+77%", return6M: "+136%", revGrYoY: "+19%", opMargin: "20.3%", pS: "7.4x" },
+        { ticker: "BBIO", company: "BridgeBio Pharma", mktCap: "$14.7B", return1M: "+1%", return3M: "+39%", return6M: "+62%", revGrYoY: "+4318%", opMargin: "-113.0%", pS: "41.4x" },
+        { ticker: "IRWD", company: "Ironwood Pharmaceuticals", mktCap: "$732M", return1M: "+27%", return3M: "+190%", return6M: "+508%", revGrYoY: "+33%", opMargin: "63.6%", pS: "2.4x" },
+        { ticker: "LQDA", company: "Liquidia", mktCap: "$3.3B", return1M: "+8%", return3M: "+64%", return6M: "+167%", revGrYoY: "+1122%", opMargin: "3.3%", pS: "47.3x" },
+        { ticker: "DVAX", company: "Dynavax Technologies", mktCap: "$1.8B", return1M: "+45%", return3M: "+59%", return6M: "+46%", revGrYoY: "+18%", opMargin: "22.4%", pS: "6.5x" },
+        { ticker: "COLL", company: "Collegium Pharmaceutical", mktCap: "$1.4B", return1M: "-6%", return3M: "+37%", return6M: "+44%", revGrYoY: "+31%", opMargin: "30.4%", pS: "2.4x" },
+        { ticker: "ANAB", company: "AnaptysBio", mktCap: "$1.3B", return1M: "+1%", return3M: "+33%", return6M: "+70%", revGrYoY: "+154%", opMargin: "45.5%", pS: "7.8x" },
+      ]
+    },
+    {
+      name: "Medical Devices & Equipment",
+      stocks: [
+        { ticker: "GMED", company: "Globus Medical", mktCap: "$12.6B", return1M: "+9%", return3M: "+60%", return6M: "+65%", revGrYoY: "+23%", opMargin: "17.5%", pS: "4.6x" },
+        { ticker: "PEN", company: "Penumbra", mktCap: "$13.8B", return1M: "+14%", return3M: "+38%", return6M: "+50%", revGrYoY: "+18%", opMargin: "13.8%", pS: "10.3x" },
+        { ticker: "GKOS", company: "Glaukos", mktCap: "$6.9B", return1M: "+6%", return3M: "+41%", return6M: "+22%", revGrYoY: "+38%", opMargin: "-12.3%", pS: "14.7x" },
+        { ticker: "ESTA", company: "Establishment Labs", mktCap: "$2.0B", return1M: "-9%", return3M: "+45%", return6M: "+55%", revGrYoY: "+34%", opMargin: "-7.5%", pS: "10.5x" },
+        { ticker: "NPCE", company: "NeuroPace", mktCap: "$564M", return1M: "+7%", return3M: "+59%", return6M: "+86%", revGrYoY: "+30%", opMargin: "-9.5%", pS: "5.9x" },
+        { ticker: "CBLL", company: "Ceribell", mktCap: "$814M", return1M: "-0%", return3M: "+69%", return6M: "+39%", revGrYoY: "+31%", opMargin: "-64.8%", pS: "9.8x" },
+        { ticker: "CERS", company: "Cerus", mktCap: "$499M", return1M: "+20%", return3M: "+65%", return6M: "+84%", revGrYoY: "+15%", opMargin: "-12.0%", pS: "2.5x" },
+      ]
+    },
+    {
+      name: "Healthcare Services & Facilities",
+      stocks: [
+        { ticker: "SPAC", company: "SPACS Group", mktCap: "$6.1B", return1M: "+13%", return3M: "+211%", return6M: "+214%", revGrYoY: "+31%", opMargin: "6.4%", pS: "1.2x" },
+        { ticker: "ALHC", company: "Alignment Healthcare", mktCap: "$4.5B", return1M: "+12%", return3M: "+32%", return6M: "+68%", revGrYoY: "+44%", opMargin: "0.8%", pS: "1.3x" },
+        { ticker: "LFST", company: "Lifestance Health", mktCap: "$2.8B", return1M: "+5%", return3M: "+44%", return6M: "+65%", revGrYoY: "+16%", opMargin: "2.2%", pS: "2.1x" },
+        { ticker: "BKD", company: "Brookdale Senior Living", mktCap: "$2.9B", return1M: "+16%", return3M: "+41%", return6M: "+57%", revGrYoY: "+4%", opMargin: "2.3%", pS: "0.9x" },
+        { ticker: "TALK", company: "Talkspace", mktCap: "$656M", return1M: "+12%", return3M: "+36%", return6M: "+59%", revGrYoY: "+25%", opMargin: "3.7%", pS: "3.2x" },
+        { ticker: "CAH", company: "Cardinal Health", mktCap: "$50.5B", return1M: "+8%", return3M: "+39%", return6M: "+33%", revGrYoY: "+22%", opMargin: "1.2%", pS: "0.2x" },
+      ]
+    },
+    {
+      name: "Life Sciences Tools & CROs",
+      stocks: [
+        { ticker: "TWST", company: "Twist Bioscience", mktCap: "$2.5B", return1M: "+33%", return3M: "+35%", return6M: "+13%", revGrYoY: "+17%", opMargin: "-30.2%", pS: "6.6x" },
+        { ticker: "FTRE", company: "Fortrea Holdings", mktCap: "$1.5B", return1M: "+3%", return3M: "+73%", return6M: "+237%", revGrYoY: "+4%", opMargin: "-0.5%", pS: "0.5x" },
+        { ticker: "TNGX", company: "Tango Therapeutics", mktCap: "$1.8B", return1M: "+45%", return3M: "+42%", return6M: "+105%", revGrYoY: "+364%", opMargin: "26.2%", pS: "21.7x" },
+      ]
+    },
+  ];
 
-      {/* Stats Box */}
-      <div style={{ display: 'grid', gridTemplateColumns: 'repeat(3, 1fr)', gap: '20px', padding: '28px', backgroundColor: p.surface2, marginBottom: '32px' }}>
-        <div>
-          <div style={{ fontSize: '28px', fontWeight: 700, color: p.accent, fontFamily: "'Poppins', sans-serif", marginBottom: '6px' }}>20%</div>
-          <div style={{ fontSize: '13px', color: p.neutral }}>of biotechs trade below cash value</div>
+  const renderSection09 = () => {
+    return (
+      <section style={s.section}>
+        <SectionHeader num="06" title="Biotech" subtitle="Regulatory constraint easing creates asymmetric opportunity" />
+
+        {/* Main Themes */}
+        {biotechThemes.map((theme) => (
+          <div key={theme.id} style={s.mb48}>
+            <TableHeader label="THEME" id={theme.id} title={theme.name} />
+            <p style={{ ...s.body, marginBottom: '20px' }}>{theme.intro}</p>
+            <SortableStockTable stocks={theme.stocks} showDescriptions={true} />
+          </div>
+        ))}
+
+        {/* Other Healthcare Categories */}
+        <div style={s.dividerTop}>
+          <h3 style={{ ...s.h4, fontSize: '20px', marginBottom: '8px' }}>Other Healthcare</h3>
+          <p style={{ ...s.body, marginBottom: '32px' }}>Additional stocks meeting growth criteria (revenue growth, margin expansion, 3M return &gt;25%) that do not fit neatly into the five themes above.</p>
+          
+          {otherHealthcareCategories.map((cat, idx) => (
+            <div key={cat.name} style={{ marginBottom: '36px' }}>
+              <h4 style={{ ...s.h4, fontSize: '16px', marginBottom: '12px' }}>{cat.name}</h4>
+              <SortableStockTable stocks={cat.stocks} showDescriptions={false} />
+            </div>
+          ))}
         </div>
-        <div>
-          <div style={{ fontSize: '28px', fontWeight: 700, color: p.accent, fontFamily: "'Poppins', sans-serif", marginBottom: '6px' }}>30-40%</div>
-          <div style={{ fontSize: '13px', color: p.neutral }}>faster FDA timelines (FDA 2.0)</div>
+
+        {/* Data Source Note */}
+        <div style={s.calloutNote}>
+          <p style={{ ...s.captionSm, margin: 0 }}>
+            <strong style={s.strong}>Data as of January 18, 2026.</strong> Rev Gr (YoY) = Revenue growth, year-over-year, most recent quarter vs same quarter prior year. "—" indicates data not available (typically pre-revenue companies). Stocks in Theme 5 (M&A Optionality) are drawn from Themes 2 and 3 based on platform depth and strategic value.
+          </p>
         </div>
-        <div>
-          <div style={{ fontSize: '28px', fontWeight: 700, color: p.accent, fontFamily: "'Poppins', sans-serif", marginBottom: '6px' }}>$1T+</div>
-          <div style={{ fontSize: '13px', color: p.neutral }}>big pharma M&A dry powder</div>
+      </section>
+    );
+  };
+
+  // ==========================================================================
+  // METALS & MATERIALS THEMATIC DATA
+  // ==========================================================================
+  const metalsData = {
+    gold: [
+      { ticker: "AEM", company: "Agnico Eagle Mines", mktCap: "$99B", return1M: "+13%", return3M: "+27%", return6M: "+139%", revGrYoY: "+17%*", opMargin: "33%*", pS: "8.1x*", description: "Premium valuation justified by politically stable ounces, high reserve quality, and disciplined capital allocation. Behaves less like a miner and more like a long-duration monetary asset with operating leverage." },
+      { ticker: "NEM", company: "Newmont Corporation", mktCap: "$125B", return1M: "+16%", return3M: "+16%", return6M: "+96%", revGrYoY: "+17%", opMargin: "45.7%", pS: "5.9x", description: "Scale matters in a world where permitting risk rises faster than gold prices. Controls a disproportionate share of tier-one assets that cannot be replicated." },
+      { ticker: "FNV", company: "Franco-Nevada", mktCap: "$47B", return1M: "+10%", return3M: "+21%", return6M: "+84%", revGrYoY: "+77%*", opMargin: "72%*", pS: "24x*", description: "Purest expression of 'gold as infrastructure.' No operating risk, embedded optionality to price, exposure to production growth without capital intensity." },
+      { ticker: "HL", company: "Hecla Mining", mktCap: "$17.8B", return1M: "+40%", return3M: "+74%", return6M: "+341%", revGrYoY: "+67%", opMargin: "38.2%", pS: "14.6x", description: "Silver/gold producer with highest momentum in the group. Strong revenue growth and margin expansion." },
+      { ticker: "CDE", company: "Coeur Mining", mktCap: "$14.5B", return1M: "+34%", return3M: "-2%", return6M: "+147%", revGrYoY: "+77%", opMargin: "33.6%", pS: "8.6x", description: "Mid-tier producer with strong fundamentals. Revenue and margins inflecting higher." },
+      { ticker: "AUGO", company: "Aura Minerals", mktCap: "$5.0B", return1M: "+29%", return3M: "+52%", return6M: "+152%", revGrYoY: "+59%", opMargin: "54.0%", pS: "6.5x", description: "Highest operating margin in the group at 54%. Strong execution across Latin American assets." },
+    ],
+    copper: [
+      { ticker: "FCX", company: "Freeport-McMoRan", mktCap: "$84.3B", return1M: "+24%", return3M: "+41%", return6M: "+34%", revGrYoY: "+2%", opMargin: "26.3%", pS: "3.3x", description: "Largest publicly traded copper producer. Grasberg is a generational asset. Operating leverage to copper price is extreme." },
+      { ticker: "ERO", company: "Ero Copper", mktCap: "$3.1B", return1M: "+15%*", return3M: "+45%*", return6M: "+125%*", revGrYoY: "+20%*", opMargin: "25%*", pS: "3.5x*", description: "Brazilian copper producer with low costs and exploration upside. Recently upgraded by Goldman and Raymond James." },
+    ],
+    uranium: [
+      { ticker: "CCJ", company: "Cameco", mktCap: "$51B", return1M: "+15%*", return3M: "+35%*", return6M: "+78%*", revGrYoY: "+21%*", opMargin: "18%*", pS: "15x*", description: "Vertically integrated uranium giant. 49% stake in Westinghouse provides reactor exposure. $80B government partnership is a game-changer." },
+      { ticker: "UEC", company: "Uranium Energy Corp", mktCap: "$8.6B", return1M: "+47%", return3M: "+12%", return6M: "+134%", revGrYoY: "-100%", opMargin: "—", pS: "168.1x", description: "U.S.-focused uranium miner. Beneficiary of domestic supply chain push. Pre-production valuation." },
+      { ticker: "UUUU", company: "Energy Fuels", mktCap: "$5.2B", return1M: "+56%", return3M: "+1%", return6M: "+166%", revGrYoY: "+338%", opMargin: "-151%", pS: "64.8x", description: "Uranium + rare earths exposure. Revenue inflecting sharply higher. Only U.S. rare earth processor." },
+      { ticker: "EU", company: "enCore Energy", mktCap: "$581M", return1M: "+30%", return3M: "-12%", return6M: "+6%", revGrYoY: "-4%", opMargin: "-153%", pS: "13.2x", description: "Smaller U.S. uranium producer. Higher risk, higher beta to uranium prices." },
+    ],
+    lithium: [
+      { ticker: "ALB", company: "Albemarle", mktCap: "$19.2B", return1M: "+24%", return3M: "+72%", return6M: "+133%", revGrYoY: "-3%", opMargin: "-2.3%", pS: "3.9x", description: "Largest lithium producer globally. Integrated brine and hard rock. Margins compressed but positioned for recovery." },
+      { ticker: "SGML", company: "Sigma Lithium", mktCap: "$1.4B", return1M: "+20%", return3M: "+81%", return6M: "+100%", revGrYoY: "-35%", opMargin: "-24%", pS: "9.7x", description: "Brazilian hard rock lithium. Low-cost, ESG-friendly production. Beneficiary of price recovery." },
+      { ticker: "IONR", company: "ioneer", mktCap: "$402M", return1M: "+41%", return3M: "+3%", return6M: "+108%", revGrYoY: "—", opMargin: "—", pS: "—", description: "Rhyolite Ridge project in Nevada. Domestic lithium/boron. Development stage." },
+    ],
+    rareEarths: [
+      { ticker: "MP", company: "MP Materials", mktCap: "$12.2B", return1M: "+29%", return3M: "-18%", return6M: "+18%", revGrYoY: "-15%", opMargin: "-98%", pS: "51.9x", description: "Only scaled rare earth mine and processor in the Western Hemisphere. Policy beneficiary." },
+      { ticker: "UAMY", company: "U.S. Antimony", mktCap: "$1.2B", return1M: "+66%", return3M: "-34%", return6M: "+122%", revGrYoY: "+238%", opMargin: "-62%", pS: "30.9x", description: "Antimony is critical for defense and batteries. Extreme China dependence creates optionality." },
+      { ticker: "CRML", company: "Critical Metals", mktCap: "$2.1B", return1M: "+123%", return3M: "-9%", return6M: "+330%", revGrYoY: "—", opMargin: "—", pS: "—", description: "Tantalum and other critical minerals. Highest 1M momentum in the space." },
+    ],
+    aluminum: [
+      { ticker: "AA", company: "Alcoa", mktCap: "$15.6B", return1M: "+29%", return3M: "+62%", return6M: "+111%", revGrYoY: "+3%", opMargin: "1.8%", pS: "1.2x", description: "Global aluminum producer. Margins recovering. Cheap on P/S basis." },
+      { ticker: "CENX", company: "Century Aluminum", mktCap: "$4.4B", return1M: "+48%", return3M: "+46%", return6M: "+144%", revGrYoY: "+17%", opMargin: "9.2%", pS: "1.9x", description: "U.S.-focused aluminum. Tariff beneficiary. Highest 1M momentum in aluminum." },
+    ],
+  };
+
+  const renderSection10 = () => {
+    // Define metals categories as data
+    const metalsCategories = [
+      { num: 'I', title: 'Gold: Central Bank Accumulation and Balance-Sheet Regime Shift', 
+        desc: 'Gold supply is effectively fixed on investor time horizons. Central bank demand reprices existing ounces. Value accrues to low-cost, jurisdictionally secure, already-producing assets, or to royalty structures that scale without capex.',
+        stocks: metalsData.gold, 
+        hook: 'Markets still anchor to gold as a cyclical hedge. Central bank accumulation suggests a balance-sheet regime shift, not a trade.' },
+      { num: 'II', title: 'Copper: Electrification Bottleneck',
+        desc: 'Copper demand from electrification (EVs, grid, renewables) is structural and accelerating. Supply response is constrained by 7-10 year mine development timelines, declining ore grades, and ESG/permitting friction. The deficit is widening.',
+        stocks: metalsData.copper,
+        hook: 'Copper trades like a cyclical commodity, but demand is secular. Grid investment alone requires multiples of current production.' },
+      { num: 'III', title: 'Uranium: Nuclear Renaissance and Supply Deficit',
+        desc: 'Nuclear is the only scalable, baseload, zero-carbon power source. AI data center demand is accelerating buildout. Supply is structurally short after a decade of underinvestment. The $80B U.S. government partnership with Cameco/Westinghouse/Brookfield signals policy commitment.',
+        stocks: metalsData.uranium,
+        hook: 'Uranium is priced for cyclical commodity dynamics, but this is infrastructure buildout. Long-term contracts are being signed at $150/lb ceilings — 2x current spot.' },
+      { num: 'IV', title: 'Lithium: Battery Supply Chain Rebalancing',
+        desc: 'Lithium oversupply crushed prices in 2023-24, but demand from EVs and grid storage is structural. Supply discipline is returning. The survivors with low costs and Western jurisdiction will capture the recovery.',
+        stocks: metalsData.lithium,
+        hook: 'Lithium equities priced for permanent oversupply. Any demand surprise or supply disruption rerates the group quickly.' },
+      { num: 'V', title: 'Rare Earths & Strategic Minerals: Supply Chain Security',
+        desc: 'China controls 60%+ of rare earth processing. Western governments are scrambling to diversify. Policy support (IRA, CHIPS Act, defense stockpiling) is creating demand regardless of price.',
+        stocks: metalsData.rareEarths,
+        hook: 'Strategic minerals are priced as commodities but increasingly behave as defense assets with policy floors.' },
+      { num: 'VI', title: 'Aluminum: Energy Arbitrage and Tariff Protection',
+        desc: 'Aluminum is energy-intensive to produce. Low-cost power = competitive moat. U.S. producers benefit from tariff protection and reshoring demand.',
+        stocks: metalsData.aluminum,
+        hook: 'U.S. aluminum trades at depressed multiples despite tariff protection and reshoring tailwinds.' },
+    ];
+
+    return (
+      <section style={s.section}>
+        <SectionHeader num="08" title="Metals & Materials" subtitle="When prices move in months and supply moves in decades" />
+        
+        <div style={s.mb32}>
+          <h4 style={s.h4}>Why Metals Markets Repeatedly Reprice Instead of Cycling</h4>
+          <p style={s.body}>Metals supply does not respond to price on investor time horizons. Across gold, copper, and rare earths, the defining feature is not scarcity headlines but time. New mines take roughly 10–20 years from discovery to production, often longer once permitting, environmental review, and processing complexity are included. Capital is rarely the binding constraint. Geology, chemistry, and jurisdiction are. This creates a persistent mismatch: markets price demand six to twenty-four months forward, while supply adjusts over decades. The result is nonlinear price behavior. Prices move first, projects move last, and in many cases never fully catch up. This structural lag is why these metals repeatedly reprice sharply rather than cycle smoothly.</p>
         </div>
-      </div>
 
-      <div style={{ marginBottom: '32px' }}>
-        <h4 style={s.h4}>Where to Focus</h4>
-        <p style={s.body}>The opportunity lies in platform biotechs with modality moats and enablers that profit regardless of individual trial outcomes. Companies with validated delivery mechanisms, proprietary manufacturing processes, or tools that serve multiple drug developers capture value across the ecosystem rather than betting on single binary events. Respiratory Biopharma shows +75% 6M returns; Immunology Pharma shows +61%.</p>
-      </div>
+        <div style={s.mb32}>
+          <h4 style={s.h4}>Different Metals, Same Physics: Rigid Supply Meets Exploding Demand</h4>
+          <p style={{ ...s.body, marginBottom: '12px' }}><strong style={s.strong}>Gold, copper, and the illusion of elastic production.</strong></p>
+          <p style={s.body}>Gold and copper sit at opposite ends of demand, but share the same supply rigidity. Gold mine supply grows only ~1–2% per year, far slower than the growth of global liquidity during expansionary periods, while global ore grades have declined 30–40% over the past three decades, pushing cost curves higher even at elevated prices. Central banks buying 1,000+ tons annually in recent years marks a regime shift that revalues existing ounces rather than creates new ones. Copper, by contrast, is the backbone of electrification. Demand from grids, EVs, data centers, and defense systems is growing 2–3× faster than supply, while average copper grades have fallen from roughly 1.6% in the 1990s to ~0.6% today. Copper is not scarce in theory. It is scarce at economic grades, in permitted jurisdictions, within timeframes that matter. That is why copper equities tend to rerate before shortages are obvious.</p>
+        </div>
 
-      <InsightCard title="The Investment Case: Regulatory Decompression + M&A Floor">
-        <p>Biotech is the rare sector where the regulatory constraint is easing rather than tightening. Faster approvals compress the time between R&D spend and revenue recognition, improving IRRs on the same underlying science. Combined with historically low valuations and massive acquirer demand, the risk/reward has shifted. Position in platforms and enablers rather than single-asset stories.</p>
-      </InsightCard>
-    </section>
-  );
+        <div style={{ marginBottom: '40px' }}>
+          <h4 style={s.h4}>From "Commodities" to Strategic Infrastructure</h4>
+          <p style={{ ...s.body, marginBottom: '12px' }}><strong style={s.strong}>Why policy is catching up to constraints markets still misprice.</strong></p>
+          <p style={s.body}>Policy has begun to acknowledge what markets still misprice. The recent elevation of gold and copper to "critical mineral" status in the United States reflects a recognition that these are not just commodities but strategic inputs with fragile supply chains. Rare earths make this even clearer: China controls roughly 80–90% of separation and refining capacity and over 90% of high-performance magnet production, meaning pricing power accrues downstream, not at the mine. Across all these metals, when supply fails to scale, projects do not slow gradually. They stop. Delays shift value toward whoever controls marginal supply, processing, or already-permitted assets. Markets continue to value many of these companies like cyclical extractors. In reality, they behave more like constrained infrastructure. That gap between perception and physics is where mis-pricing tends to emerge.</p>
+        </div>
 
-  const renderSection10 = () => (
-    <section style={s.section}>
-      <SectionHeader num="10" title="Strategic Metals" subtitle="When prices move in months and supply moves in decades" />
-      
-      <div style={{ marginBottom: '32px' }}>
-        <h4 style={s.h4}>Why Metals Markets Repeatedly Reprice Instead of Cycling</h4>
-        <p style={s.body}>Metals supply does not respond to price on investor time horizons. Across gold, copper, and rare earths, the defining feature is not scarcity headlines but time. New mines take roughly 10–20 years from discovery to production, often longer once permitting, environmental review, and processing complexity are included. Capital is rarely the binding constraint. Geology, chemistry, and jurisdiction are. This creates a persistent mismatch: markets price demand six to twenty-four months forward, while supply adjusts over decades. The result is nonlinear price behavior. Prices move first, projects move last, and in many cases never fully catch up. This structural lag is why these metals repeatedly reprice sharply rather than cycle smoothly.</p>
-      </div>
+        {/* Metals Categories - rendered from data */}
+        {metalsCategories.map((cat, idx) => (
+          <div key={cat.num} style={{ marginBottom: idx === metalsCategories.length - 1 ? '32px' : '48px' }}>
+            <TableHeader label="" id={cat.num} title={cat.title} />
+            <p style={{ ...s.body, marginBottom: '16px' }}>{cat.desc}</p>
+            <SortableStockTable stocks={cat.stocks} showDescriptions={true} />
+            <div style={s.calloutHook}>
+              <p style={{ ...s.caption, margin: 0 }}><strong style={s.strong}>Mispricing hook:</strong> {cat.hook}</p>
+            </div>
+          </div>
+        ))}
 
-      <div style={{ marginBottom: '32px' }}>
-        <h4 style={s.h4}>Different Metals, Same Physics: Rigid Supply Meets Exploding Demand</h4>
-        <p style={{ ...s.body, marginBottom: '12px' }}><strong style={{ color: p.strong }}>Gold, copper, and the illusion of elastic production.</strong></p>
-        <p style={s.body}>Gold and copper sit at opposite ends of demand, but share the same supply rigidity. Gold mine supply grows only ~1–2% per year, far slower than the growth of global liquidity during expansionary periods, while global ore grades have declined 30–40% over the past three decades, pushing cost curves higher even at elevated prices. Central banks buying 1,000+ tons annually in recent years marks a regime shift that revalues existing ounces rather than creates new ones. Copper, by contrast, is the backbone of electrification. Demand from grids, EVs, data centers, and defense systems is growing 2–3× faster than supply, while average copper grades have fallen from roughly 1.6% in the 1990s to ~0.6% today. Copper is not scarce in theory. It is scarce at economic grades, in permitted jurisdictions, within timeframes that matter. That is why copper equities tend to rerate before shortages are obvious.</p>
-      </div>
-
-      <div style={{ marginBottom: '40px' }}>
-        <h4 style={s.h4}>From "Commodities" to Strategic Infrastructure</h4>
-        <p style={{ ...s.body, marginBottom: '12px' }}><strong style={{ color: p.strong }}>Why policy is catching up to constraints markets still misprice.</strong></p>
-        <p style={s.body}>Policy has begun to acknowledge what markets still misprice. The recent elevation of gold and copper to "critical mineral" status in the United States reflects a recognition that these are not just commodities but strategic inputs with fragile supply chains. Rare earths make this even clearer: China controls roughly 80–90% of separation and refining capacity and over 90% of high-performance magnet production, meaning pricing power accrues downstream, not at the mine. Across all these metals, when supply fails to scale, projects do not slow gradually. They stop. Delays shift value toward whoever controls marginal supply, processing, or already-permitted assets. Markets continue to value many of these companies like cyclical extractors. In reality, they behave more like constrained infrastructure. That gap between perception and physics is where mis-pricing tends to emerge.</p>
-      </div>
-
-      {/* Precious Metals Table */}
-      <h3 style={{ ...s.themeTitle, marginTop: '40px', marginBottom: '4px' }}>Precious Metals Mining</h3>
-      <p style={{ fontSize: '12px', color: p.neutral, marginBottom: '16px' }}>Highest Overall Opportunity Score (84.5). 59% median revenue growth.</p>
-      <DataTable data={stockData.preciousMetals} columns={stdCols(true)} />
-    </section>
-  );
+        {/* Data Source Note */}
+        <div style={s.calloutNote}>
+          <p style={{ ...s.captionSm, margin: 0 }}>
+            <strong style={s.strong}>Data as of January 18, 2026.</strong> Rev Gr (YoY) = Revenue growth, year-over-year, most recent quarter vs same quarter prior year. "—" indicates data not available. *AEM, FNV, CCJ, ERO data sourced from web search (not in FactSet screen). All other data from FactSet.
+          </p>
+        </div>
+      </section>
+    );
+  };
 
   const renderSection11 = () => renderDeepDiveSection(
     "11", "Physical Buildout", "Labor and capacity constraints across infrastructure",
@@ -1136,8 +1638,8 @@ export default function AIMarketThemesReportV8() {
     <p>Data centers, grid upgrades, manufacturing reshoring, defense contracts — they all compete for the same skilled labor pool. Specialty contractors who can actually wire, plumb, and construct have pricing power. Low valuation (2.4x P/S), strong fundamentals (17% revenue growth).</p>,
     [
       { title: "Specialty Contracting", caption: "Electrical, mechanical, and building services contractors. Quality Score: 85.9.", data: stockData.contracting },
-      { title: "Space & Satellite", caption: "Dual demand: commercial (LEO, imagery) and government (defense, NASA). Accelerating.", data: stockData.space,
-        columns: [{ key: 'ticker', label: 'Ticker' }, { key: 'name', label: 'Company' }, { key: 'mktCap', label: 'Mkt Cap', align: 'right', render: fmtCap }, { key: 'revGr', label: 'Rev Gr', align: 'right', render: (v) => v > 100 ? '>100%' : <Pct v={v} /> }, { key: 'm1', label: '1M', align: 'right', render: (v) => <Pct v={v} /> }, { key: 'm6', label: '6M', align: 'right', render: (v) => <Pct v={v} /> }],
+      { title: "Space & Satellites", caption: "Dual demand: commercial (LEO, imagery) and government (defense, NASA). Accelerating.", data: stockData.space,
+        columns: [{ key: 'ticker', label: 'Ticker' }, { key: 'name', label: 'Company' }, { key: 'mktCap', label: 'Mkt Cap', align: 'center', render: fmtCap }, { key: 'revGr', label: 'Rev Gr', align: 'center', render: (v) => v > 100 ? '>100%' : <Pct v={v} /> }, { key: 'm1', label: '1M', align: 'center', render: (v) => <Pct v={v} /> }, { key: 'm6', label: '6M', align: 'center', render: (v) => <Pct v={v} /> }],
         note: "Note: Extreme P/S ratios reflect pre-revenue businesses. Moonshot positions, not core." },
     ]
   );
@@ -1149,11 +1651,11 @@ export default function AIMarketThemesReportV8() {
     renderSection03(),
     renderSection04(),
     renderSection05Theme(),
+    renderSection09(),
     renderSection06Theme(),
+    renderSection10(),
     renderSection07Theme(),
     renderSection08(),
-    renderSection09(),
-    renderSection10(),
     renderSection11()
   ];
 
@@ -1166,7 +1668,7 @@ export default function AIMarketThemesReportV8() {
       <div style={{ width: '220px', backgroundColor: p.strong, padding: '24px 0', flexShrink: 0, position: 'sticky', top: 0, height: '100vh', overflowY: 'auto', display: 'flex', flexDirection: 'column' }}>
         <div style={{ padding: '0 16px 20px', borderBottom: '1px solid rgba(255,255,255,0.1)', marginBottom: '12px' }}>
           <div style={{ ...s.label, color: p.action, marginBottom: '6px' }}>BROADSTREET</div>
-          <div style={{ fontSize: '13px', fontWeight: 600, color: p.surface1 }}>AI Market Themes</div>
+          <div style={{ fontSize: '13px', fontWeight: 600, color: p.surface1 }}>The Control Premium</div>
           <div style={{ fontSize: '11px', color: 'rgba(255,255,255,0.5)', marginTop: '4px' }}>January 2026</div>
         </div>
         <nav style={{ flex: 1 }}>
