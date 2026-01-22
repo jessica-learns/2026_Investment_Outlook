@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
 import { XAxis, YAxis, ResponsiveContainer, Cell, ReferenceLine, Tooltip, ScatterChart, Scatter, ZAxis, CartesianGrid } from 'recharts';
 
 // ============================================================================
@@ -10,6 +10,23 @@ export default function AIMarketThemesReportV8() {
   const [activeSection, setActiveSection] = useState(0);
   const [activeView, setActiveView] = useState('momentum');
   const [selectedCategory, setSelectedCategory] = useState('All');
+  
+  // Silver & Gold chart state (must be at component level, not nested)
+  const [chartAnimationPhase, setChartAnimationPhase] = useState(0);
+  const [chartHoveredSeries, setChartHoveredSeries] = useState(null);
+  const [chartVisibleSeries, setChartVisibleSeries] = useState({ gold: true, silver: true, sp500: true });
+  
+  // Chart animation effect
+  useEffect(() => {
+    if (activeSection === 8) { // Silver & Gold section
+      setChartAnimationPhase(0);
+      const timer1 = setTimeout(() => setChartAnimationPhase(1), 100);
+      const timer2 = setTimeout(() => setChartAnimationPhase(2), 300);
+      const timer3 = setTimeout(() => setChartAnimationPhase(3), 500);
+      const timer4 = setTimeout(() => setChartAnimationPhase(4), 1200);
+      return () => { clearTimeout(timer1); clearTimeout(timer2); clearTimeout(timer3); clearTimeout(timer4); };
+    }
+  }, [activeSection]);
 
   // ==========================================================================
   // COLOR SYSTEM & STYLES
@@ -52,16 +69,16 @@ export default function AIMarketThemesReportV8() {
   const trendLineData = [{ x: -30, y: -15 }, { x: 140, y: 70 }];
 
   const s = {
-    coverTitle: { color: p.strong, fontFamily: "'Playfair Display', serif", fontSize: '68px', fontWeight: 900, lineHeight: 1.1, marginBottom: '16px' },
-    sectionNum: { color: p.border, fontFamily: "'Playfair Display', serif", fontSize: '84px', fontWeight: 300, lineHeight: 1 },
-    sectionTitle: { color: p.strong, fontFamily: "'Playfair Display', serif", fontSize: '38px', fontWeight: 900, margin: 0 },
-    themeTitle: { color: p.strong, fontFamily: "'Playfair Display', serif", fontSize: '22px', fontWeight: 600, marginBottom: '3px' },
-    h4: { color: p.strong, fontFamily: "'Poppins', sans-serif", fontWeight: 800, fontSize: '20px', marginBottom: '3px' },
-    subhead: { color: p.strong, fontFamily: "'Poppins', sans-serif", fontWeight: 800, fontSize: '24px', marginBottom: '6px' },
-    body: { color: p.neutral, fontSize: '18px', lineHeight: 1.7 },
-    bodyLg: { color: p.neutral, fontSize: '20px', lineHeight: 1.7 },
-    label: { fontSize: '14px', fontWeight: 600, letterSpacing: '0.15em' },
-    stat: { color: p.action, fontFamily: "'Poppins', sans-serif", fontSize: '34px', fontWeight: 800 },
+    coverTitle: { color: p.strong, fontFamily: "'Playfair Display', serif", fontSize: '72px', fontWeight: 900, lineHeight: 1.1, marginBottom: '16px' },
+    sectionNum: { color: p.border, fontFamily: "'Playfair Display', serif", fontSize: '88px', fontWeight: 300, lineHeight: 1 },
+    sectionTitle: { color: p.strong, fontFamily: "'Playfair Display', serif", fontSize: '40px', fontWeight: 900, margin: 0 },
+    themeTitle: { color: p.strong, fontFamily: "'Playfair Display', serif", fontSize: '24px', fontWeight: 600, marginBottom: '3px' },
+    h4: { color: p.strong, fontFamily: "'Poppins', sans-serif", fontWeight: 800, fontSize: '22px', marginBottom: '3px' },
+    subhead: { color: p.strong, fontFamily: "'Poppins', sans-serif", fontWeight: 800, fontSize: '26px', marginBottom: '6px' },
+    body: { color: p.neutral, fontSize: '20px', lineHeight: 1.7 },
+    bodyLg: { color: p.neutral, fontSize: '22px', lineHeight: 1.7 },
+    label: { fontSize: '16px', fontWeight: 600, letterSpacing: '0.15em' },
+    stat: { color: p.action, fontFamily: "'Poppins', sans-serif", fontSize: '36px', fontWeight: 800 },
     mono: { fontFamily: "'JetBrains Mono', monospace" },
     section: { padding: '48px', maxWidth: '900px', margin: '0 auto' },
     card: { padding: '24px', marginBottom: '24px', backgroundColor: p.surface2, borderLeft: `3px solid ${p.accent}` },
@@ -73,20 +90,20 @@ export default function AIMarketThemesReportV8() {
     mb32: { marginBottom: '32px' },
     mb48: { marginBottom: '48px' },
     // Table styles (centralized)
-    tableLabel: { fontSize: '14px', fontWeight: 700, letterSpacing: '0.12em', color: p.action, textTransform: 'uppercase' },
-    tableTitle: { fontFamily: "'Playfair Display', serif", fontSize: '28px', fontWeight: 800, color: p.strong, margin: 0 },
-    tableTicker: { padding: '12px 14px', fontSize: '18px', color: p.strong, fontWeight: 900, fontFamily: "'Poppins', sans-serif" },
-    tableCompany: { padding: '12px 14px', fontSize: '17px', color: p.strong, fontWeight: 400, fontFamily: "'Poppins', sans-serif" },
-    tableNum: { padding: '12px 14px', fontSize: '17px', color: '#2D3748', textAlign: 'center', fontFamily: "'Poppins', sans-serif", fontVariantNumeric: 'tabular-nums', fontWeight: 500 },
-    tableNumActive: { padding: '12px 14px', fontSize: '17px', color: '#2D3748', textAlign: 'center', fontFamily: "'Poppins', sans-serif", fontVariantNumeric: 'tabular-nums', fontWeight: 600 },
-    tableDesc: { padding: '0 14px 14px 14px', fontSize: '16px', color: p.neutral, fontStyle: 'italic', lineHeight: 1.5, fontFamily: "'Poppins', sans-serif" },
-    tableHeader: { padding: '12px 14px', fontSize: '15px', fontWeight: 600, letterSpacing: '0.03em', fontFamily: "'Poppins', sans-serif", userSelect: 'none' },
+    tableLabel: { fontSize: '16px', fontWeight: 700, letterSpacing: '0.12em', color: p.action, textTransform: 'uppercase' },
+    tableTitle: { fontFamily: "'Playfair Display', serif", fontSize: '30px', fontWeight: 800, color: p.strong, margin: 0 },
+    tableTicker: { padding: '12px 14px', fontSize: '20px', color: p.strong, fontWeight: 900, fontFamily: "'Poppins', sans-serif" },
+    tableCompany: { padding: '12px 14px', fontSize: '19px', color: p.strong, fontWeight: 400, fontFamily: "'Poppins', sans-serif" },
+    tableNum: { padding: '12px 14px', fontSize: '19px', color: '#2D3748', textAlign: 'center', fontFamily: "'Poppins', sans-serif", fontVariantNumeric: 'tabular-nums', fontWeight: 500 },
+    tableNumActive: { padding: '12px 14px', fontSize: '19px', color: '#2D3748', textAlign: 'center', fontFamily: "'Poppins', sans-serif", fontVariantNumeric: 'tabular-nums', fontWeight: 600 },
+    tableDesc: { padding: '0 14px 14px 14px', fontSize: '18px', color: p.neutral, fontStyle: 'italic', lineHeight: 1.5, fontFamily: "'Poppins', sans-serif" },
+    tableHeader: { padding: '12px 14px', fontSize: '17px', fontWeight: 600, letterSpacing: '0.03em', fontFamily: "'Poppins', sans-serif", userSelect: 'none' },
     // Callout styles
     calloutNote: { padding: '16px 20px', backgroundColor: `${p.accent}10`, borderLeft: `3px solid ${p.accent}`, marginTop: '32px' },
     calloutHook: { padding: '12px 16px', backgroundColor: `${p.accent}08`, borderLeft: `3px solid ${p.accent}`, marginTop: '-8px' },
     // Text utilities
-    caption: { fontSize: '16px', color: p.neutral },
-    captionSm: { fontSize: '15px', color: p.neutral },
+    caption: { fontSize: '18px', color: p.neutral },
+    captionSm: { fontSize: '17px', color: p.neutral },
     strong: { color: p.strong, fontWeight: 600 },
     // Section dividers
     dividerTop: { borderTop: `2px solid ${p.border}`, paddingTop: '32px', marginTop: '48px' },
@@ -415,7 +432,7 @@ export default function AIMarketThemesReportV8() {
         <span style={s.sectionNum}>{num}</span>
         <h2 style={s.sectionTitle}>{title}</h2>
       </div>
-      {subtitle && <p style={{ color: p.neutral, fontSize: '18px', marginLeft: '88px', marginTop: 0 }}>{subtitle}</p>}
+      {subtitle && <p style={{ color: p.neutral, fontSize: '20px', marginLeft: '88px', marginTop: 0 }}>{subtitle}</p>}
     </div>
   );
 
@@ -629,10 +646,11 @@ export default function AIMarketThemesReportV8() {
     { id: 'space', num: '05', title: 'Space & Satellites' },
     { id: 'biotech', num: '06', title: 'Biotech' },
     { id: 'defense', num: '07', title: 'Defense & Aerospace' },
-    { id: 'metals-materials', num: '08', title: 'Metals & Materials' },
-    { id: 'power-gen', num: '09', title: 'Power Generation' },
-    { id: 'watchlist', num: '10', title: 'Watchlist' },
-    { id: 'buildout', num: '11', title: 'Physical Buildout' },
+    { id: 'silver-gold', num: '08', title: 'Silver & Gold' },
+    { id: 'metals-materials', num: '09', title: 'Strategic Metals & Materials' },
+    { id: 'power-gen', num: '10', title: 'Power Generation' },
+    { id: 'watchlist', num: '11', title: 'Watchlist' },
+    { id: 'buildout', num: '12', title: 'Physical Buildout' },
   ];
 
   // ==========================================================================
@@ -644,8 +662,8 @@ export default function AIMarketThemesReportV8() {
         <div style={{ ...s.label, color: p.action, marginBottom: '48px' }}>BROADSTREET HIGH GROWTH SLEEVE</div>
         <div style={{ maxWidth: '700px' }}>
           <h1 style={s.coverTitle}>The Control Premium:<br />A 2026 Thesis</h1>
-          <p style={{ color: p.neutral, fontFamily: "'Poppins', sans-serif", fontSize: '26px', fontWeight: 600, lineHeight: 1.5, marginBottom: '12px' }}>Why Markets Move Before Fundamentals—and Where to Position in 2026</p>
-          <p style={{ color: p.neutral, fontSize: '19px', fontStyle: 'italic' }}>AI Chokepoints · Power Bottlenecks · Supply Chain Reshoring · Defense Modernization · Strategic Commodities</p>
+          <p style={{ color: p.neutral, fontFamily: "'Poppins', sans-serif", fontSize: '28px', fontWeight: 600, lineHeight: 1.5, marginBottom: '12px' }}>Why Markets Move Before Fundamentals—and Where to Position in 2026</p>
+          <p style={{ color: p.neutral, fontSize: '21px', fontStyle: 'italic' }}>AI Chokepoints · Power Bottlenecks · Supply Chain Reshoring · Defense Modernization · Strategic Commodities</p>
         </div>
       </div>
       <div style={{ ...s.grid4, paddingTop: '24px', borderTop: `2px solid ${p.action}` }}>
@@ -662,66 +680,28 @@ export default function AIMarketThemesReportV8() {
       <SectionHeader num="01" title="Investment Thesis" subtitle="The Control Premium: A 2026 Thesis" />
       
       <div style={s.mb32}>
-        <h4 style={s.h4}>On Control, Constraints, and Why the Best Returns Come Before the Headlines</h4>
         <p style={s.body}>In January 2023, a small Taiwanese company that few investors could name correctly held the fate of the entire artificial intelligence revolution in its hands. TSMC's advanced packaging facility—a single building in Taoyuan—had become the narrowest chokepoint in a trillion-dollar supply chain. Every AI chip that mattered passed through those doors. The company's stock had already doubled. The earnings hadn't yet moved.</p>
         <p style={{ ...s.body, marginTop: '16px' }}>This wasn't speculation. It was anticipation—the market doing exactly what it's supposed to do, just faster than most investors are comfortable with.</p>
         <p style={{ ...s.body, marginTop: '16px' }}>We are living through one of the great capital reallocation events in modern markets. Trillions of dollars are being repositioned around a handful of physical constraints that cannot be solved with money or urgency. The winners and losers of the next decade are being determined now—not in earnings releases, but in the quiet reassignment of control over systems that the world increasingly cannot function without.</p>
-        <p style={{ ...s.body, marginTop: '16px' }}>Most investors will miss it. Not because they aren't smart. Because they're waiting for permission that will never come.</p>
+        <p style={{ ...s.body, marginTop: '16px' }}>Most professional capital will not capture these returns. The data is unambiguous.</p>
       </div>
 
       <div style={s.mb32}>
-        <h4 style={s.h4}>The Permission Trap</h4>
-        <p style={s.body}>Conventional investment wisdom demands confirmation. Wait for the earnings. Wait for the guidance. Wait for the analysts to revise. Wait until the story is clean.</p>
-        <p style={{ ...s.body, marginTop: '16px' }}>This approach works in normal markets. It fails catastrophically in constrained ones.</p>
-        <p style={{ ...s.body, marginTop: '16px' }}>When demand collides with a bottleneck that cannot expand on investor time horizons, the usual rules break down. Price does not equilibrate supply and demand. Time does. And time doesn't negotiate.</p>
-        <p style={{ ...s.body, marginTop: '16px' }}>Think about what this means. When a data center operator needs power but the grid interconnection queue is 47 months deep, no amount of money accelerates that timeline. When an AI lab needs advanced packaging capacity but TSMC's CoWoS lines are fully allocated through 2026, desperation doesn't create new fabs. When a defense contractor needs rare earth magnets but China controls 90% of global processing, urgency doesn't build supply chains.</p>
-        <p style={{ ...s.body, marginTop: '16px' }}>In these environments, the market asks a fundamentally different question. Not: who is producing today? But: who is most likely to control production tomorrow?</p>
-        <p style={{ ...s.body, marginTop: '16px' }}>That question gets answered—and stocks reprice—long before the income statement confirms it.</p>
-      </div>
-
-      <div style={s.mb32}>
-        <h4 style={s.h4}>Control Is Not Production</h4>
-        <p style={s.body}>This distinction matters more than almost anything else in investing right now.</p>
-        <p style={{ ...s.body, marginTop: '16px' }}>Production is measurable. You can count units, calculate utilization, model capacity. Production shows up in earnings reports, neatly organized and audited.</p>
-        <p style={{ ...s.body, marginTop: '16px' }}>Control is different. Control is probabilistic. It exists in permits not yet issued, in relationships not yet monetized, in technical mastery not yet visible to analysts, in network positions that compound with every new connection. Control is the answer to a question about the future, not a measurement of the present.</p>
-        <p style={{ ...s.body, marginTop: '16px' }}>Here is the uncomfortable truth: by the time control becomes visible in the numbers, the equity return is largely behind you. The investors who waited for confirmation bought certainty. The investors who recognized control early bought asymmetry.</p>
-        <p style={{ ...s.body, marginTop: '16px' }}>This isn't reckless speculation. It's pattern recognition applied to systems under stress.</p>
-      </div>
-
-      <div style={s.mb32}>
-        <h4 style={s.h4}>Two Returns, Two Mindsets</h4>
-        <p style={s.body}>Every constrained system produces two distinct phases of equity returns.</p>
-        <p style={{ ...s.body, marginTop: '16px' }}>The first phase is violent and uncomfortable. Prices move on policy signals, on technical milestones, on narrative shifts that feel more like rumors than analysis. Volatility is extreme. The fundamentals are a mess. The dispersion between winners and losers is staggering. Most professional investors hate this phase. It feels undisciplined. It doesn't fit neatly into quarterly reviews.</p>
-        <p style={{ ...s.body, marginTop: '16px' }}>But this is where the returns are made.</p>
-        <p style={{ ...s.body, marginTop: '16px' }}>The second phase is calm and respectable. Winners have emerged. Execution matters. Margins expand. Cash flows materialize. The story is clean enough to present to investment committees. Volatility compresses. This phase feels safe.</p>
-        <p style={{ ...s.body, marginTop: '16px' }}>But most of the repricing is already done.</p>
-        <p style={{ ...s.body, marginTop: '16px' }}>The paradox is this: the phase that feels dangerous is where the opportunity lives. The phase that feels safe is often where it dies. Investors who insist on waiting for comfort systematically miss the highest-beta portion of the return curve and then overpay for certainty later.</p>
-      </div>
-
-      <div style={s.mb32}>
-        <h4 style={s.h4}>What Makes Optionality Credible</h4>
-        <p style={s.body}>Early is not the same as speculative. The difference is anchoring.</p>
-        <p style={{ ...s.body, marginTop: '16px' }}>A credible claim on future control usually satisfies at least one of four conditions. The company controls an asset or permit that cannot be replicated quickly—a grid interconnection, a processing license, a mineral reserve. It aligns with an explicit regulatory or policy trajectory where the direction is clear even if the timing is not. It demonstrates learning curve advantages that compound with each iteration. Or it occupies a coordination point in a complex system where capital alone cannot substitute for position.</p>
-        <p style={{ ...s.body, marginTop: '16px' }}>Speculation lacks these anchors. Credible optionality attracts them.</p>
-        <p style={{ ...s.body, marginTop: '16px' }}>Markets are better at making this distinction than many investors realize. The stocks that reprice early on narrative usually have something real behind them—a contract, a permit, a technical demonstration, a policy tailwind. The ones that collapse were never anchored in the first place.</p>
-      </div>
-
-      <div style={s.mb32}>
-        <h4 style={s.h4}>Why This Moment Is Different</h4>
-        <p style={s.body}>We are not in a normal market.</p>
-        <p style={{ ...s.body, marginTop: '16px' }}>The simultaneous arrival of artificial intelligence, energy transition, supply chain restructuring, and great power competition has created a generational collision of demand and constraint. Each of these forces individually would be significant. Together, they are reshaping the global economy in real time.</p>
-        <p style={{ ...s.body, marginTop: '16px' }}>Power demand is accelerating while grid infrastructure ages. Semiconductor complexity is increasing while fabs take years to build. Critical minerals are essential while processing remains concentrated. Defense spending is surging while industrial bases have hollowed out.</p>
-        <p style={{ ...s.body, marginTop: '16px' }}>These are not temporary dislocations. They are structural features of the decade ahead. The companies that control the chokepoints in these systems will capture extraordinary value. The companies that merely participate will compete it away.</p>
-        <p style={{ ...s.body, marginTop: '16px' }}>The opportunity is not to predict which technologies win. It is to identify where physical constraints bind, and to position before that control is widely recognized.</p>
+        <h4 style={s.h4}>Why Most Money Managers Underperform</h4>
+        <p style={s.body}>According to the S&P SPIVA Scorecard, 90% of actively managed large-cap equity funds underperform the S&P 500 over a 15-year horizon. Over that same period, there is not a single fund category—domestic or international—in which a majority of active managers beat their benchmark. This is not a temporary aberration. It is a structural feature of how institutional capital operates.</p>
+        <p style={{ ...s.body, marginTop: '16px' }}>The vast majority of investable capital is concentrated in precisely the structures least equipped to capture early-stage returns. The world's 500 largest asset managers control $140 trillion in assets. The top 20 alone—firms like BlackRock, Vanguard, Fidelity, and State Street—manage $66 trillion, nearly half of the total. These are multi-billion and multi-trillion dollar portfolios, and the managers who run them are beholden to a system that makes early positioning structurally difficult.</p>
+        <p style={{ ...s.body, marginTop: '16px' }}>This is not a criticism. It is an opportunity—one that favors smaller, more flexible investors willing to work extremely hard.</p>
       </div>
 
       <div style={{ marginBottom: '40px' }}>
-        <h4 style={s.h4}>An Invitation</h4>
-        <p style={s.body}>This framework demands something uncomfortable: the willingness to act before certainty arrives.</p>
-        <p style={{ ...s.body, marginTop: '16px' }}>It does not demand recklessness. Position sizing discipline. Milestone awareness. Intellectual honesty about what's anchored and what's hope. These are not optional.</p>
-        <p style={{ ...s.body, marginTop: '16px' }}>But it does demand engagement with uncertainty rather than avoidance of it. The best investments in constrained systems look uncomfortable at the time. They only look obvious later.</p>
-        <p style={{ ...s.body, marginTop: '16px' }}>Markets are not inefficient. They are anticipatory. They move when the probability distribution of future control shifts—not when the income statement confirms it. Investors who insist on waiting for confirmation may feel prudent, but they are systematically late.</p>
-        <p style={{ ...s.body, marginTop: '16px' }}>The returns are made in the gap between recognition and confirmation. That gap is where we intend to be.</p>
+        <h4 style={s.h4}>The Institutional Gap</h4>
+        <p style={s.body}>Large pools of capital face real limitations that have nothing to do with insight.</p>
+        <p style={{ ...s.body, marginTop: '16px' }}><strong style={s.strong}>Fiduciary obligations</strong> require that investment decisions trace cleanly to auditable data—balance sheets, earnings, guidance. A portfolio manager at a pension fund cannot tell beneficiaries that she bought a stock because she recognized a chokepoint before it appeared in the numbers. She needs documentation that will survive scrutiny if the position moves against her.</p>
+        <p style={{ ...s.body, marginTop: '16px' }}><strong style={s.strong}>Liquidity requirements</strong> make concentrated bets in smaller-cap names impractical. A fund managing $50 billion cannot build meaningful exposure to a $2 billion company solving a critical constraint without moving the market or creating exit risk.</p>
+        <p style={{ ...s.body, marginTop: '16px' }}><strong style={s.strong}>Committee structures and quarterly reviews</strong> create natural gravitational pull toward consensus. Positions that "look wrong" for two or three quarters—even if the thesis is intact—generate career risk that compounds with every uncomfortable meeting.</p>
+        <p style={{ ...s.body, marginTop: '16px' }}><strong style={s.strong}>Benchmark orientation</strong> rewards staying close to the index. Meaningful deviation, even when justified, creates tracking error that many mandates cannot tolerate.</p>
+        <p style={{ ...s.body, marginTop: '16px' }}>These are not failures of intelligence. They are features of institutional architecture. The same structures that protect capital and ensure accountability also create systematic difficulty in capturing returns that materialize before fundamentals confirm them.</p>
+        <p style={{ ...s.body, marginTop: '16px' }}>This is not a critique. It is an opportunity.</p>
       </div>
     </section>
   );
@@ -1305,11 +1285,11 @@ export default function AIMarketThemesReportV8() {
     );
   };
   const renderSection06Theme = () => renderThemeSection(2, '07');
-  const renderSection07Theme = () => renderThemeSection(3, '09');
+  const renderSection07Theme = () => renderThemeSection(3, '10');
 
   const renderSection08 = () => (
     <section style={s.section}>
-      <SectionHeader num="10" title="Watchlist" subtitle="Themes with fading momentum but intact fundamentals — wait for re-entry" />
+      <SectionHeader num="11" title="Watchlist" subtitle="Themes with fading momentum but intact fundamentals — wait for re-entry" />
       <p style={{ ...s.bodyLg, marginBottom: '32px' }}>These themes had strong 6-month runs but recent momentum has cooled. Fundamentals remain solid — margins are still expanding — but the 3-month returns suggest the easy gains have been made. These are candidates for re-entry on pullbacks.</p>
       <div style={{ display: 'grid', gridTemplateColumns: '1fr 1fr', gap: '16px', marginBottom: '40px' }}>
         {[
@@ -1525,6 +1505,33 @@ export default function AIMarketThemesReportV8() {
   // ==========================================================================
   // METALS & MATERIALS THEMATIC DATA
   // ==========================================================================
+  // Silver & Gold dedicated section data
+  const silverGoldData = {
+    gold: [
+      { ticker: "NEM", company: "Newmont Corporation", mktCap: "$125B", return1M: "+16%", return3M: "+16%", return6M: "+96%", revGrYoY: "+17%", opMargin: "45.7%", pS: "5.9x", description: "World's largest gold miner. Scale matters when permitting risk rises faster than gold prices. Controls disproportionate share of tier-one assets." },
+      { ticker: "AEM", company: "Agnico Eagle Mines", mktCap: "$99B", return1M: "+13%", return3M: "+27%", return6M: "+139%", revGrYoY: "+17%*", opMargin: "33%*", pS: "8.1x*", description: "Premium valuation justified by politically stable ounces, high reserve quality, and disciplined capital allocation." },
+      { ticker: "GOLD", company: "Barrick Gold", mktCap: "$62B", return1M: "+8%", return3M: "+18%", return6M: "+72%", revGrYoY: "+12%", opMargin: "28%", pS: "4.8x", description: "Tier-one assets in Nevada and globally. Disciplined capital allocation and shareholder returns." },
+      { ticker: "KGC", company: "Kinross Gold", mktCap: "$32B", return1M: "+22%", return3M: "+35%", return6M: "+118%", revGrYoY: "+25%", opMargin: "31%", pS: "5.2x", description: "Undervalued relative to peers. Strong production growth trajectory from Great Bear project." },
+      { ticker: "FNV", company: "Franco-Nevada", mktCap: "$47B", return1M: "+10%", return3M: "+21%", return6M: "+84%", revGrYoY: "+77%*", opMargin: "72%*", pS: "24x*", description: "Purest expression of 'gold as infrastructure.' No operating risk, embedded optionality to price." },
+      { ticker: "WPM", company: "Wheaton Precious Metals", mktCap: "$72B", return1M: "+9%", return3M: "+22%", return6M: "+78%", revGrYoY: "+38%", opMargin: "68%", pS: "18.5x", description: "Streaming model provides gold exposure without operating risk. Highest margins in the space." },
+      { ticker: "RGLD", company: "Royal Gold", mktCap: "$16B", return1M: "+11%", return3M: "+19%", return6M: "+65%", revGrYoY: "+22%", opMargin: "58%", pS: "15.2x", description: "Royalty model with diversified portfolio. Lower risk, consistent cash flow growth." },
+      { ticker: "USAU", company: "U.S. Gold Corp", mktCap: "$180M", return1M: "+45%", return3M: "+82%", return6M: "+195%", revGrYoY: "—", opMargin: "—", pS: "—", description: "Exploration-stage gold company with U.S. assets. High optionality, development risk." },
+      { ticker: "DC", company: "Dakota Gold", mktCap: "$420M", return1M: "+38%", return3M: "+55%", return6M: "+142%", revGrYoY: "—", opMargin: "—", pS: "—", description: "Exploration in historic Homestake district. U.S.-based optionality play." },
+    ],
+    silver: [
+      { ticker: "HL", company: "Hecla Mining", mktCap: "$17.8B", return1M: "+40%", return3M: "+74%", return6M: "+341%", revGrYoY: "+67%", opMargin: "38.2%", pS: "14.6x", description: "Largest U.S. silver producer. Dual exposure to silver and gold. Highest momentum in precious metals." },
+      { ticker: "PAAS", company: "Pan American Silver", mktCap: "$22B", return1M: "+18%", return3M: "+25%", return6M: "+95%", revGrYoY: "+32%", opMargin: "24%", pS: "4.5x", description: "World's second-largest silver miner. Diversified asset base across the Americas." },
+      { ticker: "AG", company: "First Majestic Silver", mktCap: "$8.2B", return1M: "+52%", return3M: "+68%", return6M: "+185%", revGrYoY: "+45%", opMargin: "18%", pS: "7.8x", description: "Pure-play silver producer focused on Mexico. High beta to silver prices." },
+      { ticker: "CDE", company: "Coeur Mining", mktCap: "$14.5B", return1M: "+34%", return3M: "-2%", return6M: "+147%", revGrYoY: "+77%", opMargin: "33.6%", pS: "8.6x", description: "Silver/gold producer with strong margin expansion. Rochester expansion adds production capacity." },
+      { ticker: "FSM", company: "Fortuna Silver Mines", mktCap: "$6.8B", return1M: "+28%", return3M: "+42%", return6M: "+125%", revGrYoY: "+35%", opMargin: "22%", pS: "3.2x", description: "Diversified precious metals producer. Operations in Latin America and West Africa." },
+      { ticker: "WPM", company: "Wheaton Precious Metals", mktCap: "$72B", return1M: "+9%", return3M: "+22%", return6M: "+78%", revGrYoY: "+38%", opMargin: "68%", pS: "18.5x", description: "Streaming model provides silver and gold exposure without operating risk." },
+      { ticker: "FNV", company: "Franco-Nevada", mktCap: "$47B", return1M: "+10%", return3M: "+21%", return6M: "+84%", revGrYoY: "+77%*", opMargin: "72%*", pS: "24x*", description: "Royalty/streaming exposure to silver through diversified portfolio." },
+      { ticker: "MTA", company: "Metalla Royalty", mktCap: "$580M", return1M: "+22%", return3M: "+35%", return6M: "+88%", revGrYoY: "+42%", opMargin: "45%", pS: "12.5x", description: "Junior royalty company focused on precious metals. Growth-oriented portfolio." },
+      { ticker: "MAG", company: "MAG Silver", mktCap: "$3.8B", return1M: "+12%", return3M: "+28%", return6M: "+85%", revGrYoY: "+45%", opMargin: "52%", pS: "12.2x", description: "44% stake in Juanicipio, one of the world's highest-grade silver mines." },
+      { ticker: "AYASF", company: "Aya Gold & Silver", mktCap: "$2.1B", return1M: "+35%", return3M: "+48%", return6M: "+112%", revGrYoY: "+85%", opMargin: "42%", pS: "8.5x", description: "High-grade Zgounder mine in Morocco. Rapid production growth profile." },
+    ],
+  };
+
   const metalsData = {
     gold: [
       { ticker: "AEM", company: "Agnico Eagle Mines", mktCap: "$99B", return1M: "+13%", return3M: "+27%", return6M: "+139%", revGrYoY: "+17%*", opMargin: "33%*", pS: "8.1x*", description: "Premium valuation justified by politically stable ounces, high reserve quality, and disciplined capital allocation. Behaves less like a miner and more like a long-duration monetary asset with operating leverage." },
@@ -1560,6 +1567,221 @@ export default function AIMarketThemesReportV8() {
     ],
   };
 
+  const renderSectionSilverGold = () => {
+    // Chart data for visualization
+    const chartData = [
+      { year: 2020, gold: 25.75, silver: 46.37, sp500: 16.26 },
+      { year: 2021, gold: -3.73, silver: -14.28, sp500: 26.89 },
+      { year: 2022, gold: 2.08, silver: 4.58, sp500: -19.44 },
+      { year: 2023, gold: 13.14, silver: -1.24, sp500: 24.23 },
+      { year: 2024, gold: 27.20, silver: 22.34, sp500: 23.31 },
+      { year: 2025, gold: 64.6, silver: 144.82, sp500: 16.39 },
+    ];
+
+    const width = 800;
+    const height = 400;
+    const padding = { top: 40, right: 120, bottom: 60, left: 70 };
+    const chartWidth = width - padding.left - padding.right;
+    const chartHeight = height - padding.top - padding.bottom;
+
+    const minY = -30;
+    const maxY = 160;
+    const yScale = (val) => padding.top + chartHeight - ((val - minY) / (maxY - minY)) * chartHeight;
+    const xScale = (idx) => padding.left + (idx / (chartData.length - 1)) * chartWidth;
+
+    const createPath = (key) => {
+      return chartData.map((d, i) => `${i === 0 ? 'M' : 'L'} ${xScale(i)} ${yScale(d[key])}`).join(' ');
+    };
+
+    const seriesConfig = [
+      { key: 'gold', color: '#FFD700', label: 'Gold', delay: 0 },
+      { key: 'silver', color: '#C0C0C0', label: 'Silver', delay: 1 },
+      { key: 'sp500', color: p.accent, label: 'S&P 500', delay: 2 },
+    ];
+
+    const getOpacity = (key) => {
+      if (!chartVisibleSeries[key]) return 0;
+      if (chartHoveredSeries === null) return 1;
+      return chartHoveredSeries === key ? 1 : 0.2;
+    };
+
+    return (
+      <section style={s.section}>
+        <SectionHeader num="08" title="Silver & Gold" subtitle="Balance sheets, not cycles, are driving returns" />
+        
+        {/* Opening context */}
+        <div style={s.mb32}>
+          <p style={s.body}>From 2020 through 2025, silver rose roughly ~290%, gold gained approximately ~190%, and the S&P 500 advanced about ~110% on a price basis—meaning silver delivered nearly 3× the cumulative return of equities and gold outperformed stocks by roughly 80 percentage points over the same period. This is not typical behavior. Precious metals historically lag equities during strong risk-on markets and outperform mainly during crises. The 2020–2025 period breaks that pattern.</p>
+        </div>
+
+        <div style={s.mb32}>
+          <p style={s.body}>In 2025, Morgan Stanley's Chief Investment Officer publicly advocated a revision of the traditional 60/40 portfolio toward a 60/20/20 allocation, maintaining broad equity exposure while splitting the defensive sleeve between fixed income and gold. This recommendation reflects concerns about bond diversification in a high policy uncertainty environment and positions gold as a potentially more resilient hedge in modern regimes. However, this view currently represents a prominent CIO's recommendation rather than a widely adopted institutional standard. That being said, this appears to be an emerging trend that is not going away.</p>
+        </div>
+
+        <div style={{ marginBottom: '40px' }}>
+          <p style={s.body}>In 2025, silver dramatically outperformed gold, rising over 200% versus gold's roughly 70% gain, reflecting silver's higher beta and sensitivity to both industrial demand and speculative capital flows.</p>
+        </div>
+
+        {/* Animated Chart - inline, using parent state */}
+        <div style={{ marginBottom: '40px' }}>
+          <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center', marginBottom: '16px' }}>
+            <div>
+              <div style={{ ...s.tableLabel, marginBottom: '4px' }}>ANNUAL RETURNS</div>
+              <div style={{ ...s.tableTitle, fontSize: '24px' }}>Gold vs Silver vs S&P 500 (2020–2025)</div>
+            </div>
+            <div style={{ display: 'flex', gap: '16px' }}>
+              {seriesConfig.map(series => (
+                <button
+                  key={series.key}
+                  onClick={() => setChartVisibleSeries(prev => ({ ...prev, [series.key]: !prev[series.key] }))}
+                  style={{
+                    display: 'flex', alignItems: 'center', gap: '8px', padding: '8px 12px',
+                    border: `1px solid ${chartVisibleSeries[series.key] ? series.color : p.border}`,
+                    backgroundColor: chartVisibleSeries[series.key] ? `${series.color}15` : 'transparent',
+                    borderRadius: '4px', cursor: 'pointer', transition: 'all 0.25s ease',
+                    opacity: chartVisibleSeries[series.key] ? 1 : 0.5,
+                  }}
+                >
+                  <div style={{ width: '12px', height: '12px', borderRadius: '50%', backgroundColor: series.color, transition: 'transform 0.25s ease', transform: chartVisibleSeries[series.key] ? 'scale(1)' : 'scale(0.5)' }} />
+                  <span style={{ fontSize: '14px', fontWeight: 600, color: p.strong }}>{series.label}</span>
+                </button>
+              ))}
+            </div>
+          </div>
+          
+          <svg width={width} height={height} style={{ overflow: 'visible' }}>
+            <defs>
+              {seriesConfig.map(series => (
+                <linearGradient key={`grad-${series.key}`} id={`grad-${series.key}`} x1="0%" y1="0%" x2="100%" y2="0%">
+                  <stop offset="0%" stopColor={series.color} stopOpacity="0.8" />
+                  <stop offset="100%" stopColor={series.color} stopOpacity="1" />
+                </linearGradient>
+              ))}
+            </defs>
+            
+            {/* Grid lines */}
+            {[-20, 0, 20, 40, 60, 80, 100, 120, 140].map(val => (
+              <g key={val}>
+                <line x1={padding.left} y1={yScale(val)} x2={width - padding.right} y2={yScale(val)} stroke={p.border} strokeWidth="1" strokeDasharray={val === 0 ? "0" : "4,4"} />
+                <text x={padding.left - 12} y={yScale(val)} textAnchor="end" alignmentBaseline="middle" fill={p.neutral} fontSize="13px" fontFamily="'Poppins', sans-serif">{val}%</text>
+              </g>
+            ))}
+            
+            {/* X-axis labels */}
+            {chartData.map((d, i) => (
+              <text key={d.year} x={xScale(i)} y={height - padding.bottom + 28} textAnchor="middle" fill={p.strong} fontSize="14px" fontWeight="600" fontFamily="'Poppins', sans-serif">{d.year}</text>
+            ))}
+            
+            {/* Animated lines */}
+            {seriesConfig.map(series => (
+              <g key={series.key}>
+                <path
+                  d={createPath(series.key)}
+                  fill="none"
+                  stroke={`url(#grad-${series.key})`}
+                  strokeWidth="3"
+                  strokeLinecap="round"
+                  strokeLinejoin="round"
+                  style={{
+                    opacity: getOpacity(series.key),
+                    strokeDasharray: '2000',
+                    strokeDashoffset: chartAnimationPhase > series.delay ? 0 : 2000,
+                    transition: `stroke-dashoffset 0.8s ease-out ${series.delay * 0.15}s, opacity 0.25s ease`,
+                  }}
+                  onMouseEnter={() => setChartHoveredSeries(series.key)}
+                  onMouseLeave={() => setChartHoveredSeries(null)}
+                />
+              </g>
+            ))}
+            
+            {/* Animated dots */}
+            {chartAnimationPhase >= 4 && seriesConfig.map(series => (
+              chartData.map((d, i) => (
+                <circle
+                  key={`${series.key}-${i}`}
+                  cx={xScale(i)}
+                  cy={yScale(d[series.key])}
+                  r={chartHoveredSeries === series.key ? 7 : 5}
+                  fill={series.color}
+                  stroke={p.surface1}
+                  strokeWidth="2"
+                  style={{
+                    opacity: getOpacity(series.key),
+                    transform: `scale(${chartAnimationPhase >= 4 ? 1 : 0})`,
+                    transformOrigin: `${xScale(i)}px ${yScale(d[series.key])}px`,
+                    transition: `transform 0.3s ease ${i * 0.05}s, opacity 0.25s ease, r 0.15s ease`,
+                    cursor: 'pointer',
+                  }}
+                  onMouseEnter={() => setChartHoveredSeries(series.key)}
+                  onMouseLeave={() => setChartHoveredSeries(null)}
+                >
+                  <title>{series.label} {d.year}: {d[series.key] >= 0 ? '+' : ''}{d[series.key].toFixed(2)}%</title>
+                </circle>
+              ))
+            ))}
+            
+            {/* Legend on right side */}
+            {seriesConfig.map((series, i) => (
+              <g key={`legend-${series.key}`} transform={`translate(${width - padding.right + 20}, ${padding.top + 30 + i * 35})`} style={{ cursor: 'pointer', opacity: getOpacity(series.key), transition: 'opacity 0.25s ease' }} onMouseEnter={() => setChartHoveredSeries(series.key)} onMouseLeave={() => setChartHoveredSeries(null)}>
+                <line x1="0" y1="0" x2="25" y2="0" stroke={series.color} strokeWidth="3" />
+                <circle cx="12" cy="0" r="4" fill={series.color} />
+                <text x="32" y="0" alignmentBaseline="middle" fill={p.strong} fontSize="13px" fontWeight="500" fontFamily="'Poppins', sans-serif">{series.label}</text>
+              </g>
+            ))}
+          </svg>
+          
+          <p style={{ ...s.captionSm, marginTop: '12px', fontStyle: 'italic' }}>Sources: Gold annual returns, silver annual returns, S&P 500 price return excluding dividends. Cumulative 2020–2025: Silver ~290%, Gold ~190%, S&P 500 ~110%.</p>
+        </div>
+
+        {/* Three Drivers Section */}
+        <div style={{ ...s.mb48, paddingTop: '32px', borderTop: `2px solid ${p.border}` }}>
+          <h4 style={{ ...s.subhead, marginBottom: '24px' }}>Why This Is Happening: Three Drivers</h4>
+          
+          <div style={s.mb32}>
+            <h4 style={s.h4}>1) Balance sheets, not headlines, are setting the bid</h4>
+            <p style={s.body}>Gold and silver are behaving less like short-term inflation hedges and more like monetary infrastructure in a world where the credibility of balance sheets matters. The clearest signal is official sector demand. Central banks added 1,045 tonnes of gold in 2024. To put that in perspective, global mined gold production was about 3,645 tonnes in 2024, so central banks absorbed roughly 29% of annual mine output. Relative to the total above-ground stock of gold (about 216,265 tonnes at end-2024), that annual central bank buying is about 0.5% of all gold that exists above ground. That is why this demand behaves like reserve reallocation, not cyclical trading.</p>
+          </div>
+
+          <div style={s.mb32}>
+            <h4 style={s.h4}>2) Silver has become more industrial, without gaining elastic supply</h4>
+            <p style={s.body}>Silver demand is increasingly tied to electrification and power intensity. At the same time, most silver supply is produced as a byproduct of other metals, so higher silver prices do not quickly translate into new dedicated production. This combination creates persistent tightness, but it also makes price more sensitive to marginal capital flows.</p>
+          </div>
+
+          <div style={{ marginBottom: '40px' }}>
+            <h4 style={s.h4}>3) Small markets move violently when flows change</h4>
+            <p style={s.body}>Gold is deep and liquid. Silver is not. In thin markets, ETF flows, positioning, and trade policy uncertainty can dominate for long stretches. That is why silver often behaves like a leveraged expression of gold on the way up and on the way down.</p>
+          </div>
+        </div>
+
+        {/* Silver Section */}
+        <div style={{ marginBottom: '48px' }}>
+          <TableHeader label="" id="I" title="Silver: Structural Tightness with High Volatility" />
+          <p style={{ ...s.body, marginBottom: '16px' }}>Silver sits at the intersection of monetary metal, industrial input, and financial trading vehicle. This hybrid nature explains both long-term support and short-term instability. Structurally, silver benefits from electrification, rising power intensity, and constrained supply response. Cyclically, silver is prone to sharp reversals when speculative pressure exhausts itself.</p>
+          <p style={{ ...s.body, marginBottom: '16px' }}>The practical implication for 2026 is two-track. The long-term case is supported by physical constraints. The short-term path is likely to be dominated by liquidity and positioning.</p>
+          <p style={{ ...s.caption, marginBottom: '20px', fontStyle: 'italic' }}>Silver stocks to track: Primary producers, diversified producers with meaningful silver, and streaming and royalty exposure.</p>
+          <SortableStockTable stocks={silverGoldData.silver} showDescriptions={true} />
+        </div>
+
+        {/* Gold Section */}
+        <div style={{ marginBottom: '32px' }}>
+          <TableHeader label="" id="II" title="Gold: Reserve Asset Behavior Is Changing the Clearing Price" />
+          <p style={{ ...s.body, marginBottom: '16px' }}>Gold's current signal is more durable than silver's. It is increasingly behaving like neutral collateral in a fragmenting financial system, which helps explain why it can hold up even when traditional models (rates, CPI, risk-off headlines) provide mixed guidance.</p>
+          <p style={{ ...s.body, marginBottom: '16px' }}>The central bank bid is the core difference in this cycle. When official sector demand runs at around a third of annual mine supply, and persists through higher prices, it changes the market's clearing dynamics. That does not eliminate drawdowns, but it can raise the probability that weakness is met by strategic buying rather than only by traders.</p>
+          <p style={{ ...s.body, marginBottom: '16px' }}>For gold equities, this environment tends to reward existing, low-cost, long-life ounces in stable jurisdictions, and royalty and streaming models that capture gold upside with less exposure to operating inflation and execution risk.</p>
+          <p style={{ ...s.caption, marginBottom: '20px', fontStyle: 'italic' }}>Gold stocks to track: Producers for operating leverage, royalty and streaming for quality exposure, and a small optionality sleeve for torque.</p>
+          <SortableStockTable stocks={silverGoldData.gold} showDescriptions={true} />
+        </div>
+
+        {/* Data Source Note */}
+        <div style={s.calloutNote}>
+          <p style={{ ...s.captionSm, margin: 0 }}>
+            <strong style={s.strong}>Data as of January 18, 2026.</strong> Rev Gr (YoY) = Revenue growth, year-over-year. *Indicates data sourced from web search. Streaming/royalty companies (FNV, WPM, RGLD) carry premium valuations reflecting lower operating risk. "—" indicates pre-revenue or development-stage companies.
+          </p>
+        </div>
+      </section>
+    );
+  };
+
   const renderSection10 = () => {
     // Define metals categories as data
     const metalsCategories = [
@@ -1591,7 +1813,7 @@ export default function AIMarketThemesReportV8() {
 
     return (
       <section style={s.section}>
-        <SectionHeader num="08" title="Metals & Materials" subtitle="When prices move in months and supply moves in decades" />
+        <SectionHeader num="09" title="Strategic Metals & Materials" subtitle="When prices move in months and supply moves in decades" />
         
         <div style={s.mb32}>
           <h4 style={s.h4}>Why Metals Markets Repeatedly Reprice Instead of Cycling</h4>
@@ -1633,7 +1855,7 @@ export default function AIMarketThemesReportV8() {
   };
 
   const renderSection11 = () => renderDeepDiveSection(
-    "11", "Physical Buildout", "Labor and capacity constraints across infrastructure",
+    "12", "Physical Buildout", "Labor and capacity constraints across infrastructure",
     "Everything Being Built Requires Labor That's Already Allocated",
     <p>Data centers, grid upgrades, manufacturing reshoring, defense contracts — they all compete for the same skilled labor pool. Specialty contractors who can actually wire, plumb, and construct have pricing power. Low valuation (2.4x P/S), strong fundamentals (17% revenue growth).</p>,
     [
@@ -1651,12 +1873,13 @@ export default function AIMarketThemesReportV8() {
     renderSection03(),
     renderSection04(),
     renderSection05Theme(),
-    renderSection09(),
-    renderSection06Theme(),
-    renderSection10(),
-    renderSection07Theme(),
-    renderSection08(),
-    renderSection11()
+    renderSection09(),          // Biotech (06)
+    renderSection06Theme(),     // Defense (07)
+    renderSectionSilverGold(),  // Silver & Gold (08)
+    renderSection10(),          // Metals & Materials (09)
+    renderSection07Theme(),     // Power Generation (10)
+    renderSection08(),          // Watchlist (11)
+    renderSection11()           // Physical Buildout (12)
   ];
 
   // ==========================================================================
@@ -1665,24 +1888,24 @@ export default function AIMarketThemesReportV8() {
   return (
     <div style={{ display: 'flex', minHeight: '100vh', fontFamily: "'Poppins', sans-serif" }}>
       <style>{`@import url('https://fonts.googleapis.com/css2?family=Playfair+Display:wght@400;500;600;700;800;900&family=Poppins:wght@300;400;500;600;700;800;900&family=JetBrains+Mono:wght@400;500&display=swap');`}</style>
-      <div style={{ width: '220px', backgroundColor: p.strong, padding: '24px 0', flexShrink: 0, position: 'sticky', top: 0, height: '100vh', overflowY: 'auto', display: 'flex', flexDirection: 'column' }}>
-        <div style={{ padding: '0 16px 20px', borderBottom: '1px solid rgba(255,255,255,0.1)', marginBottom: '12px' }}>
-          <div style={{ ...s.label, color: p.action, marginBottom: '6px' }}>BROADSTREET</div>
-          <div style={{ fontSize: '13px', fontWeight: 600, color: p.surface1 }}>The Control Premium</div>
-          <div style={{ fontSize: '11px', color: 'rgba(255,255,255,0.5)', marginTop: '4px' }}>January 2026</div>
+      <div style={{ width: '275px', backgroundColor: p.strong, padding: '24px 0', flexShrink: 0, position: 'sticky', top: 0, height: '100vh', overflowY: 'auto', display: 'flex', flexDirection: 'column' }}>
+        <div style={{ padding: '0 20px 24px', borderBottom: '1px solid rgba(255,255,255,0.1)', marginBottom: '16px' }}>
+          <div style={{ fontSize: '20px', fontWeight: 600, letterSpacing: '0.15em', color: p.action, marginBottom: '8px' }}>BROADSTREET</div>
+          <div style={{ fontSize: '17px', fontWeight: 600, color: p.surface1 }}>The Control Premium</div>
+          <div style={{ fontSize: '15px', color: 'rgba(255,255,255,0.5)', marginTop: '6px' }}>January 2026</div>
         </div>
         <nav style={{ flex: 1 }}>
           {sections.map((sec, i) => (
-            <button key={sec.id} onClick={() => setActiveSection(i)} style={{ display: 'flex', alignItems: 'center', gap: '10px', width: '100%', padding: '10px 16px', border: 'none', background: activeSection === i ? 'rgba(255,255,255,0.08)' : 'transparent', borderLeft: activeSection === i ? `2px solid ${p.action}` : '2px solid transparent', cursor: 'pointer', textAlign: 'left', transition: 'all 0.15s' }}>
-              <span style={{ fontSize: '11px', color: activeSection === i ? p.action : 'rgba(255,255,255,0.4)', fontWeight: 500, minWidth: '20px' }}>{sec.num || '◈'}</span>
-              <span style={{ fontSize: '12px', color: activeSection === i ? p.surface1 : 'rgba(255,255,255,0.6)' }}>{sec.title}</span>
+            <button key={sec.id} onClick={() => setActiveSection(i)} style={{ display: 'flex', alignItems: 'center', gap: '12px', width: '100%', padding: '12px 20px', border: 'none', background: activeSection === i ? 'rgba(255,255,255,0.08)' : 'transparent', borderLeft: activeSection === i ? `3px solid ${p.action}` : '3px solid transparent', cursor: 'pointer', textAlign: 'left', transition: 'all 0.15s' }}>
+              <span style={{ fontSize: '15px', color: activeSection === i ? p.action : 'rgba(255,255,255,0.4)', fontWeight: 500, minWidth: '24px' }}>{sec.num || '◈'}</span>
+              <span style={{ fontSize: '16px', color: activeSection === i ? p.surface1 : 'rgba(255,255,255,0.6)' }}>{sec.title}</span>
             </button>
           ))}
         </nav>
-        <div style={{ padding: '16px', borderTop: '1px solid rgba(255,255,255,0.1)', marginTop: '12px' }}>
-          <div style={{ display: 'flex', gap: '8px' }}>
-            <button onClick={() => setActiveSection(Math.max(0, activeSection - 1))} disabled={activeSection === 0} style={{ flex: 1, padding: '8px', border: '1px solid rgba(255,255,255,0.2)', backgroundColor: 'transparent', color: activeSection === 0 ? 'rgba(255,255,255,0.3)' : p.surface1, fontSize: '11px', cursor: activeSection === 0 ? 'not-allowed' : 'pointer', borderRadius: '4px' }}>← Prev</button>
-            <button onClick={() => setActiveSection(Math.min(sections.length - 1, activeSection + 1))} disabled={activeSection === sections.length - 1} style={{ flex: 1, padding: '8px', border: '1px solid rgba(255,255,255,0.2)', backgroundColor: 'transparent', color: activeSection === sections.length - 1 ? 'rgba(255,255,255,0.3)' : p.surface1, fontSize: '11px', cursor: activeSection === sections.length - 1 ? 'not-allowed' : 'pointer', borderRadius: '4px' }}>Next →</button>
+        <div style={{ padding: '20px', borderTop: '1px solid rgba(255,255,255,0.1)', marginTop: '16px' }}>
+          <div style={{ display: 'flex', gap: '10px' }}>
+            <button onClick={() => setActiveSection(Math.max(0, activeSection - 1))} disabled={activeSection === 0} style={{ flex: 1, padding: '10px', border: '1px solid rgba(255,255,255,0.2)', backgroundColor: 'transparent', color: activeSection === 0 ? 'rgba(255,255,255,0.3)' : p.surface1, fontSize: '15px', cursor: activeSection === 0 ? 'not-allowed' : 'pointer', borderRadius: '4px' }}>← Prev</button>
+            <button onClick={() => setActiveSection(Math.min(sections.length - 1, activeSection + 1))} disabled={activeSection === sections.length - 1} style={{ flex: 1, padding: '10px', border: '1px solid rgba(255,255,255,0.2)', backgroundColor: 'transparent', color: activeSection === sections.length - 1 ? 'rgba(255,255,255,0.3)' : p.surface1, fontSize: '15px', cursor: activeSection === sections.length - 1 ? 'not-allowed' : 'pointer', borderRadius: '4px' }}>Next →</button>
           </div>
         </div>
       </div>
