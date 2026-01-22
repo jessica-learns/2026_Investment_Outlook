@@ -1887,11 +1887,11 @@ export default function AIMarketThemesReportV8() {
   return (
     <div style={{ display: 'flex', minHeight: '100vh', fontFamily: "'Poppins', sans-serif" }}>
       <style>{`@import url('https://fonts.googleapis.com/css2?family=Playfair+Display:wght@400;500;600;700;800;900&family=Poppins:wght@300;400;500;600;700;800;900&family=JetBrains+Mono:wght@400;500&display=swap');`}</style>
-      <div style={{ width: '320px', backgroundColor: p.strong, padding: '28px 0', flexShrink: 0, position: 'sticky', top: 0, height: '100vh', overflowY: 'auto', display: 'flex', flexDirection: 'column' }}>
-        <div style={{ padding: '0 24px 28px', borderBottom: '1px solid rgba(255,255,255,0.1)', marginBottom: '20px' }}>
-          <div style={{ fontSize: '24px', fontWeight: 600, letterSpacing: '0.15em', color: p.action, marginBottom: '10px' }}>BROADSTREET</div>
+      <div style={{ width: '320px', backgroundColor: p.strong, padding: '24px 0', flexShrink: 0, position: 'sticky', top: 0, height: '100vh', overflowY: 'auto', display: 'flex', flexDirection: 'column' }}>
+        <div style={{ padding: '0 24px 20px', borderBottom: '1px solid rgba(255,255,255,0.1)', marginBottom: '16px' }}>
+          <div style={{ fontSize: '13px', fontWeight: 600, letterSpacing: '0.18em', color: p.action, marginBottom: '6px' }}>BROADSTREET</div>
           <div style={{ fontSize: '20px', fontWeight: 600, color: p.surface1 }}>The Control Premium</div>
-          <div style={{ fontSize: '17px', color: 'rgba(255,255,255,0.5)', marginTop: '8px' }}>January 2026</div>
+          <div style={{ fontSize: '15px', color: 'rgba(255,255,255,0.5)', marginTop: '4px' }}>January 2026</div>
         </div>
         <nav style={{ flex: 1 }}>
           {sections.map((sec, i) => (
