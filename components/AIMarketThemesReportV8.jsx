@@ -657,19 +657,21 @@ export default function AIMarketThemesReportV8() {
   // SECTION RENDERERS
   // ==========================================================================
   const renderCover = () => (
-    <section style={{ minHeight: '100vh', display: 'flex', flexDirection: 'column', justifyContent: 'space-between', padding: '48px 48px 48px 211px', backgroundColor: p.surface2 }}>
-      <div style={{ marginTop: '80px' }}>
-        <div style={{ maxWidth: '700px' }}>
-          <h1 style={s.coverTitle}>The Control Premium:<br />A 2026 Thesis</h1>
+    <section style={{ minHeight: '100vh', display: 'flex', flexDirection: 'column', justifyContent: 'space-between', padding: '48px', backgroundColor: p.surface2 }}>
+      <div style={{ maxWidth: '800px', margin: '0 auto', width: '100%', marginTop: '118px' }}>
+        <div style={{ textAlign: 'center' }}>
+          <h1 style={{ ...s.coverTitle, textAlign: 'center' }}>The Control Premium:<br />A 2026 Thesis</h1>
           <p style={{ color: p.neutral, fontFamily: "'Poppins', sans-serif", fontSize: '28px', fontWeight: 600, lineHeight: 1.5, marginBottom: '12px' }}>Why Markets Move Before Fundamentals—and Where to Position in 2026</p>
           <p style={{ color: p.neutral, fontSize: '21px', fontStyle: 'italic' }}>AI Chokepoints · Power Bottlenecks · Supply Chain Reshoring · Defense Modernization · Strategic Commodities</p>
         </div>
       </div>
-      <div style={{ ...s.grid4, paddingTop: '24px', borderTop: `2px solid ${p.action}` }}>
-        <StatBox value="3,021" label="Stocks Analyzed" />
-        <StatBox value="150" label="Industry Groups" />
-        <StatBox value="17" label="Themes Identified" />
-        <StatBox value="2,421" label="SMID Focus" />
+      <div style={{ maxWidth: '800px', margin: '0 auto', width: '100%' }}>
+        <div style={{ ...s.grid4, paddingTop: '24px', borderTop: `2px solid ${p.action}` }}>
+          <StatBox value="3,021" label="Stocks Analyzed" />
+          <StatBox value="150" label="Industry Groups" />
+          <StatBox value="17" label="Themes Identified" />
+          <StatBox value="2,421" label="SMID Focus" />
+        </div>
       </div>
     </section>
   );
