@@ -696,11 +696,12 @@ export default function AIMarketThemesReportV8() {
       <div style={s.mb32}>
         <h4 style={s.h4}>Why Most Money Managers Underperform</h4>
         <p style={s.body}>According to the S&P SPIVA Scorecard, 90% of actively managed large-cap equity funds underperform the S&P 500 over a 15-year horizon. Over that same period, there is not a single fund category—domestic or international—in which a majority of active managers beat their benchmark. This is not a temporary aberration. It is a structural feature of how institutional capital operates.</p>
+        <p style={{ ...s.body, marginTop: '16px' }}>The problem is compounded by closet indexing—funds marketed as active that hold portfolios nearly identical to their benchmarks. Research shows that more than 10% of U.S. mutual fund assets sit in closet index funds, and the figure rises to 30% outside the United States. These funds charge active fees for passive exposure, creating a drag that compounds relentlessly over time.</p>
         <p style={{ ...s.body, marginTop: '16px' }}>The vast majority of investable capital is concentrated in precisely the structures least equipped to capture early-stage returns. The world's 500 largest asset managers control $140 trillion in assets. The top 20 alone—firms like BlackRock, Vanguard, Fidelity, and State Street—manage $66 trillion, nearly half of the total. These are multi-billion and multi-trillion dollar portfolios, and the managers who run them are beholden to a system that makes early positioning structurally difficult.</p>
         <p style={{ ...s.body, marginTop: '16px' }}>This is not a criticism. It is an opportunity—one that favors smaller, more flexible investors willing to work extremely hard.</p>
       </div>
 
-      <div style={{ marginBottom: '40px' }}>
+      <div style={s.mb32}>
         <h4 style={s.h4}>The Institutional Gap</h4>
         <p style={s.body}>Large pools of capital face real limitations that have nothing to do with insight.</p>
         <p style={{ ...s.body, marginTop: '16px' }}><strong style={s.strong}>Fiduciary obligations</strong> require that investment decisions trace cleanly to auditable data—balance sheets, earnings, guidance. A portfolio manager at a pension fund cannot tell beneficiaries that she bought a stock because she recognized a chokepoint before it appeared in the numbers. She needs documentation that will survive scrutiny if the position moves against her.</p>
@@ -709,6 +710,68 @@ export default function AIMarketThemesReportV8() {
         <p style={{ ...s.body, marginTop: '16px' }}><strong style={s.strong}>Benchmark orientation</strong> rewards staying close to the index. Meaningful deviation, even when justified, creates tracking error that many mandates cannot tolerate.</p>
         <p style={{ ...s.body, marginTop: '16px' }}>These are not failures of intelligence. They are features of institutional architecture. The same structures that protect capital and ensure accountability also create systematic difficulty in capturing returns that materialize before fundamentals confirm them.</p>
         <p style={{ ...s.body, marginTop: '16px' }}>This is not a critique. It is an opportunity.</p>
+      </div>
+
+      <div style={s.mb32}>
+        <h4 style={s.h4}>Where the Advantage Lives</h4>
+        <p style={s.body}>Smaller, more flexible capital has a structural edge in constrained systems—not because it is smarter, but because it can act on insight before that insight becomes auditable.</p>
+        <p style={{ ...s.body, marginTop: '16px' }}>When demand collides with a bottleneck that cannot expand on investor time horizons, the usual rules change. Price does not equilibrate supply and demand. Time does. And time doesn't negotiate.</p>
+        <p style={{ ...s.body, marginTop: '16px' }}>Think about what this means. When a data center operator needs power but the grid interconnection queue is 47 months deep, no amount of money accelerates that timeline. When an AI lab needs advanced packaging capacity but TSMC's CoWoS lines are fully allocated through 2026, desperation doesn't create new fabs. When a defense contractor needs rare earth magnets but China controls 90% of global processing, urgency doesn't build supply chains.</p>
+        <p style={{ ...s.body, marginTop: '16px' }}>In these environments, the market asks a fundamentally different question. Not: who is producing today? But: who is most likely to control production tomorrow?</p>
+        <p style={{ ...s.body, marginTop: '16px' }}>That question gets answered—and stocks reprice—long before the income statement confirms it. Capital that can act on probabilistic control claims, rather than waiting for confirmed production, captures the steepest part of the return curve.</p>
+      </div>
+
+      <div style={s.mb32}>
+        <h4 style={s.h4}>Control Is Not Production</h4>
+        <p style={s.body}>This distinction matters more than almost anything else in investing right now.</p>
+        <p style={{ ...s.body, marginTop: '16px' }}>Production is measurable. You can count units, calculate utilization, model capacity. Production shows up in earnings reports, neatly organized and audited. Production is what institutional due diligence is designed to verify.</p>
+        <p style={{ ...s.body, marginTop: '16px' }}>Control is different. Control is probabilistic. It exists in permits not yet issued, in relationships not yet monetized, in technical mastery not yet visible to analysts, in network positions that compound with every new connection. Control is the answer to a question about the future, not a measurement of the present.</p>
+        <p style={{ ...s.body, marginTop: '16px' }}>Here is the central insight: by the time control becomes visible in the numbers, the equity return is largely behind you. Capital that waits for confirmation buys certainty at a premium. Capital that recognizes control early buys asymmetry at a discount.</p>
+        <p style={{ ...s.body, marginTop: '16px' }}>This isn't reckless speculation. It's pattern recognition applied to systems under stress.</p>
+      </div>
+
+      <div style={s.mb32}>
+        <h4 style={s.h4}>Two Returns, Two Mindsets</h4>
+        <p style={s.body}>Every constrained system produces two distinct phases of equity returns.</p>
+        <p style={{ ...s.body, marginTop: '16px' }}>The first phase is volatile and uncomfortable. Prices move on policy signals, on technical milestones, on narrative shifts that feel more like pattern-matching than analysis. Volatility is extreme. The fundamentals are incomplete. The dispersion between winners and losers is staggering. This phase doesn't fit neatly into quarterly reviews or investment committee presentations. It requires conviction that cannot yet be fully documented.</p>
+        <p style={{ ...s.body, marginTop: '16px' }}>But this is where the returns are made.</p>
+        <p style={{ ...s.body, marginTop: '16px' }}>The second phase is calm and respectable. Winners have emerged. Execution matters. Margins expand. Cash flows materialize. The story is clean enough to survive due diligence. Volatility compresses. This phase is accessible to institutional capital—and priced accordingly.</p>
+        <p style={{ ...s.body, marginTop: '16px' }}>The paradox is this: the phase that looks undisciplined is where the opportunity concentrates. The phase that looks rigorous is often where it dissipates. This isn't a criticism of institutions that wait—they are doing exactly what their mandates require. It is an observation about where excess returns live, and why they persist.</p>
+      </div>
+
+      <div style={s.mb32}>
+        <h4 style={s.h4}>What Makes Optionality Credible</h4>
+        <p style={s.body}>Early is not the same as speculative. The difference is evidentiary quality—expert analysis from proven sources, integrated across both textual insight and quantitative signals.</p>
+        <p style={{ ...s.body, marginTop: '16px' }}>A credible claim on future control usually satisfies at least one of four conditions. The company controls an asset or permit that cannot be replicated quickly—a grid interconnection, a processing license, a mineral reserve. It aligns with an explicit regulatory or policy trajectory where the direction is clear even if the timing is not. It demonstrates learning curve advantages that compound with each iteration. Or it occupies a coordination point in a complex system where capital alone cannot substitute for position.</p>
+        <p style={{ ...s.body, marginTop: '16px' }}>Speculation lacks these anchors. Credible optionality attracts them.</p>
+        <p style={{ ...s.body, marginTop: '16px' }}>Markets are better at making this distinction than many investors realize. The stocks that reprice early on narrative usually have something real behind them—a contract, a permit, a technical demonstration, a policy tailwind. The ones that collapse were never anchored in the first place.</p>
+      </div>
+
+      <div style={s.mb32}>
+        <h4 style={s.h4}>Our Research Edge</h4>
+        <p style={s.body}>We do not rely on sell-side research as a primary source. Bank analysts produce valuable work, but their incentives are not aligned with ours. Coverage decisions follow investment banking relationships. Price targets cluster around consensus to minimize career risk. Ratings shift after stocks move, not before. This is not a critique of the analysts themselves—they operate within structures that reward certain behaviors and penalize others. But those structures introduce systematic bias that can muddy an independent outlook.</p>
+        <p style={{ ...s.body, marginTop: '16px' }}>We build conviction from nontraditional sources closer to the actual constraint.</p>
+        <p style={{ ...s.body, marginTop: '16px' }}>Venture capital research from firms like Sequoia and Andreessen Horowitz reveals where sophisticated private capital sees bottlenecks forming—often years before public markets price them. Specialist technical analysis from sources like SemiAnalysis provides granular insight into semiconductor supply chains that generalist coverage cannot match. Operator blogs and practitioner networks surface real-time intelligence from people building and running the systems we invest in. Primary company filings—not summaries, the actual 10-Ks, 8-Ks, and earnings transcripts—let us form independent views on management tone, capital allocation priorities, and risk disclosure.</p>
+        <p style={{ ...s.body, marginTop: '16px' }}>Every source carries bias. Venture investors talk their books. Technical specialists overweight their domains. Operators see their markets as more important than they are. This is normal, not a flaw—no external source is optimized for our specific goal of identifying asymmetric public equity opportunities in constrained systems.</p>
+        <p style={{ ...s.body, marginTop: '16px' }}>The edge is not in finding unbiased sources. It is in understanding the bias in each source and adjusting accordingly. We triangulate across perspectives, weight insight by track record, and pressure-test every thesis against incentives. The goal is not consensus. It is independent conviction, built from evidence that most institutional investors either cannot access or cannot act on.</p>
+      </div>
+
+      <div style={s.mb32}>
+        <h4 style={s.h4}>Why This Moment Is Different</h4>
+        <p style={s.body}>We are not in a normal market.</p>
+        <p style={{ ...s.body, marginTop: '16px' }}>The simultaneous arrival of artificial intelligence, energy transition, supply chain restructuring, and great power competition has created a generational collision of demand and constraint. Each of these forces individually would be significant. Together, they are reshaping the global economy in real time.</p>
+        <p style={{ ...s.body, marginTop: '16px' }}>Power demand is accelerating while grid infrastructure ages. Semiconductor complexity is increasing while fabs take years to build. Critical minerals are essential while processing remains concentrated. Defense spending is surging while industrial bases have hollowed out.</p>
+        <p style={{ ...s.body, marginTop: '16px' }}>These are not temporary dislocations. They are structural features of the decade ahead. The companies that control the chokepoints in these systems will capture extraordinary value. The companies that merely participate will compete it away.</p>
+        <p style={{ ...s.body, marginTop: '16px' }}>The opportunity is not to predict which technologies win. It is to identify where physical constraints bind, and to position before that control is widely recognized.</p>
+      </div>
+
+      <div style={{ marginBottom: '40px' }}>
+        <h4 style={s.h4}>An Invitation</h4>
+        <p style={s.body}>This framework demands something uncomfortable: the willingness to act before certainty arrives.</p>
+        <p style={{ ...s.body, marginTop: '16px' }}>It does not demand recklessness. It demands discipline: position sizing that reflects uncertainty, milestone tracking that triggers reassessment, and intellectual honesty about what is anchored in evidence versus what remains hope.</p>
+        <p style={{ ...s.body, marginTop: '16px' }}>But it does demand engagement with uncertainty rather than avoidance of it. The best investments in constrained systems look uncomfortable at the time. They only look obvious later.</p>
+        <p style={{ ...s.body, marginTop: '16px' }}>Markets are not inefficient. They are anticipatory. They move when the probability distribution of future control shifts—not when the income statement confirms it.</p>
+        <p style={{ ...s.body, marginTop: '16px' }}>The returns are made in the gap between recognition and confirmation. That gap is where Broadstreet operates, and why we consistently outperform the S&P 500 and other common benchmarks.</p>
       </div>
     </section>
   );
