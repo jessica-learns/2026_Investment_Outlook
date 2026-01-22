@@ -657,9 +657,8 @@ export default function AIMarketThemesReportV8() {
   // SECTION RENDERERS
   // ==========================================================================
   const renderCover = () => (
-    <section style={{ minHeight: '100vh', display: 'flex', flexDirection: 'column', justifyContent: 'space-between', padding: '48px', backgroundColor: p.surface2 }}>
-      <div>
-        <div style={{ ...s.label, color: p.action, marginBottom: '48px' }}>BROADSTREET HIGH GROWTH SLEEVE</div>
+    <section style={{ minHeight: '100vh', display: 'flex', flexDirection: 'column', justifyContent: 'space-between', padding: '48px 48px 48px 80px', backgroundColor: p.surface2 }}>
+      <div style={{ marginTop: '80px' }}>
         <div style={{ maxWidth: '700px' }}>
           <h1 style={s.coverTitle}>The Control Premium:<br />A 2026 Thesis</h1>
           <p style={{ color: p.neutral, fontFamily: "'Poppins', sans-serif", fontSize: '28px', fontWeight: 600, lineHeight: 1.5, marginBottom: '12px' }}>Why Markets Move Before Fundamentals—and Where to Position in 2026</p>
