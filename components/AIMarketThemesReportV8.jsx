@@ -1888,32 +1888,32 @@ export default function AIMarketThemesReportV8() {
   return (
     <div style={{ display: 'flex', minHeight: '100vh', fontFamily: "'Poppins', sans-serif" }}>
       <style>{`@import url('https://fonts.googleapis.com/css2?family=Playfair+Display:wght@400;500;600;700;800;900&family=Poppins:wght@300;400;500;600;700;800;900&family=JetBrains+Mono:wght@400;500&display=swap');`}</style>
-      <div style={{ width: '275px', backgroundColor: p.strong, padding: '24px 0', flexShrink: 0, position: 'sticky', top: 0, height: '100vh', overflowY: 'auto', display: 'flex', flexDirection: 'column' }}>
-        <div style={{ padding: '0 20px 24px', borderBottom: '1px solid rgba(255,255,255,0.1)', marginBottom: '16px' }}>
-          <div style={{ fontSize: '20px', fontWeight: 600, letterSpacing: '0.15em', color: p.action, marginBottom: '8px' }}>BROADSTREET</div>
-          <div style={{ fontSize: '17px', fontWeight: 600, color: p.surface1 }}>The Control Premium</div>
-          <div style={{ fontSize: '15px', color: 'rgba(255,255,255,0.5)', marginTop: '6px' }}>January 2026</div>
+      <div style={{ width: '320px', backgroundColor: p.strong, padding: '28px 0', flexShrink: 0, position: 'sticky', top: 0, height: '100vh', overflowY: 'auto', display: 'flex', flexDirection: 'column' }}>
+        <div style={{ padding: '0 24px 28px', borderBottom: '1px solid rgba(255,255,255,0.1)', marginBottom: '20px' }}>
+          <div style={{ fontSize: '24px', fontWeight: 600, letterSpacing: '0.15em', color: p.action, marginBottom: '10px' }}>BROADSTREET</div>
+          <div style={{ fontSize: '20px', fontWeight: 600, color: p.surface1 }}>The Control Premium</div>
+          <div style={{ fontSize: '17px', color: 'rgba(255,255,255,0.5)', marginTop: '8px' }}>January 2026</div>
         </div>
         <nav style={{ flex: 1 }}>
           {sections.map((sec, i) => (
-            <button key={sec.id} onClick={() => setActiveSection(i)} style={{ display: 'flex', alignItems: 'center', gap: '12px', width: '100%', padding: '12px 20px', border: 'none', background: activeSection === i ? 'rgba(255,255,255,0.08)' : 'transparent', borderLeft: activeSection === i ? `3px solid ${p.action}` : '3px solid transparent', cursor: 'pointer', textAlign: 'left', transition: 'all 0.15s' }}>
-              <span style={{ fontSize: '15px', color: activeSection === i ? p.action : 'rgba(255,255,255,0.4)', fontWeight: 500, minWidth: '24px' }}>{sec.num || '◈'}</span>
-              <span style={{ fontSize: '16px', color: activeSection === i ? p.surface1 : 'rgba(255,255,255,0.6)' }}>{sec.title}</span>
+            <button key={sec.id} onClick={() => setActiveSection(i)} style={{ display: 'flex', alignItems: 'center', gap: '14px', width: '100%', padding: '14px 24px', border: 'none', background: activeSection === i ? 'rgba(255,255,255,0.08)' : 'transparent', borderLeft: activeSection === i ? `3px solid ${p.action}` : '3px solid transparent', cursor: 'pointer', textAlign: 'left', transition: 'all 0.15s' }}>
+              <span style={{ fontSize: '17px', color: activeSection === i ? p.action : 'rgba(255,255,255,0.4)', fontWeight: 500, minWidth: '28px' }}>{sec.num || '◈'}</span>
+              <span style={{ fontSize: '18px', color: activeSection === i ? p.surface1 : 'rgba(255,255,255,0.6)' }}>{sec.title}</span>
             </button>
           ))}
         </nav>
-        <div style={{ padding: '20px', borderTop: '1px solid rgba(255,255,255,0.1)', marginTop: '16px' }}>
-          <div style={{ display: 'flex', gap: '10px' }}>
-            <button onClick={() => setActiveSection(Math.max(0, activeSection - 1))} disabled={activeSection === 0} style={{ flex: 1, padding: '10px', border: '1px solid rgba(255,255,255,0.2)', backgroundColor: 'transparent', color: activeSection === 0 ? 'rgba(255,255,255,0.3)' : p.surface1, fontSize: '15px', cursor: activeSection === 0 ? 'not-allowed' : 'pointer', borderRadius: '4px' }}>← Prev</button>
-            <button onClick={() => setActiveSection(Math.min(sections.length - 1, activeSection + 1))} disabled={activeSection === sections.length - 1} style={{ flex: 1, padding: '10px', border: '1px solid rgba(255,255,255,0.2)', backgroundColor: 'transparent', color: activeSection === sections.length - 1 ? 'rgba(255,255,255,0.3)' : p.surface1, fontSize: '15px', cursor: activeSection === sections.length - 1 ? 'not-allowed' : 'pointer', borderRadius: '4px' }}>Next →</button>
+        <div style={{ padding: '24px', borderTop: '1px solid rgba(255,255,255,0.1)', marginTop: '20px' }}>
+          <div style={{ display: 'flex', gap: '12px' }}>
+            <button onClick={() => setActiveSection(Math.max(0, activeSection - 1))} disabled={activeSection === 0} style={{ flex: 1, padding: '12px', border: '1px solid rgba(255,255,255,0.2)', backgroundColor: 'transparent', color: activeSection === 0 ? 'rgba(255,255,255,0.3)' : p.surface1, fontSize: '16px', cursor: activeSection === 0 ? 'not-allowed' : 'pointer', borderRadius: '4px' }}>← Prev</button>
+            <button onClick={() => setActiveSection(Math.min(sections.length - 1, activeSection + 1))} disabled={activeSection === sections.length - 1} style={{ flex: 1, padding: '12px', border: '1px solid rgba(255,255,255,0.2)', backgroundColor: 'transparent', color: activeSection === sections.length - 1 ? 'rgba(255,255,255,0.3)' : p.surface1, fontSize: '16px', cursor: activeSection === sections.length - 1 ? 'not-allowed' : 'pointer', borderRadius: '4px' }}>Next →</button>
           </div>
         </div>
       </div>
       <div style={{ flex: 1, backgroundColor: p.surface1, minHeight: '100vh' }}>
         {sectionContent[activeSection]}
         <footer style={{ padding: '24px 48px', borderTop: `1px solid ${p.border}`, textAlign: 'center' }}>
-          <p style={{ fontSize: '12px', color: p.neutral, marginBottom: '4px' }}>Broadstreet High Growth Sleeve · Leveraging Bottlenecks to Generate Alpha · January 2026</p>
-          <p style={{ fontSize: '11px', color: p.border }}>Data as of January 18, 2026 · For internal use only</p>
+          <p style={{ fontSize: '14px', color: p.neutral, marginBottom: '4px' }}>Broadstreet High Growth Sleeve · Leveraging Bottlenecks to Generate Alpha · January 2026</p>
+          <p style={{ fontSize: '13px', color: p.border }}>Data as of January 18, 2026 · For internal use only</p>
         </footer>
       </div>
     </div>
