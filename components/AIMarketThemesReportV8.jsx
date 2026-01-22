@@ -657,7 +657,7 @@ export default function AIMarketThemesReportV8() {
   // SECTION RENDERERS
   // ==========================================================================
   const renderCover = () => (
-    <section style={{ minHeight: '100vh', display: 'flex', flexDirection: 'column', justifyContent: 'space-between', padding: '48px 48px 48px 80px', backgroundColor: p.surface2 }}>
+    <section style={{ minHeight: '100vh', display: 'flex', flexDirection: 'column', justifyContent: 'space-between', padding: '48px 48px 48px 211px', backgroundColor: p.surface2 }}>
       <div style={{ marginTop: '80px' }}>
         <div style={{ maxWidth: '700px' }}>
           <h1 style={s.coverTitle}>The Control Premium:<br />A 2026 Thesis</h1>
@@ -1889,7 +1889,7 @@ export default function AIMarketThemesReportV8() {
       <style>{`@import url('https://fonts.googleapis.com/css2?family=Playfair+Display:wght@400;500;600;700;800;900&family=Poppins:wght@300;400;500;600;700;800;900&family=JetBrains+Mono:wght@400;500&display=swap');`}</style>
       <div style={{ width: '320px', backgroundColor: p.strong, padding: '24px 0', flexShrink: 0, position: 'sticky', top: 0, height: '100vh', overflowY: 'auto', display: 'flex', flexDirection: 'column' }}>
         <div style={{ padding: '0 24px 20px', borderBottom: '1px solid rgba(255,255,255,0.1)', marginBottom: '16px' }}>
-          <div style={{ fontSize: '16px', fontWeight: 600, letterSpacing: '0.18em', color: p.action, marginBottom: '6px' }}>BROADSTREET</div>
+          <div style={{ fontSize: '11px', fontWeight: 600, letterSpacing: '0.18em', color: p.action, marginBottom: '6px' }}>BROADSTREET</div>
           <div style={{ fontSize: '20px', fontWeight: 600, color: p.surface1 }}>The Control Premium</div>
           <div style={{ fontSize: '15px', color: 'rgba(255,255,255,0.5)', marginTop: '4px' }}>January 2026</div>
         </div>
