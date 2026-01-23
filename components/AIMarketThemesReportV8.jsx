@@ -1048,7 +1048,7 @@ export default function AIMarketThemesReportV8() {
         
         {/* Why Standard Classifications Exist */}
         <div style={s.mb32}>
-          <h4 style={s.h4}>Why Standard Classifications Exist —<br />And Why We Needed Something Different</h4>
+          <h4 style={s.h4}>Why Standard Classifications Exist, And Why We Needed Something Different</h4>
           <p style={s.body}>Every investment framework starts with a classification system. Most start with GICS — the Global Industry Classification Standard that sorts companies into 11 sectors and 163 sub-industries. GICS is how Bloomberg organizes your screen. It's how ETFs get built. It's how $11+ trillion in indexed assets gets allocated.</p>
           <p style={{ ...s.body, marginTop: '16px' }}>GICS is excellent at what it was designed for: reporting, benchmarking, and portfolio construction. When you're managing a $50 billion fund and need to ensure sector diversification, decompose risk exposures, or track performance against an index, GICS delivers. It's universal, stable, and everyone uses the same definitions.</p>
           <p style={{ ...s.body, marginTop: '16px' }}>But we're not building a benchmark-tracking portfolio. We're hunting for mispriced SMID-caps with 40%+ upside before institutional money discovers them. For that objective, GICS has structural limitations.</p>
