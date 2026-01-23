@@ -2021,7 +2021,7 @@ export default function AIMarketThemesReportV8() {
                 width: activeSection === i ? '30px' : '28px',
                 height: activeSection === i ? '30px' : '28px',
                 borderRadius: '50%',
-                border: activeSection === i ? `1px solid ${p.action}` : '1px solid transparent'
+                border: 'none'
               }}>
                 {sec.num || '◈'}
               </span>
