@@ -966,91 +966,192 @@ export default function AIMarketThemesReportV8() {
       );
     };
 
+    // Process Flow Diagram Component (reusable)
+    const ProcessFlowDiagram = () => {
+      const [hoveredStep, setHoveredStep] = useState(null);
+      const steps = [
+        { id: 1, label: "UNIVERSE", value: "3,021", desc: "US-listed stocks from FactSet growth screen", type: "auto" },
+        { id: 2, label: "QUANT SCREEN", value: "RBICS", desc: "Filter by momentum, growth, and margin trajectory", type: "auto" },
+        { id: 3, label: "AI CLUSTERING", value: "17", desc: "Claude groups industries by shared constraints", type: "auto" },
+        { id: 4, label: "ANALYST OVERLAY", value: "+40", desc: "Human review adds names missed by RBICS", type: "human" },
+        { id: 5, label: "FINAL UNIVERSE", value: "87", desc: "Curated stocks across 3 high-conviction themes", type: "auto" },
+      ];
+      return (
+        <div style={{ 
+          backgroundColor: p.surface1, 
+          padding: '56px 32px 40px 32px', 
+          borderRadius: '12px',
+          border: `1px solid ${p.border}`,
+          marginBottom: '40px',
+          boxShadow: '0 2px 12px rgba(0,0,0,0.04)',
+        }}>
+          <div style={{ display: 'flex', alignItems: 'flex-start', gap: '0', position: 'relative' }}>
+            {steps.map((step, idx) => {
+              const isHovered = hoveredStep === step.id;
+              const isHuman = step.type === 'human';
+              const circleColor = isHuman ? p.action : p.strong;
+              return (
+                <div 
+                  key={step.id}
+                  style={{ flex: 1, display: 'flex', flexDirection: 'column', alignItems: 'center', position: 'relative' }}
+                  onMouseEnter={() => setHoveredStep(step.id)}
+                  onMouseLeave={() => setHoveredStep(null)}
+                >
+                  {idx < steps.length - 1 && (
+                    <div style={{
+                      position: 'absolute', top: '32px', left: '50%', width: '100%', height: '3px',
+                      background: idx === 2 ? `linear-gradient(90deg, ${p.strong} 0%, ${p.action} 100%)` : idx === 3 ? `linear-gradient(90deg, ${p.action} 0%, ${p.strong} 100%)` : p.strong,
+                      zIndex: 0,
+                    }}>
+                      <div style={{ position: 'absolute', right: '0', top: '-4px', width: 0, height: 0, borderTop: '5px solid transparent', borderBottom: '5px solid transparent', borderLeft: `8px solid ${idx === 2 ? p.action : p.strong}` }} />
+                    </div>
+                  )}
+                  {isHuman && (
+                    <div style={{
+                      position: 'absolute', top: '-32px', left: '50%', transform: 'translateX(-50%)',
+                      backgroundColor: p.strong, color: p.surface1, fontSize: '9px', padding: '4px 10px',
+                      borderRadius: '10px', fontWeight: 700, letterSpacing: '0.05em', whiteSpace: 'nowrap',
+                    }}>
+                      👤 HUMAN
+                    </div>
+                  )}
+                  <div style={{
+                    width: '64px', height: '64px', borderRadius: '50%', backgroundColor: circleColor,
+                    display: 'flex', alignItems: 'center', justifyContent: 'center', zIndex: 1,
+                    transition: 'all 0.2s ease', transform: isHovered ? 'scale(1.1)' : 'scale(1)',
+                    boxShadow: isHovered ? `0 8px 24px ${circleColor}50` : `0 4px 12px ${circleColor}30`,
+                    cursor: 'pointer', border: `3px solid rgba(255,255,255,0.2)`,
+                  }}>
+                    <span style={{ color: p.surface1, fontSize: step.value.length > 3 ? '12px' : '18px', fontWeight: 800, fontFamily: "'Poppins', sans-serif" }}>
+                      {step.value}
+                    </span>
+                  </div>
+                  <div style={{ marginTop: '16px', textAlign: 'center' }}>
+                    <div style={{ fontSize: '10px', fontWeight: 700, letterSpacing: '0.1em', color: isHuman ? p.action : p.strong, marginBottom: '6px' }}>
+                      {step.label}
+                    </div>
+                    <div style={{ fontSize: '11px', color: p.neutral, maxWidth: '110px', lineHeight: 1.5, opacity: isHovered ? 1 : 0.8, transition: 'opacity 0.2s ease' }}>
+                      {step.desc}
+                    </div>
+                  </div>
+                </div>
+              );
+            })}
+          </div>
+        </div>
+      );
+    };
+
     return (
       <section style={s.section}>
         <SectionHeader num="02" title="Analytical Methodology" subtitle="How we identify high-conviction themes" />
         
-        {/* Methodology Explanation */}
-        <p style={{ ...s.bodyLg, marginBottom: '32px' }}>The highest-returning investment themes increasingly represent solutions to economic bottlenecks preventing high-growth systems from scaling. To identify which industries serve the same constraint, we used Anthropic's Claude Opus 4.5 to synthesize expert research from sources with proven track records: Sequoia, Andreessen Horowitz, Michael Cembalest (Chairman of Market and Investment Strategy, J.P. Morgan Asset & Wealth Management), SemiAnalysis, and custom biotech and commodities analysis generated through Google's NotebookLM.</p>
+        {/* Why Standard Classifications Exist */}
+        <div style={s.mb32}>
+          <h4 style={s.h4}>Why Standard Classifications Exist —<br />And Why We Needed Something Different</h4>
+          <p style={s.body}>Every investment framework starts with a classification system. Most start with GICS — the Global Industry Classification Standard that sorts companies into 11 sectors and 163 sub-industries. GICS is how Bloomberg organizes your screen. It's how ETFs get built. It's how $11+ trillion in indexed assets gets allocated.</p>
+          <p style={{ ...s.body, marginTop: '16px' }}>GICS is excellent at what it was designed for: reporting, benchmarking, and portfolio construction. When you're managing a $50 billion fund and need to ensure sector diversification, decompose risk exposures, or track performance against an index, GICS delivers. It's universal, stable, and everyone uses the same definitions.</p>
+          <p style={{ ...s.body, marginTop: '16px' }}>But we're not building a benchmark-tracking portfolio. We're hunting for mispriced SMID-caps with 40%+ upside before institutional money discovers them. For that objective, GICS has structural limitations.</p>
+          <p style={{ ...s.body, marginTop: '16px' }}>GICS groups companies by how they're reported and marketed, and it updates slowly by design — stability is a feature, not a bug, when trillions of dollars depend on consistent classification. But that stability means NVIDIA and Cisco both land in "Technology" despite serving completely different demand drivers. Amazon sits in Consumer Discretionary despite AWS generating the majority of operating profits. A semiconductor packaging company pivoting to advanced AI chip packaging might still be classified by its legacy PCB business. By the time GICS reclassifies it, the stock has already re-rated.</p>
+          <p style={{ ...s.body, marginTop: '16px' }}>We started with something better: FactSet's RBICS (Revere Business Industry Classification System). RBICS groups companies by what they actually do economically, not what sector they're assigned to. It updates annually based on actual revenue breakdowns. It has 1,814 activity codes instead of 163 sub-industries. It lets you screen at the level that actually matters — advanced packaging versus legacy packaging, power electronics versus general industrial, optical components versus commodity cables.</p>
+          <p style={{ ...s.body, marginTop: '16px' }}>Our initial universe: 3,021 US-listed stocks from a FactSet growth screen, classified across 150 RBICS Industry Groups. We attached fundamentals (revenue growth, margins, capex, FCF), momentum data (1M/3M/6M returns, breadth, price versus moving averages), and valuation metrics (P/S, EV/Sales). RBICS was doing exactly what it should: narrowing the universe by economic activity, not marketing label.</p>
+          <p style={{ ...s.body, marginTop: '16px' }}>Then we hit the wall.</p>
+        </div>
 
-        {/* Process Flow Diagram */}
-        {(() => {
-          const [hoveredStep, setHoveredStep] = useState(null);
-          const steps = [
-            { id: 1, label: "UNIVERSE", value: "3,021", desc: "US-listed stocks from FactSet growth screen", type: "auto" },
-            { id: 2, label: "QUANT SCREEN", value: "RBICS", desc: "Filter by momentum, growth, and margin trajectory", type: "auto" },
-            { id: 3, label: "AI CLUSTERING", value: "17", desc: "Claude groups industries by shared constraints", type: "auto" },
-            { id: 4, label: "ANALYST OVERLAY", value: "+40", desc: "Human review adds names missed by RBICS", type: "human" },
-            { id: 5, label: "FINAL UNIVERSE", value: "87", desc: "Curated stocks across 3 high-conviction themes", type: "auto" },
-          ];
-          return (
-            <div style={{ 
-              backgroundColor: p.surface1, 
-              padding: '56px 32px 40px 32px', 
-              borderRadius: '12px',
-              border: `1px solid ${p.border}`,
-              marginBottom: '40px',
-              boxShadow: '0 2px 12px rgba(0,0,0,0.04)',
-            }}>
-              <div style={{ display: 'flex', alignItems: 'flex-start', gap: '0', position: 'relative' }}>
-                {steps.map((step, idx) => {
-                  const isHovered = hoveredStep === step.id;
-                  const isHuman = step.type === 'human';
-                  const circleColor = isHuman ? p.action : p.strong;
-                  return (
-                    <div 
-                      key={step.id}
-                      style={{ flex: 1, display: 'flex', flexDirection: 'column', alignItems: 'center', position: 'relative' }}
-                      onMouseEnter={() => setHoveredStep(step.id)}
-                      onMouseLeave={() => setHoveredStep(null)}
-                    >
-                      {idx < steps.length - 1 && (
-                        <div style={{
-                          position: 'absolute', top: '32px', left: '50%', width: '100%', height: '3px',
-                          background: idx === 2 ? `linear-gradient(90deg, ${p.strong} 0%, ${p.action} 100%)` : idx === 3 ? `linear-gradient(90deg, ${p.action} 0%, ${p.strong} 100%)` : p.strong,
-                          zIndex: 0,
-                        }}>
-                          <div style={{ position: 'absolute', right: '0', top: '-4px', width: 0, height: 0, borderTop: '5px solid transparent', borderBottom: '5px solid transparent', borderLeft: `8px solid ${idx === 2 ? p.action : p.strong}` }} />
-                        </div>
-                      )}
-                      {isHuman && (
-                        <div style={{
-                          position: 'absolute', top: '-32px', left: '50%', transform: 'translateX(-50%)',
-                          backgroundColor: p.strong, color: p.surface1, fontSize: '9px', padding: '4px 10px',
-                          borderRadius: '10px', fontWeight: 700, letterSpacing: '0.05em', whiteSpace: 'nowrap',
-                        }}>
-                          👤 HUMAN
-                        </div>
-                      )}
-                      <div style={{
-                        width: '64px', height: '64px', borderRadius: '50%', backgroundColor: circleColor,
-                        display: 'flex', alignItems: 'center', justifyContent: 'center', zIndex: 1,
-                        transition: 'all 0.2s ease', transform: isHovered ? 'scale(1.1)' : 'scale(1)',
-                        boxShadow: isHovered ? `0 8px 24px ${circleColor}50` : `0 4px 12px ${circleColor}30`,
-                        cursor: 'pointer', border: `3px solid rgba(255,255,255,0.2)`,
-                      }}>
-                        <span style={{ color: p.surface1, fontSize: step.value.length > 3 ? '12px' : '18px', fontWeight: 800, fontFamily: "'Poppins', sans-serif" }}>
-                          {step.value}
-                        </span>
-                      </div>
-                      <div style={{ marginTop: '16px', textAlign: 'center' }}>
-                        <div style={{ fontSize: '10px', fontWeight: 700, letterSpacing: '0.1em', color: isHuman ? p.action : p.strong, marginBottom: '6px' }}>
-                          {step.label}
-                        </div>
-                        <div style={{ fontSize: '11px', color: p.neutral, maxWidth: '110px', lineHeight: 1.5, opacity: isHovered ? 1 : 0.8, transition: 'opacity 0.2s ease' }}>
-                          {step.desc}
-                        </div>
-                      </div>
-                    </div>
-                  );
-                })}
-              </div>
-            </div>
-          );
-        })()}
+        {/* Where RBICS Broke Down */}
+        <div style={s.mb32}>
+          <h4 style={s.h4}>Where RBICS Broke Down</h4>
+          <p style={s.body}>RBICS tells you what a company does. It doesn't tell you why demand exists.</p>
+          <p style={{ ...s.body, marginTop: '16px' }}>This isn't a theoretical concern — it showed up directly in our data. Consider "Semiconductor Manufacturing Capital Equipment," one of the largest RBICS Industry Groups in our universe. The group contains companies serving three distinct demand drivers:</p>
+          <ul style={{ ...s.body, paddingLeft: '24px', marginTop: '16px', marginBottom: '16px' }}>
+            <li style={{ marginBottom: '8px' }}><strong>Advanced packaging</strong> (CoWoS, HBM integration) — capacity-constrained, pricing power, hyperscaler-driven</li>
+            <li style={{ marginBottom: '8px' }}><strong>Mature node equipment</strong> (legacy fabs) — cyclical, price-competitive, smartphone/auto-driven</li>
+            <li style={{ marginBottom: '8px' }}><strong>Metrology and process control</strong> — tied to yield improvement, benefits from complexity</li>
+          </ul>
+          <p style={{ ...s.body, marginTop: '16px' }}>RBICS treats these as a single group. The market did not. Over the six months ending January 2026, advanced packaging-levered names within this RBICS code returned 35-45%, while mature-node-levered names in the same code returned 5-15%. Same classification, 30+ percentage points of dispersion. A screen that treated "Semiconductor Manufacturing Capital Equipment" as a single theme would have averaged away the signal.</p>
+          <p style={{ ...s.body, marginTop: '16px' }}>This pattern repeated across themes. Within "Electric Utility" RBICS codes, behind-the-meter power solutions (serving data centers directly) outperformed grid-connected utilities by 40+ percentage points — not because of better management, but because interconnection queue delays of 3-5 years made distributed solutions the only way to actually deliver power to new AI capacity. RBICS classified them together. The constraint separated them completely.</p>
+          <p style={{ ...s.body, marginTop: '16px' }}>The gap that standard classification systems cannot close:</p>
+          <ul style={{ ...s.body, paddingLeft: '24px', marginTop: '16px', marginBottom: '16px' }}>
+            <li style={{ marginBottom: '8px' }}><strong>End-market exposure:</strong> Is this company serving AI, automotive, or industrial customers?</li>
+            <li style={{ marginBottom: '8px' }}><strong>Bottleneck position:</strong> Is this a control point or a commoditized supplier?</li>
+            <li style={{ marginBottom: '8px' }}><strong>Demand trajectory:</strong> Is revenue cyclical, secular, or at an inflection point?</li>
+            <li style={{ marginBottom: '8px' }}><strong>Constraint resolution:</strong> Does this company solve a binding limitation in a high-growth system?</li>
+          </ul>
+          <p style={{ ...s.body, marginTop: '16px' }}>The highest-returning investment themes aren't organized by what companies make. They represent solutions to specific physical constraints preventing high-growth systems from scaling. RBICS gets you closer than GICS, but themes live at the intersection of language, intent, constraints, and time.</p>
+          <p style={{ ...s.body, marginTop: '16px' }}>That intersection is where we needed AI.</p>
+        </div>
 
-        {/* Closing Context */}
-        <p style={{ ...s.body, marginBottom: '48px' }}>This constraint-based approach is built for aggressive growth mandates targeting asymmetric returns in the SMID-cap universe, where mis-pricing persists longer and bottleneck resolution drives durable value capture.</p>
+        {/* The AI Overlay */}
+        <div style={s.mb32}>
+          <h4 style={s.h4}>The AI Overlay: Classification, Not Prediction</h4>
+          <p style={s.body}>The instinct would be to ask an AI model: "What are the best stocks to buy?" That's exactly wrong.</p>
+          <p style={{ ...s.body, marginTop: '16px' }}>Instead, we used AI for what it's actually good at: pattern recognition and classification at scale. The rule was simple: <strong>the LLM does tagging, you retain judgment.</strong></p>
+          <p style={{ ...s.body, marginTop: '24px', marginBottom: '8px' }}><strong>Step 1: Define the candidate themes first.</strong></p>
+          <p style={{ ...s.body, marginTop: '8px' }}>We didn't ask AI to invent themes top-down. We defined them based on macro logic and constraint analysis: Where is demand inelastic? Where is supply constrained? Which companies resolve the binding limitation?</p>
+          <p style={{ ...s.body, marginTop: '24px', marginBottom: '8px' }}><strong>Step 2: Use AI to test consistency and surface misclassifications.</strong></p>
+          <p style={{ ...s.body, marginTop: '8px' }}>We fed expert research from sources with proven track records into Anthropic's Claude Opus 4.5: investment frameworks from Sequoia and Andreessen Horowitz, market strategy from Michael Cembalest (Chairman of Market and Investment Strategy, J.P. Morgan Asset & Wealth Management), technical analysis from SemiAnalysis, and custom biotech and commodities research generated through Google's NotebookLM.</p>
+          <p style={{ ...s.body, marginTop: '16px' }}>Claude's job was to answer the question RBICS cannot: <strong>"Which RBICS Industry Groups serve the same constraint?"</strong></p>
+          <p style={{ ...s.body, marginTop: '16px' }}>The output was 17 investable themes — RBICS groups clustered by shared demand driver rather than product category. Semiconductor Manufacturing Equipment, Semiconductor Packaging, Process Control & Metrology, and Memory Semiconductors all landed in the same theme. Not because they make similar products, but because every advanced AI chip must pass through their equipment. They serve the same bottleneck.</p>
+          <p style={{ ...s.body, marginTop: '24px', marginBottom: '8px' }}><strong>Step 3: Refine stock selections with reasoning-optimized AI.</strong></p>
+          <p style={{ ...s.body, marginTop: '8px' }}>Theme construction was only half the problem. Within each theme, we needed to identify which specific companies had the cleanest exposure, the strongest fundamentals, and the most attractive entry points.</p>
+          <p style={{ ...s.body, marginTop: '16px' }}>For this, we used OpenAI's ChatGPT 5.2 Pro Thinking — feeding it the same expert research documents plus our RBICS-filtered universe. The model's extended reasoning capability allowed it to work through complex tradeoffs: a company might have strong AI exposure but deteriorating margins, or clean fundamentals but already-elevated valuation. ChatGPT 5.2 Pro Thinking surfaced candidates that passed multiple filters simultaneously, which we then validated against the quantitative screens.</p>
+          <p style={{ ...s.body, marginTop: '16px' }}><strong>The guardrail throughout:</strong> AI does classification and pattern recognition. Humans define themes, validate logic, and make investment decisions.</p>
+        </div>
+
+        {/* The Quantitative Foundation */}
+        <div style={s.mb32}>
+          <h4 style={s.h4}>The Quantitative Foundation</h4>
+          <p style={s.body}>AI clustering would be useless without quantitative validation. We built five composite scores to rank the 150 RBICS Industry Groups across different dimensions:</p>
+        
+        <div style={{ marginBottom: '32px', overflowX: 'auto' }}>
+          <table style={{ width: '100%', borderCollapse: 'collapse', fontFamily: "'Poppins', sans-serif" }}>
+            <thead>
+              <tr style={{ borderBottom: `2px solid ${p.border}` }}>
+                <th style={{ ...s.tableHeader, textAlign: 'left', padding: '12px 14px' }}>Score</th>
+                <th style={{ ...s.tableHeader, textAlign: 'left', padding: '12px 14px' }}>What It Measures</th>
+                <th style={{ ...s.tableHeader, textAlign: 'left', padding: '12px 14px' }}>Key Components</th>
+              </tr>
+            </thead>
+            <tbody>
+              <tr style={{ borderBottom: `1px solid ${p.border}` }}>
+                <td style={{ ...s.tableNum, textAlign: 'left', fontWeight: 700, color: p.strong }}>Overall Opportunity</td>
+                <td style={s.tableNum}>Best risk/reward combination</td>
+                <td style={s.tableNum}>Revenue growth (20%), 6M return (20%), breadth (15%), acceleration (10%), margin trend (10%), valuation (15%), mispricing signal (10%)</td>
+              </tr>
+              <tr style={{ borderBottom: `1px solid ${p.border}` }}>
+                <td style={{ ...s.tableNum, textAlign: 'left', fontWeight: 700, color: p.strong }}>Quality Momentum</td>
+                <td style={s.tableNum}>Profitable companies with strong trends</td>
+                <td style={s.tableNum}>% profitable, % margins improving, 6M breadth, median returns</td>
+              </tr>
+              <tr style={{ borderBottom: `1px solid ${p.border}` }}>
+                <td style={{ ...s.tableNum, textAlign: 'left', fontWeight: 700, color: p.strong }}>Emerging Growth</td>
+                <td style={s.tableNum}>Acceleration signals</td>
+                <td style={s.tableNum}>Revenue acceleration, % accelerating, margin trend, size opportunity (inverse)</td>
+              </tr>
+              <tr style={{ borderBottom: `1px solid ${p.border}` }}>
+                <td style={{ ...s.tableNum, textAlign: 'left', fontWeight: 700, color: p.strong }}>Mispricing</td>
+                <td style={s.tableNum}>Strong fundamentals + weak momentum</td>
+                <td style={s.tableNum}>Revenue growth, acceleration, momentum lag (inverse), low valuation — only calculated for groups with {'>'}5% median revenue growth</td>
+              </tr>
+              <tr>
+                <td style={{ ...s.tableNum, textAlign: 'left', fontWeight: 700, color: p.strong }}>Funded Speculation</td>
+                <td style={s.tableNum}>High-risk moonshots with runway</td>
+                <td style={s.tableNum}>Cash position, improving margins, momentum — only calculated for groups with {'<'}60% profitability</td>
+              </tr>
+            </tbody>
+          </table>
+        </div>
+          <p style={{ ...s.body, marginTop: '16px' }}>Each score uses percentile ranks within the universe, ensuring comparability across groups with different characteristics. The output: ~35-40 candidate industry groups that scored in the top quartile on at least one dimension.</p>
+        </div>
+
+        {/* The Dual-Filter Synthesis */}
+        <div style={s.mb32}>
+          <h4 style={s.h4}>The Dual-Filter Synthesis</h4>
+          <p style={s.body}>The final classification uses a 2×2 framework measuring momentum trajectory against fundamentals quality:</p>
+          <p style={{ ...s.body, marginTop: '16px' }}><strong>X-Axis: Momentum Acceleration</strong><br />Is the 3-month return greater than 50% of the 6-month return? If recent performance exceeds what "steady state" would predict, momentum is accelerating.</p>
+          <p style={{ ...s.body, marginTop: '16px' }}><strong>Y-Axis: Fundamentals Quality</strong><br />Are more than 50% of constituents showing margin improvement? Is profitability stable or expanding?</p>
+          <p style={{ ...s.body, marginTop: '16px' }}>Themes landing in the upper-right quadrant — accelerating momentum plus improving fundamentals — became <strong>High Conviction</strong>. Themes with intact fundamentals but fading momentum became <strong>Watchlist</strong> (quality intact, wait for re-entry). Negative momentum plus compressing margins meant <strong>Avoid</strong>. Strong performance but outside the AI/growth thesis meant <strong>Excluded</strong>.</p>
+        </div>
 
         {/* Quadrant Section Header */}
         <div style={{ textAlign: 'center', marginBottom: '32px' }}>
@@ -1137,7 +1238,7 @@ export default function AIMarketThemesReportV8() {
           justifyContent: 'center', 
           gap: '40px', 
           marginTop: '64px',
-          marginBottom: '24px',
+          marginBottom: '48px',
           marginLeft: '60px',
           padding: '20px 24px',
           backgroundColor: p.surface2,
@@ -1159,6 +1260,82 @@ export default function AIMarketThemesReportV8() {
               </span>
             </div>
           ))}
+        </div>
+
+        {/* The Analyst Overlay */}
+        <div style={s.mb32}>
+          <h4 style={s.h4}>The Analyst Overlay: Where the Edge Lives</h4>
+          <p style={s.body}>Here's the structural reality: RBICS misses stocks.</p>
+          <p style={{ ...s.body, marginTop: '16px' }}>A semiconductor packaging company might be classified under "Electronic Components" if packaging isn't their majority revenue segment. A defense contractor with emerging space exposure might sit in "Aerospace & Defense" without any flag for satellite manufacturing. The automated classification is backward-looking by design — it reflects where revenue came from last year, not where demand is going next year.</p>
+          <p style={{ ...s.body, marginTop: '16px' }}>The analyst overlay adds approximately 40 names that share demand drivers with our themes but were missed by RBICS classification. This step exists because of a structural advantage smaller mandates have over larger ones. A portfolio manager deploying $500 million into a theme cannot manually tag 3,000 stocks based on supply chain research — it doesn't scale, and the tracking error implications are too large. Systematic classification is the only practical choice at that scale.</p>
+          <p style={{ ...s.body, marginTop: '16px' }}>But systematic classification means systematically missing the stocks that don't fit neatly into existing boxes. That's exactly the universe where mispricing persists. The Broadstreet sleeve, at $5-6 million, can afford to be manual where it matters.</p>
+        </div>
+
+        {/* The Complete Workflow */}
+        <div style={s.mb32}>
+          <h4 style={s.h4}>The Complete Workflow</h4>
+          <div style={{ marginTop: '16px', marginBottom: '32px', overflowX: 'auto' }}>
+          <table style={{ width: '100%', borderCollapse: 'collapse', fontFamily: "'Poppins', sans-serif" }}>
+            <thead>
+              <tr style={{ borderBottom: `2px solid ${p.border}` }}>
+                <th style={{ ...s.tableHeader, textAlign: 'left', padding: '12px 14px' }}>Stage</th>
+                <th style={{ ...s.tableHeader, textAlign: 'left', padding: '12px 14px' }}>Input</th>
+                <th style={{ ...s.tableHeader, textAlign: 'left', padding: '12px 14px' }}>Process</th>
+                <th style={{ ...s.tableHeader, textAlign: 'left', padding: '12px 14px' }}>Output</th>
+              </tr>
+            </thead>
+            <tbody>
+              <tr style={{ borderBottom: `1px solid ${p.border}` }}>
+                <td style={{ ...s.tableNum, textAlign: 'left', fontWeight: 700, color: p.strong }}>1. Universe Construction</td>
+                <td style={s.tableNum}>FactSet growth screen</td>
+                <td style={s.tableNum}>3,021 US-listed stocks with fundamentals + momentum</td>
+                <td style={s.tableNum}>Baseline universe with RBICS classification</td>
+              </tr>
+              <tr style={{ borderBottom: `1px solid ${p.border}` }}>
+                <td style={{ ...s.tableNum, textAlign: 'left', fontWeight: 700, color: p.strong }}>2. Quantitative Screening</td>
+                <td style={s.tableNum}>Stock-level metrics</td>
+                <td style={s.tableNum}>Calculate 5 composite scores, aggregate to 150 Industry Groups</td>
+                <td style={s.tableNum}>~35-40 candidate groups in top quartile</td>
+              </tr>
+              <tr style={{ borderBottom: `1px solid ${p.border}` }}>
+                <td style={{ ...s.tableNum, textAlign: 'left', fontWeight: 700, color: p.strong }}>3. AI Theme Clustering</td>
+                <td style={s.tableNum}>Expert research (Sequoia, a16z, Cembalest, SemiAnalysis, NotebookLM)</td>
+                <td style={s.tableNum}>Claude Opus 4.5 clusters RBICS groups by shared constraint</td>
+                <td style={s.tableNum}>17 investable themes</td>
+              </tr>
+              <tr style={{ borderBottom: `1px solid ${p.border}` }}>
+                <td style={{ ...s.tableNum, textAlign: 'left', fontWeight: 700, color: p.strong }}>4. AI Stock Selection</td>
+                <td style={s.tableNum}>Same expert research + filtered universe</td>
+                <td style={s.tableNum}>ChatGPT 5.2 Pro Thinking identifies highest-conviction names within themes</td>
+                <td style={s.tableNum}>Refined stock candidates</td>
+              </tr>
+              <tr style={{ borderBottom: `1px solid ${p.border}` }}>
+                <td style={{ ...s.tableNum, textAlign: 'left', fontWeight: 700, color: p.strong }}>5. Dual-Filter Synthesis</td>
+                <td style={s.tableNum}>Theme-level momentum + fundamentals</td>
+                <td style={s.tableNum}>2×2 classification (3M/6M acceleration × margin improvement)</td>
+                <td style={s.tableNum}>4 quadrants: High Conviction, Watchlist, Avoid, Excluded</td>
+              </tr>
+              <tr>
+                <td style={{ ...s.tableNum, textAlign: 'left', fontWeight: 700, color: p.strong }}>6. Analyst Overlay</td>
+                <td style={s.tableNum}>Domain knowledge, supply chain research</td>
+                <td style={s.tableNum}>Human addition of ~40 names missed by RBICS</td>
+                <td style={s.tableNum}>Final universe: 87 stocks</td>
+              </tr>
+            </tbody>
+          </table>
+        </div>
+
+          {/* Process Flow Diagram */}
+          <ProcessFlowDiagram />
+        </div>
+
+        {/* Why This Approach */}
+        <div style={s.mb32}>
+          <h4 style={s.h4}>Why This Approach</h4>
+          <p style={s.body}>Classification systems are designed for different objectives than ours. GICS and RBICS serve portfolio construction, risk decomposition, and benchmark tracking — problems that require stability, universality, and backward-looking accuracy. We're solving a different problem: identifying constraint-resolution opportunities before they're priced.</p>
+          <p style={{ ...s.body, marginTop: '16px' }}>This methodology is built for aggressive growth mandates targeting 40%+ upside in the SMID-cap universe. It prioritizes companies solving binding constraints in high-growth systems — where scarcity rents accrue to bottleneck owners, not consensus large-cap positions already reflected in index weights. Mispricing persists longer in this universe precisely because standard screens weren't designed to find it.</p>
+          <p style={{ ...s.body, marginTop: '16px' }}>The constraint-based framework doesn't replace fundamental analysis. It focuses it. Instead of asking "which technology stocks look cheap," we ask "which companies resolve the binding limitation preventing AI infrastructure from scaling?" The answer leads to semiconductor packaging companies, not software platforms. Power generation equipment, not utilities. Behind-the-meter solutions, not grid-connected developers.</p>
+          <p style={{ ...s.body, marginTop: '16px' }}>The bottleneck is where the returns are. That's where we're looking.</p>
         </div>
       </section>
     );
