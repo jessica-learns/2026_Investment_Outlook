@@ -75,12 +75,12 @@ export default function AIMarketThemesReportV8() {
     themeTitle: { color: p.strong, fontFamily: "'Playfair Display', serif", fontSize: '24px', fontWeight: 600, marginBottom: '3px' },
     h4: { color: p.strong, fontFamily: "'Poppins', sans-serif", fontWeight: 800, fontSize: '22px', marginBottom: '3px' },
     subhead: { color: p.strong, fontFamily: "'Poppins', sans-serif", fontWeight: 800, fontSize: '26px', marginBottom: '6px' },
-    body: { color: p.neutral, fontSize: '20px', lineHeight: 1.7 },
-    bodyLg: { color: p.neutral, fontSize: '22px', lineHeight: 1.7 },
+    body: { color: p.neutral, fontSize: '16px', lineHeight: 1.7, textAlign: 'left' },
+    bodyLg: { color: p.neutral, fontSize: '18px', lineHeight: 1.7, textAlign: 'left' },
     label: { fontSize: '16px', fontWeight: 600, letterSpacing: '0.15em' },
     stat: { color: p.action, fontFamily: "'Poppins', sans-serif", fontSize: '36px', fontWeight: 800 },
     mono: { fontFamily: "'JetBrains Mono', monospace" },
-    section: { padding: '48px', maxWidth: '1024px', margin: '0 auto' },
+    section: { padding: '48px', maxWidth: '900px', margin: '0 auto' },
     card: { padding: '24px', marginBottom: '24px', backgroundColor: p.surface2, borderLeft: `3px solid ${p.accent}` },
     themeBlock: { padding: '24px', marginBottom: '24px', backgroundColor: p.surface2 },
     flexRow: { display: 'flex', alignItems: 'baseline', gap: '16px', marginBottom: '4px' },
@@ -437,7 +437,7 @@ export default function AIMarketThemesReportV8() {
       : (titleSize * titleLine);
 
     return (
-      <div style={s.mb48}>
+      <div style={{ ...s.mb48, marginTop: '64px' }}>
         <div style={{ display: 'grid', gridTemplateColumns: 'auto 1fr', columnGap: '24px', rowGap: `${subtitleGap}px`, alignItems: 'start' }}>
           <span style={{
             ...s.sectionNum,
@@ -688,7 +688,7 @@ export default function AIMarketThemesReportV8() {
       
       {/* Main content area - flex grow to push stats to bottom */}
       <div style={{ flex: 1, padding: '0 80px' }}>
-        <div style={{ maxWidth: '720px' }}>
+        <div style={{ maxWidth: '900px' }}>
           <h1 style={s.coverTitle}>
             Capturing Alpha
             <br />
@@ -874,6 +874,14 @@ export default function AIMarketThemesReportV8() {
         bottomRight: {},
       };
 
+      // Transform origin to pop away from the origin point (bottom-left corner)
+      const transformOrigins = {
+        topLeft: 'bottom right',
+        topRight: 'bottom left',
+        bottomLeft: 'top right',
+        bottomRight: 'top left',
+      };
+
       return (
         <div
           onMouseEnter={() => setHoveredQuadrant(quadrantKey)}
@@ -883,9 +891,13 @@ export default function AIMarketThemesReportV8() {
             background: isHovered ? q.hoverBg : q.bgGradient,
             transition: 'all 0.3s ease',
             transform: isHovered ? 'scale(1.02)' : 'scale(1)',
+            transformOrigin: transformOrigins[position],
             zIndex: isHovered ? 10 : 1,
             position: 'relative',
             cursor: 'pointer',
+            height: '100%',
+            display: 'flex',
+            flexDirection: 'column',
             ...borderStyles[position],
           }}
         >
@@ -922,7 +934,7 @@ export default function AIMarketThemesReportV8() {
           </p>
           
           {/* Theme Pills */}
-          <div style={{ display: 'flex', flexWrap: 'wrap', gap: '8px' }}>
+          <div style={{ display: 'flex', flexWrap: 'wrap', gap: '8px', alignContent: 'flex-start' }}>
             {q.themes.map((theme, i) => {
               const isThemeHovered = hoveredTheme === `${quadrantKey}-${i}`;
               return (
@@ -1045,10 +1057,7 @@ export default function AIMarketThemesReportV8() {
           <h3 style={{ 
             ...s.subhead, 
             marginBottom: '8px',
-            background: `linear-gradient(135deg, ${p.strong} 0%, ${p.accent} 100%)`,
-            WebkitBackgroundClip: 'text',
-            WebkitTextFillColor: 'transparent',
-            backgroundClip: 'text',
+            color: p.strong
           }}>Synthesis: Which Themes Pass Both Filters?</h3>
           <p style={{ fontSize: '13px', color: p.neutral }}>Hover over quadrants and themes to explore</p>
         </div>
@@ -1060,25 +1069,25 @@ export default function AIMarketThemesReportV8() {
           borderRadius: '12px',
           overflow: 'visible',
           boxShadow: '0 4px 24px rgba(0, 0, 0, 0.06)',
-          marginLeft: '40px',
-          marginBottom: '24px',
+          marginLeft: '60px',
+          marginBottom: '80px',
         }}>
           {/* Y-Axis Label (Fundamentals - Left side, pointing UP) */}
           <div style={{ 
             position: 'absolute', 
-            left: '-36px', 
+            left: '-70px', 
             top: '50%',
             transform: 'translateY(-50%) rotate(-90deg)',
             transformOrigin: 'center',
             display: 'flex',
             alignItems: 'center',
-            gap: '6px',
+            gap: '4px',
           }}>
             <span style={{ 
-              fontSize: '11px', 
+              fontSize: '13px', 
               fontWeight: 700, 
               letterSpacing: '0.12em', 
-              color: p.accent,
+              color: p.action,
               textTransform: 'uppercase',
               whiteSpace: 'nowrap',
             }}>
@@ -1089,18 +1098,18 @@ export default function AIMarketThemesReportV8() {
           {/* X-Axis Label (Momentum - Bottom, pointing RIGHT) */}
           <div style={{ 
             position: 'absolute', 
-            bottom: '-24px', 
+            bottom: '-70px', 
             left: '50%',
             transform: 'translateX(-50%)',
             display: 'flex',
             alignItems: 'center',
-            gap: '6px',
+            gap: '4px',
           }}>
             <span style={{ 
-              fontSize: '11px', 
+              fontSize: '13px', 
               fontWeight: 700, 
               letterSpacing: '0.12em', 
-              color: p.accent,
+              color: p.action,
               textTransform: 'uppercase',
             }}>
               Momentum →
@@ -1111,7 +1120,9 @@ export default function AIMarketThemesReportV8() {
           <div style={{ 
             display: 'grid', 
             gridTemplateColumns: '1fr 1fr', 
-            gridTemplateRows: 'auto auto',
+            gridTemplateRows: '1fr 1fr',
+            aspectRatio: '1 / 1',
+            minHeight: '450px',
           }}>
             <QuadrantCell quadrantKey="watchlist" position="topLeft" />
             <QuadrantCell quadrantKey="highConviction" position="topRight" />
@@ -1124,22 +1135,25 @@ export default function AIMarketThemesReportV8() {
         <div style={{ 
           display: 'flex', 
           justifyContent: 'center', 
-          gap: '32px', 
-          marginTop: '24px',
-          padding: '16px',
+          gap: '40px', 
+          marginTop: '64px',
+          marginBottom: '24px',
+          marginLeft: '60px',
+          padding: '20px 24px',
           backgroundColor: p.surface2,
           borderRadius: '8px',
         }}>
           {Object.entries(quadrantData).map(([key, q]) => (
-            <div key={key} style={{ display: 'flex', alignItems: 'center', gap: '8px' }}>
+            <div key={key} style={{ display: 'flex', alignItems: 'center', gap: '10px', whiteSpace: 'nowrap' }}>
               <span style={{ fontSize: '14px', color: q.color }}>{q.icon}</span>
-              <span style={{ fontSize: '12px', color: p.neutral }}>{q.title}</span>
+              <span style={{ fontSize: '12px', color: p.neutral, fontWeight: 500 }}>{q.title}</span>
               <span style={{ 
                 fontSize: '11px', 
                 color: p.neutral, 
                 backgroundColor: `${q.color}15`,
                 padding: '2px 8px',
                 borderRadius: '10px',
+                fontWeight: 600,
               }}>
                 {q.themes.length}
               </span>
@@ -2000,7 +2014,14 @@ export default function AIMarketThemesReportV8() {
   // ==========================================================================
   return (
     <div style={{ display: 'flex', minHeight: '100vh', fontFamily: "'Poppins', sans-serif" }}>
-      <style>{`@import url('https://fonts.googleapis.com/css2?family=Playfair+Display:wght@400;500;600;700;800;900&family=Poppins:wght@300;400;500;600;700;800;900&family=JetBrains+Mono:wght@400;500&display=swap');`}</style>
+      <style>{`
+        @import url('https://fonts.googleapis.com/css2?family=Playfair+Display:wght@400;500;600;700;800;900&family=Poppins:wght@300;400;500;600;700;800;900&family=JetBrains+Mono:wght@400;500&display=swap');
+        /* Improve ragged edge for better line breaking */
+        p {
+          text-wrap: pretty;
+          -webkit-text-wrap: pretty;
+        }
+      `}</style>
       <div style={{ width: '340px', backgroundColor: p.strong, padding: '24px 0', flexShrink: 0, position: 'sticky', top: 0, height: '100vh', overflowY: 'auto', display: 'flex', flexDirection: 'column' }}>
         <div style={{ padding: '0 24px 20px', borderBottom: '1px solid rgba(255,255,255,0.1)', marginBottom: '16px' }}>
           <div style={{ fontSize: '11px', fontWeight: 600, letterSpacing: '0.18em', color: p.action, marginBottom: '6px' }}>BROADSTREET</div>
