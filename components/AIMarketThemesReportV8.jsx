@@ -80,7 +80,7 @@ export default function AIMarketThemesReportV8() {
     label: { fontSize: '16px', fontWeight: 600, letterSpacing: '0.15em' },
     stat: { color: p.action, fontFamily: "'Poppins', sans-serif", fontSize: '36px', fontWeight: 800 },
     mono: { fontFamily: "'JetBrains Mono', monospace" },
-    section: { padding: '48px', maxWidth: '900px', margin: '0 auto' },
+    section: { padding: '48px', maxWidth: '1024px', margin: '0 auto' },
     card: { padding: '24px', marginBottom: '24px', backgroundColor: p.surface2, borderLeft: `3px solid ${p.accent}` },
     themeBlock: { padding: '24px', marginBottom: '24px', backgroundColor: p.surface2 },
     flexRow: { display: 'flex', alignItems: 'baseline', gap: '16px', marginBottom: '4px' },
@@ -90,7 +90,7 @@ export default function AIMarketThemesReportV8() {
     mb32: { marginBottom: '32px' },
     mb48: { marginBottom: '48px' },
     // Table styles (centralized)
-    tableLabel: { fontSize: '16px', fontWeight: 700, letterSpacing: '0.12em', color: p.action, textTransform: 'uppercase' },
+    tableLabel: { fontSize: '16px', fontWeight: 700, letterSpacing: '0.12em', color: p.action, textTransform: 'uppercase', whiteSpace: 'nowrap' },
     tableTitle: { fontFamily: "'Playfair Display', serif", fontSize: '30px', fontWeight: 800, color: p.strong, margin: 0 },
     tableTicker: { padding: '12px 14px', fontSize: '20px', color: p.strong, fontWeight: 900, fontFamily: "'Poppins', sans-serif" },
     tableCompany: { padding: '12px 14px', fontSize: '19px', color: p.strong, fontWeight: 400, fontFamily: "'Poppins', sans-serif" },
@@ -181,7 +181,7 @@ export default function AIMarketThemesReportV8() {
   const semiEquipmentBuckets = [
     {
       id: 1,
-      name: "Advanced Packaging and Assembly",
+      name: "Advanced Packaging & Assembly",
       tagline: "These companies sit at the point where GPUs become usable systems. Capacity, yield, and execution matter more than volume.",
       insight: "Why this bucket matters: These firms benefit when complexity rises faster than capacity. They monetize learning curves, not wafer starts.",
       stocks: [
@@ -193,7 +193,7 @@ export default function AIMarketThemesReportV8() {
     },
     {
       id: 2,
-      name: "Test, Inspection, and Metrology",
+      name: "Test, Inspection, & Metrology",
       tagline: "When yields matter, testing and inspection become mandatory spend.",
       insight: "Economic role: These companies are paid to find problems before revenue breaks. Spend rises when stakes rise.",
       stocks: [
@@ -208,7 +208,7 @@ export default function AIMarketThemesReportV8() {
     },
     {
       id: 3,
-      name: "Core Lithography and Deposition",
+      name: "Core Lithography & Deposition",
       tagline: "The irreplaceable equipment that defines what's possible at each node.",
       insight: "Why this matters: When a single vendor controls the tools required for every advanced node, pricing power is structural.",
       stocks: [
@@ -221,7 +221,7 @@ export default function AIMarketThemesReportV8() {
     },
     {
       id: 4,
-      name: "Optical Transceivers and Photonics",
+      name: "Optical Transceivers & Photonics",
       tagline: "Small share of system cost. Absolute gatekeeper of system revenue.",
       insight: "Why this bucket is mispriced: Optics are treated as cyclical components, yet they increasingly behave like revenue-enabling infrastructure.",
       stocks: [
@@ -243,7 +243,7 @@ export default function AIMarketThemesReportV8() {
     },
     {
       id: 6,
-      name: "Fiber, Cabling, and Physical Connectivity",
+      name: "Fiber, Cabling, & Physical Connectivity",
       tagline: "Often ignored, yet increasingly non-optional at scale.",
       insight: "Why this matters: Physical layer scales with every rack deployed. Steady demand, improving margins, often overlooked.",
       stocks: [
@@ -265,7 +265,7 @@ export default function AIMarketThemesReportV8() {
   const spaceDefenseBuckets = [
     {
       id: 5,
-      name: "Launch, Satellite Manufacturing, and Space Infrastructure",
+      name: "Launch, Satellite Manufacturing, & Space Infrastructure",
       tagline: "Vertical integration from launch to on-orbit systems. The 95% cost reduction in launch has unlocked new business models.",
       insight: "Why this bucket is volatile: Pre-profitability business models with binary outcomes. Position sizing matters more than entry price.",
       stocks: [
@@ -276,7 +276,7 @@ export default function AIMarketThemesReportV8() {
     },
     {
       id: 6,
-      name: "Satellite Communications and Ground Segment",
+      name: "Satellite Communications & Ground Segment",
       tagline: "Constellation services, terminals, and the direct-to-device narrative.",
       insight: "Why this bucket is speculative: Direct-to-device is a real TAM expansion, but execution risk is extreme. ASTS trades at 1700x sales.",
       stocks: [
@@ -288,7 +288,7 @@ export default function AIMarketThemesReportV8() {
     },
     {
       id: 7,
-      name: "Geospatial Data and Analytics",
+      name: "Geospatial Data & Analytics",
       tagline: "Earth observation as a subscription service. Defense demand provides revenue visibility.",
       insight: "Economic role: EO data is becoming utility-like. Recurring subscription models replace one-off imagery purchases.",
       stocks: [
@@ -298,7 +298,7 @@ export default function AIMarketThemesReportV8() {
     },
     {
       id: 1,
-      name: "Propulsion, Energetics, and Munitions Throughput",
+      name: "Propulsion, Energetics, & Munitions Throughput",
       tagline: "Solid rocket motors, propellants, and munitions are capacity-constrained with multi-year backlogs.",
       insight: "Why this bucket matters: Propulsion and energetics are the hardest bottlenecks to resolve. Capacity expansion takes years, not quarters.",
       stocks: [
@@ -308,7 +308,7 @@ export default function AIMarketThemesReportV8() {
     },
     {
       id: 2,
-      name: "High-Temperature Materials, Castings, and Engineered Structures",
+      name: "High-Temperature Materials, Castings, & Engineered Structures",
       tagline: "Specialty alloys, composites, and precision components with long qualification cycles and limited supplier bases.",
       insight: "Why this bucket matters: Qualification cycles create switching costs. Once designed in, these suppliers capture decades of aftermarket revenue.",
       stocks: [
@@ -320,7 +320,7 @@ export default function AIMarketThemesReportV8() {
     },
     {
       id: 3,
-      name: "Guidance, Sensing, and Mission Electronics",
+      name: "Guidance, Sensing, & Mission Electronics",
       tagline: "Rad-hard components, sensors, and mission-critical electronics where reliability is non-negotiable.",
       insight: "Economic role: Mission electronics are where margins concentrate. Rad-hard and space-qualified parts command 10-100x premiums over commercial equivalents.",
       stocks: [
@@ -333,7 +333,7 @@ export default function AIMarketThemesReportV8() {
     },
     {
       id: 4,
-      name: "Test, Integration, Sustainment, and Cleared Capacity",
+      name: "Test, Integration, Sustainment, & Cleared Capacity",
       tagline: "Clearance-heavy services where the constraint is qualified personnel, not capital.",
       insight: "Why this bucket matters: Cleared personnel are the bottleneck. Training and clearance timelines are measured in years, creating durable capacity constraints.",
       stocks: [
@@ -428,11 +428,17 @@ export default function AIMarketThemesReportV8() {
 
   const SectionHeader = ({ num, title, subtitle }) => (
     <div style={s.mb48}>
-      <div style={s.flexRow}>
+      <div style={{ display: 'flex', alignItems: 'baseline', gap: '24px' }}>
         <span style={s.sectionNum}>{num}</span>
-        <h2 style={s.sectionTitle}>{title}</h2>
+        <div>
+          <h2 style={s.sectionTitle}>{title}</h2>
+          {subtitle && (
+            <p style={{ color: p.neutral, fontSize: '20px', marginTop: '8px' }}>
+              {subtitle}
+            </p>
+          )}
+        </div>
       </div>
-      {subtitle && <p style={{ color: p.neutral, fontSize: '20px', marginLeft: '88px', marginTop: 0 }}>{subtitle}</p>}
     </div>
   );
 
@@ -639,7 +645,7 @@ export default function AIMarketThemesReportV8() {
   // ==========================================================================
   const sections = [
     { id: 'cover', num: '', title: 'Cover' },
-    { id: 'why', num: '01', title: 'Investment Thesis' },
+    { id: 'why', num: '01', title: 'What We See & Why We Act' },
     { id: 'methodology', num: '02', title: 'Analytical Methodology' },
     { id: 'analysis', num: '03', title: 'Theme Analysis' },
     { id: 'semi-equip', num: '04', title: 'Semiconductor Equip.' },
@@ -664,8 +670,16 @@ export default function AIMarketThemesReportV8() {
       {/* Main content area - flex grow to push stats to bottom */}
       <div style={{ flex: 1, padding: '0 80px' }}>
         <div style={{ maxWidth: '720px' }}>
-          <h1 style={s.coverTitle}>Investment Framework<br />The Control Premium</h1>
-          <p style={{ color: p.neutral, fontFamily: "'Poppins', sans-serif", fontSize: '28px', fontWeight: 600, lineHeight: 1.5, marginBottom: '12px' }}>Why Markets Move Before Fundamentals—and Where to Position in 2026</p>
+          <h1 style={s.coverTitle}>
+            Capturing Alpha
+            <br />
+            in Bottlenecks
+          </h1>
+          <p style={{ color: p.neutral, fontFamily: "'Poppins', sans-serif", fontSize: '28px', fontWeight: 600, lineHeight: 1.5, marginBottom: '12px' }}>
+            Why Markets Move Before Fundamentals—
+            <br />
+            and Where to Position in 2026
+          </p>
           <p style={{ color: p.neutral, fontSize: '21px', fontStyle: 'italic' }}>AI Chokepoints · Power Bottlenecks · Supply Chain Reshoring · Defense Modernization · Strategic Commodities</p>
         </div>
       </div>
@@ -684,7 +698,7 @@ export default function AIMarketThemesReportV8() {
 
   const renderSection01 = () => (
     <section style={s.section}>
-      <SectionHeader num="01" title="Investment Thesis" subtitle="The Control Premium: A 2026 Thesis" />
+      <SectionHeader num="01" title="What We See & Why We Act" subtitle="The Broadstreet 2026 Outlook" />
       
       <div style={s.mb32}>
         <p style={s.body}>In January 2023, a small Taiwanese company that few investors could name correctly held the fate of the entire artificial intelligence revolution in its hands. TSMC's advanced packaging facility—a single building in Taoyuan—had become the narrowest chokepoint in a trillion-dollar supply chain. Every AI chip that mattered passed through those doors. The company's stock had already doubled. The earnings hadn't yet moved.</p>
@@ -719,6 +733,50 @@ export default function AIMarketThemesReportV8() {
       <div style={s.mb32}>
         <h4 style={s.h4}>What Makes Optionality Credible</h4>
         <p style={s.body}>Early is not the same as speculative. The difference is evidentiary quality—expert analysis from proven sources, integrated across both textual insight and quantitative signals.</p>
+        <div style={{
+          float: 'right',
+          width: '360px',
+          margin: '8px 0 24px 24px',
+          minHeight: '210px',
+          background: '#F8FBFF',
+          borderRadius: '14px',
+          border: '1px solid #D9E6F2',
+          boxShadow: '0 6px 20px rgba(6, 42, 66, 0.08)'
+        }}>
+          <div style={{
+            display: 'flex',
+            alignItems: 'center',
+            gap: '10px',
+            padding: '12px 18px',
+            borderBottom: '1px solid #D9E6F2',
+            background: 'linear-gradient(90deg, rgba(0, 119, 182, 0.12) 0%, rgba(0, 160, 220, 0.06) 100%)'
+          }}>
+            <span style={{ fontSize: '16px', color: '#0077B6' }}>◆</span>
+            <span style={{
+              color: '#0a2533',
+              fontSize: '12px',
+              fontWeight: 700,
+              letterSpacing: '0.14em',
+              textTransform: 'uppercase',
+              fontFamily: "'Poppins', sans-serif"
+            }}>
+              The Distinction That Matters
+            </span>
+          </div>
+          <div style={{ padding: '20px 22px' }}>
+            <p style={{
+              fontFamily: "'Poppins', sans-serif",
+              fontSize: '18px',
+              fontWeight: 500,
+              color: '#0a2533',
+              lineHeight: 1.6,
+              margin: 0
+            }}>
+              <span style={{ color: '#0077B6', fontWeight: 700 }}>Early is not the same as speculative.</span>{' '}
+              The difference is evidentiary quality—expert analysis from proven sources, integrated across both textual insight and quantitative signals.
+            </p>
+          </div>
+        </div>
         <p style={{ ...s.body, marginTop: '16px' }}>A credible claim on future control usually satisfies at least one of four conditions. The company controls an asset or permit that cannot be replicated quickly—a grid interconnection, a processing license, a mineral reserve. It aligns with an explicit regulatory or policy trajectory where the direction is clear even if the timing is not. It demonstrates learning curve advantages that compound with each iteration. Or it occupies a coordination point in a complex system where capital alone cannot substitute for position. Speculation lacks these anchors. Credible optionality attracts them.</p>
         <p style={{ ...s.body, marginTop: '16px' }}>Markets are better at making this distinction than many investors realize. The stocks that reprice early on narrative usually have something real behind them—a contract, a permit, a technical demonstration, a policy tailwind. The ones that collapse were never anchored in the first place.</p>
         <p style={{ ...s.body, marginTop: '16px' }}>We do not rely on sell-side research as a primary source. Bank analysts produce valuable work, but their incentives are not aligned with ours. Coverage decisions follow investment banking relationships. Price targets cluster around consensus to minimize career risk. Ratings shift after stocks move, not before. This is not a critique of the analysts themselves—they operate within structures that reward certain behaviors and penalize others. But those structures introduce systematic bias that can muddy an independent outlook.</p>
@@ -1398,7 +1456,7 @@ export default function AIMarketThemesReportV8() {
     },
     {
       id: 2,
-      name: "Immunology Commercialization and Margin Inflection",
+      name: "Immunology Commercialization & Margin Inflection",
       intro: "Immunology is moving from experimental to operational. Autoimmune and inflammatory diseases affect roughly 1 in 10 adults globally, and that prevalence is rising faster than overall population growth due to better diagnosis and longer lifespans. Historically, most patients were treated with broad immunosuppression. Today, targeted therapies are expanding addressable populations while improving safety and durability. By 2026, targeted biologics account for more than half of new autoimmune prescriptions, compared with roughly one-third in the mid-2010s. The investment opportunity is not just scientific success, but the transition from trial-stage assets to repeat, chronic revenue with operating leverage. When immunology drugs work and gain coverage, persistence rates are high and margins expand quickly.",
       stocks: [
         { ticker: "ALMS", company: "Alumis", mktCap: "$3.0B", return1M: "+109%", return3M: "+418%", return6M: "+594%", revGrYoY: "—", opMargin: "-5585%", pS: "112.3x", description: "High-momentum immunology platform targeting chronic inflammatory disease. Positioned for rapid repricing if trials succeed." },
@@ -1413,7 +1471,7 @@ export default function AIMarketThemesReportV8() {
     },
     {
       id: 3,
-      name: "Respiratory and Pulmonary Under-Treatment",
+      name: "Respiratory & Pulmonary Under-Treatment",
       intro: "Respiratory disease is one of the most under-penetrated areas in biotech despite massive need. Chronic respiratory conditions affect over 10% of the global population, yet fewer than 25% of patients receive advanced or disease-modifying therapies, largely due to limited options and delivery challenges. Hospitalizations for respiratory exacerbations remain a leading cause of preventable admissions, signaling unmet demand rather than lack of diagnosis. New inhaled biologics and gene-based approaches are changing what is treatable, not just how symptoms are managed. As of 2025, more than 40% of late-stage respiratory pipelines involve novel delivery or genetic modalities, a sharp shift from traditional small molecules. When effective therapies emerge, adoption tends to be fast because the alternative is repeated acute care.",
       stocks: [
         { ticker: "UPB", company: "Upstream Bio", mktCap: "$1.7B", return1M: "+6%", return3M: "+39%", return6M: "+184%", revGrYoY: "+13%", opMargin: "-5539%", pS: "597.3x", description: "Focused on severe respiratory disease where effective therapies can drive rapid uptake." },
@@ -1426,7 +1484,7 @@ export default function AIMarketThemesReportV8() {
     },
     {
       id: 4,
-      name: "Biotech Enablers and Platform Infrastructure",
+      name: "Biotech Enablers & Platform Infrastructure",
       intro: "Some of the most attractive biotech economics sit outside drug discovery entirely. Platform companies that improve delivery, dosing, or patient experience monetize the success of other people's drugs rather than betting on a single asset. These businesses benefit from faster regulatory timelines, increasing biologic complexity, and pharma's desire to extend product lifecycles without rebuilding infrastructure internally. When platforms are validated, they tend to behave more like healthcare infrastructure than biotech, with recurring revenue, high margins, and exposure across multiple therapeutic areas.",
       stocks: [
         { ticker: "HALO", company: "Halozyme Therapeutics", mktCap: "$8.4B", return1M: "+10%", return3M: "+6%", return6M: "+23%", revGrYoY: "+22%", opMargin: "61.5%", pS: "7.0x", description: "Enables subcutaneous delivery for biologics, earning royalties across many partnered drugs." },
@@ -1435,7 +1493,7 @@ export default function AIMarketThemesReportV8() {
     },
     {
       id: 5,
-      name: "Biotech Valuation Dislocation and Strategic M&A Optionality",
+      name: "Biotech Valuation Dislocation & Strategic M&A Optionality",
       intro: "Biotech valuations reflect capitulation, not fundamentals. Roughly 20% of public biotechs trade below net cash, an extreme rarely sustained once capital markets stabilize. At the same time, large pharmaceutical companies face a patent cliff exceeding $200 billion in revenue over the next five years, pushing them toward acquisition rather than internal development. Aggregate M&A capacity across big pharma now exceeds $1 trillion, creating an asymmetric setup where downside is limited by balance sheets while upside is driven by strategic value. In this environment, platform depth, validated modalities, and commercial traction matter more than single-trial outcomes.",
       stocks: [
         { ticker: "ALMS", company: "Alumis", mktCap: "$3.0B", return1M: "+109%", return3M: "+418%", return6M: "+594%", revGrYoY: "—", opMargin: "-5585%", pS: "112.3x", description: "Platform depth and momentum." },
