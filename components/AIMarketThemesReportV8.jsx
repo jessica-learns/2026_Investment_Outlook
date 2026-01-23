@@ -596,7 +596,7 @@ export default function AIMarketThemesReportV8() {
   const ScarcityCard = ({ study, color }) => (
     <div>
       <div style={{ display: "flex", alignItems: "baseline", gap: "8px", marginBottom: "6px" }}>
-        <span style={{ fontSize: "16px", fontWeight: 600, color: "#111827", fontFamily: "'Playfair Display', serif" }}>
+        <span style={{ fontSize: "16px", fontWeight: 600, color: "#111827", fontFamily: "Poppins" }}>
           {study.name}
         </span>
         <span style={{ fontSize: "12px", fontWeight: 600, color }}>{study.ticker}</span>
