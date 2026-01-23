@@ -1,5 +1,5 @@
 import React, { useState, useEffect } from 'react';
-import { XAxis, YAxis, ResponsiveContainer, Cell, ReferenceLine, Tooltip, ScatterChart, Scatter, ZAxis, CartesianGrid } from 'recharts';
+import { XAxis, YAxis, ResponsiveContainer, Cell, ReferenceLine, Tooltip, ScatterChart, Scatter, ZAxis, CartesianGrid, LineChart, Line } from 'recharts';
 
 // ============================================================================
 // AI MARKET THEMES REPORT V8 - OPTIMIZED
@@ -461,6 +461,329 @@ export default function AIMarketThemesReportV8() {
     );
   };
 
+  // ==========================================================================
+  // SECTION 01: SCARCITY CASE STUDIES CAROUSEL
+  // ==========================================================================
+  const scarcityChartData = [
+    { week: 0, label: "Jan '25", BE: 0.0, APLD: 0.0, MP: 0.0, OKLO: 0.0, SPY: 0.0 },
+    { week: 1, label: "Feb", BE: -1.4, APLD: 6.6, MP: 0.0, OKLO: -14.2, SPY: 0.2 },
+    { week: 2, label: "", BE: -2.5, APLD: 8.7, MP: -20.5, OKLO: -10.6, SPY: -0.7 },
+    { week: 3, label: "", BE: -2.4, APLD: 2.4, MP: -28.9, OKLO: -18.2, SPY: 1.7 },
+    { week: 4, label: "", BE: 8.2, APLD: 7.6, MP: -20.1, OKLO: -14.9, SPY: -0.7 },
+    { week: 5, label: "Mar", BE: 7.8, APLD: 12.2, MP: -22.5, OKLO: -15.1, SPY: -1.8 },
+    { week: 6, label: "", BE: -8.4, APLD: 10.2, MP: -26.1, OKLO: -3.9, SPY: -1.2 },
+    { week: 7, label: "", BE: -0.4, APLD: -2.1, MP: -15.4, OKLO: -15.2, SPY: -0.1 },
+    { week: 8, label: "", BE: 0.3, APLD: -1.6, MP: -22.8, OKLO: -13.1, SPY: -1.9 },
+    { week: 9, label: "Apr", BE: 2.2, APLD: 7.9, MP: -11.9, OKLO: -10.6, SPY: 0.1 },
+    { week: 10, label: "", BE: 8.8, APLD: 3.6, MP: -11.6, OKLO: -15.4, SPY: -4.1 },
+    { week: 11, label: "", BE: 17.1, APLD: 0.9, MP: -1.7, OKLO: -13.4, SPY: 3.7 },
+    { week: 12, label: "", BE: 40.1, APLD: 19.5, MP: 2.9, OKLO: 1.4, SPY: 8.5 },
+    { week: 13, label: "May", BE: 54.1, APLD: 23.3, MP: -2.4, OKLO: 10.7, SPY: 8.4 },
+    { week: 14, label: "", BE: 57.0, APLD: 28.2, MP: 5.4, OKLO: 29.7, SPY: 9.6 },
+    { week: 15, label: "", BE: 44.9, APLD: 24.6, MP: 10.9, OKLO: 33.1, SPY: 4.8 },
+    { week: 16, label: "", BE: 32.2, APLD: 33.1, MP: 22.3, OKLO: 50.1, SPY: 3.0 },
+    { week: 17, label: "Jun", BE: 44.0, APLD: 31.5, MP: 31.6, OKLO: 52.2, SPY: 3.2 },
+    { week: 18, label: "", BE: 76.6, APLD: 33.1, MP: 47.1, OKLO: 69.7, SPY: 9.0 },
+    { week: 19, label: "", BE: 79.6, APLD: 30.8, MP: 27.2, OKLO: 75.9, SPY: 10.2 },
+    { week: 20, label: "", BE: 80.2, APLD: 61.3, MP: 30.6, OKLO: 94.6, SPY: 9.0 },
+    { week: 21, label: "Jul", BE: 96.5, APLD: 73.9, MP: 30.2, OKLO: 81.1, SPY: 7.5 },
+    { week: 22, label: "", BE: 66.9, APLD: 69.3, MP: 12.2, OKLO: 65.6, SPY: 6.4 },
+    { week: 23, label: "", BE: 70.3, APLD: 104.6, MP: 9.4, OKLO: 29.4, SPY: 8.2 },
+    { week: 24, label: "", BE: 92.1, APLD: 147.8, MP: 14.3, OKLO: 16.3, SPY: 8.1 },
+    { week: 25, label: "Aug", BE: 122.4, APLD: 225.2, MP: 49.4, OKLO: 23.7, SPY: 11.0 },
+    { week: 26, label: "", BE: 119.3, APLD: 202.0, MP: 50.5, OKLO: 17.1, SPY: 9.4 },
+    { week: 27, label: "", BE: 135.7, APLD: 147.2, MP: 75.6, OKLO: 31.1, SPY: 10.5 },
+    { week: 28, label: "", BE: 147.0, APLD: 126.0, MP: 88.6, OKLO: 56.3, SPY: 13.7 },
+    { week: 29, label: "Sep", BE: 175.1, APLD: 156.7, MP: 60.4, OKLO: 69.7, SPY: 15.2 },
+    { week: 30, label: "", BE: 139.2, APLD: 99.3, MP: 108.0, OKLO: 64.1, SPY: 18.5 },
+    { week: 31, label: "", BE: 167.1, APLD: 79.2, MP: 102.8, OKLO: 53.3, SPY: 9.6 },
+    { week: 32, label: "", BE: 127.4, APLD: 143.4, MP: 80.1, OKLO: 81.1, SPY: 7.5 },
+    { week: 33, label: "Oct", BE: 79.4, APLD: 157.9, MP: 97.4, OKLO: 56.9, SPY: 4.0 },
+    { week: 34, label: "", BE: 95.6, APLD: 212.2, MP: 95.0, OKLO: 70.1, SPY: 6.5 },
+    { week: 35, label: "", BE: 102.7, APLD: 125.5, MP: 106.4, OKLO: 91.1, SPY: 7.4 },
+    { week: 36, label: "", BE: 161.1, APLD: 126.7, MP: 103.8, OKLO: 66.3, SPY: 6.9 },
+    { week: 37, label: "Nov", BE: 206.8, APLD: 126.5, MP: 87.4, OKLO: 63.8, SPY: 6.3 },
+    { week: 38, label: "", BE: 176.4, APLD: 178.7, MP: 112.3, OKLO: 56.7, SPY: 5.2 },
+    { week: 39, label: "", BE: 234.0, APLD: 188.2, MP: 96.8, OKLO: 82.7, SPY: 7.1 },
+    { week: 40, label: "", BE: 207.5, APLD: 143.5, MP: 143.4, OKLO: 77.4, SPY: 6.5 },
+    { week: 41, label: "Dec", BE: 228.7, APLD: 141.3, MP: 125.6, OKLO: 71.6, SPY: 12.2 },
+    { week: 42, label: "", BE: 239.2, APLD: 116.9, MP: 198.1, OKLO: 82.6, SPY: 15.7 },
+    { week: 43, label: "", BE: 268.2, APLD: 112.7, MP: 205.3, OKLO: 103.4, SPY: 15.1 },
+    { week: 44, label: "", BE: 328.0, APLD: 89.3, MP: 159.5, OKLO: 105.8, SPY: 19.3 },
+    { week: 45, label: "Jan '26", BE: 367.1, APLD: 87.2, MP: 152.0, OKLO: 120.3, SPY: 16.4 },
+    { week: 46, label: "", BE: 382.8, APLD: 139.9, MP: 129.1, OKLO: 102.3, SPY: 18.6 },
+    { week: 47, label: "", BE: 417.2, APLD: 171.3, MP: 124.8, OKLO: 132.1, SPY: 21.6 },
+    { week: 48, label: "", BE: 435.5, APLD: 213.1, MP: 174.6, OKLO: 158.1, SPY: 20.0 },
+    { week: 49, label: "", BE: 385.0, APLD: 237.9, MP: 145.5, OKLO: 160.8, SPY: 16.3 },
+    { week: 50, label: "", BE: 357.2, APLD: 224.8, MP: 144.7, OKLO: 83.7, SPY: 16.0 },
+    { week: 51, label: "", BE: 360.6, APLD: 306.6, MP: 167.2, OKLO: 82.7, SPY: 18.6 },
+    { week: 52, label: "", BE: 455.6, APLD: 311.8, MP: 232.4, OKLO: 156.2, SPY: 15.0 }
+  ];
+
+  const scarcityCaseStudies = [
+    {
+      ticker: "BE",
+      name: "Bloom Energy",
+      marketCap: "$8.2B",
+      return1Y: 455.6,
+      constraint: "AI data centers face 5–7 year grid interconnection delays that throttle capacity expansion.",
+      resolution: "Behind-the-meter fuel cells deploy in weeks, bypassing utility queues entirely.",
+      category: "Power Infrastructure"
+    },
+    {
+      ticker: "APLD",
+      name: "Applied Digital",
+      marketCap: "$4.1B",
+      return1Y: 311.8,
+      constraint: "Legacy data centers lack the power density and cooling for next-gen GPU clusters.",
+      resolution: "Purpose-built AI facilities with 100+ kW per rack, liquid cooling, and pre-secured energy.",
+      category: "AI Infrastructure"
+    },
+    {
+      ticker: "MP",
+      name: "MP Materials",
+      marketCap: "$5.8B",
+      return1Y: 232.4,
+      constraint: "China controls ~90% of rare earth processing, creating acute supply chain vulnerability.",
+      resolution: "Vertically integrated U.S. producer with mine-to-magnet capability outside Chinese control.",
+      category: "Critical Materials"
+    },
+    {
+      ticker: "OKLO",
+      name: "Oklo",
+      marketCap: "$3.9B",
+      return1Y: 156.2,
+      constraint: "AI and industrial electrification require 24/7 carbon-free baseload that renewables cannot provide.",
+      resolution: "Small modular reactors designed for continuous output with 10+ year fuel cycles.",
+      category: "Nuclear Energy"
+    }
+  ];
+
+  const scarcityColors = {
+    BE: "#0077B6",
+    APLD: "#00A896",
+    MP: "#7B2CBF",
+    OKLO: "#E85D04",
+    SPY: "#9CA3AF"
+  };
+
+  const ScarcityTooltip = ({ active, payload, label }) => {
+    if (active && payload && payload.length) {
+      const dataPoint = scarcityChartData.find((d) => d.week === label);
+      const monthLabel = dataPoint?.label || `Week ${label}`;
+
+      return (
+        <div style={{ background: "#FFFFFF", border: "1px solid #E5E7EB", padding: "8px 10px", borderRadius: "8px", boxShadow: "0 8px 20px rgba(17, 24, 39, 0.12)" }}>
+          <p style={{ fontSize: "12px", fontWeight: 600, color: "#111827", marginBottom: "6px", borderBottom: "1px solid #E5E7EB", paddingBottom: "4px" }}>
+            {monthLabel}
+          </p>
+          {payload
+            .sort((a, b) => b.value - a.value)
+            .map((entry, index) => (
+              <div key={index} style={{ display: "flex", justifyContent: "space-between", gap: "12px", padding: "2px 0", fontSize: "11px" }}>
+                <span style={{ color: entry.color, fontWeight: 600 }}>{entry.dataKey}</span>
+                <span style={{ color: entry.color }}>
+                  {entry.value > 0 ? "+" : ""}{entry.value.toFixed(1)}%
+                </span>
+              </div>
+            ))}
+        </div>
+      );
+    }
+    return null;
+  };
+
+  const ScarcityCard = ({ study, color }) => (
+    <div>
+      <div style={{ display: "flex", alignItems: "baseline", gap: "8px", marginBottom: "6px" }}>
+        <span style={{ fontSize: "16px", fontWeight: 600, color: "#111827", fontFamily: "'Playfair Display', serif" }}>
+          {study.name}
+        </span>
+        <span style={{ fontSize: "12px", fontWeight: 600, color }}>{study.ticker}</span>
+      </div>
+      <div style={{ display: "flex", gap: "8px", alignItems: "center", marginBottom: "10px" }}>
+        <span style={{ fontSize: "10px", color: "#6B7280", background: "#F3F4F6", padding: "2px 6px", borderRadius: "6px" }}>
+          {study.marketCap}
+        </span>
+        <span style={{ fontSize: "10px", color: "#6B7280", background: "#F3F4F6", padding: "2px 6px", borderRadius: "6px" }}>
+          {study.category}
+        </span>
+      </div>
+      <div style={{ display: "flex", alignItems: "baseline", gap: "8px", marginBottom: "12px" }}>
+        <span style={{ fontSize: "26px", fontWeight: 700, color, fontFamily: "'Playfair Display', serif" }}>
+          +{study.return1Y.toFixed(0)}%
+        </span>
+        <span style={{ fontSize: "11px", color: "#9CA3AF" }}>vs SPY +15%</span>
+      </div>
+      <div style={{ marginBottom: "10px" }}>
+        <div style={{ display: "flex", alignItems: "center", gap: "6px", marginBottom: "4px" }}>
+          <span style={{ width: "16px", height: "16px", borderRadius: "999px", border: "2px solid #EF4444", display: "flex", alignItems: "center", justifyContent: "center", fontSize: "9px", fontWeight: 700, color: "#EF4444" }}>
+            C
+          </span>
+          <span style={{ fontSize: "10px", letterSpacing: "0.12em", textTransform: "uppercase", color: "#EF4444", fontWeight: 700 }}>
+            Constraint
+          </span>
+        </div>
+        <p style={{ fontSize: "12px", color: "#4B5563", lineHeight: 1.5, marginLeft: "22px" }}>
+          {study.constraint}
+        </p>
+      </div>
+      <div>
+        <div style={{ display: "flex", alignItems: "center", gap: "6px", marginBottom: "4px" }}>
+          <span style={{ width: "16px", height: "16px", borderRadius: "999px", border: "2px solid #10B981", display: "flex", alignItems: "center", justifyContent: "center", fontSize: "9px", fontWeight: 700, color: "#10B981" }}>
+            R
+          </span>
+          <span style={{ fontSize: "10px", letterSpacing: "0.12em", textTransform: "uppercase", color: "#10B981", fontWeight: 700 }}>
+            Resolution
+          </span>
+        </div>
+        <p style={{ fontSize: "12px", color: "#4B5563", lineHeight: 1.5, marginLeft: "22px" }}>
+          {study.resolution}
+        </p>
+      </div>
+    </div>
+  );
+
+  const ScarcityCarousel = () => {
+    const [activeIndex, setActiveIndex] = useState(0);
+    const activeTicker = scarcityCaseStudies[activeIndex].ticker;
+
+    const goPrev = () => setActiveIndex((prev) => Math.max(prev - 1, 0));
+    const goNext = () => setActiveIndex((prev) => Math.min(prev + 1, scarcityCaseStudies.length - 1));
+
+    return (
+      <div style={{ maxWidth: "960px", margin: "0 auto 32px", padding: "20px", background: "#FFFFFF", borderRadius: "12px", border: "1px solid #E5E7EB", boxShadow: "0 8px 24px rgba(17, 24, 39, 0.08)" }}>
+        <div style={{ marginBottom: "16px" }}>
+          <h4 style={{ ...s.h4, marginBottom: "4px" }}>Where Early Control Became Returns</h4>
+          <p style={{ fontSize: "13px", color: p.neutral, lineHeight: 1.6, margin: 0 }}>
+            Four positions that captured asymmetric upside by solving binding constraints before consensus recognition.
+          </p>
+        </div>
+
+        <div style={{ display: "flex", gap: "20px" }}>
+          <div style={{ flex: 2, minWidth: 0 }}>
+            <div style={{ background: "#F9FAFB", borderRadius: "10px", padding: "16px", border: "1px solid #E5E7EB" }}>
+              <div style={{ display: "flex", flexWrap: "wrap", gap: "8px", marginBottom: "12px" }}>
+                {scarcityCaseStudies.map((study, idx) => (
+                  <button
+                    key={study.ticker}
+                    onClick={() => setActiveIndex(idx)}
+                    style={{
+                      display: "inline-flex",
+                      alignItems: "center",
+                      gap: "6px",
+                      fontSize: "11px",
+                      fontWeight: 600,
+                      padding: "4px 8px",
+                      borderRadius: "999px",
+                      border: "1px solid #E5E7EB",
+                      background: idx === activeIndex ? "#FFFFFF" : "transparent",
+                      color: scarcityColors[study.ticker],
+                      opacity: idx === activeIndex ? 1 : 0.5,
+                      cursor: "pointer"
+                    }}
+                  >
+                    <span style={{ width: "10px", height: "2px", background: scarcityColors[study.ticker], borderRadius: "999px" }} />
+                    {study.ticker}
+                  </button>
+                ))}
+                <span style={{ marginLeft: "auto", display: "inline-flex", alignItems: "center", gap: "6px", fontSize: "11px", color: "#9CA3AF" }}>
+                  <span style={{ width: "10px", height: "2px", background: "#D1D5DB", borderRadius: "999px" }} />
+                  SPY
+                </span>
+              </div>
+
+              <div style={{ height: "320px" }}>
+                <ResponsiveContainer width="100%" height="100%">
+                  <LineChart data={scarcityChartData} margin={{ top: 10, right: 10, left: -5, bottom: 0 }}>
+                    <XAxis dataKey="label" axisLine={false} tickLine={false} tick={{ fontSize: 10, fill: "#9CA3AF" }} interval="preserveStartEnd" />
+                    <YAxis domain={[-50, 500]} axisLine={false} tickLine={false} tick={{ fontSize: 10, fill: "#9CA3AF" }} tickFormatter={(v) => `${v}%`} width={45} />
+                    <ReferenceLine y={0} stroke="#E5E7EB" strokeWidth={1} />
+                    <Tooltip content={<ScarcityTooltip />} />
+
+                    <Line type="monotone" dataKey="SPY" stroke={scarcityColors.SPY} strokeWidth={1.5} strokeDasharray="4 2" dot={false} />
+                    {scarcityCaseStudies.map((study) => (
+                      <Line
+                        key={study.ticker}
+                        type="monotone"
+                        dataKey={study.ticker}
+                        stroke={scarcityColors[study.ticker]}
+                        strokeWidth={study.ticker === activeTicker ? 3 : 1.5}
+                        strokeOpacity={study.ticker === activeTicker ? 1 : 0.2}
+                        dot={false}
+                      />
+                    ))}
+                  </LineChart>
+                </ResponsiveContainer>
+              </div>
+            </div>
+          </div>
+
+          <div style={{ flex: 1, display: "flex", flexDirection: "column" }}>
+            <div style={{ display: "flex", alignItems: "center", justifyContent: "space-between", marginBottom: "8px" }}>
+              <div style={{ display: "flex", gap: "6px" }}>
+                {scarcityCaseStudies.map((_, idx) => (
+                  <button
+                    key={idx}
+                    onClick={() => setActiveIndex(idx)}
+                    style={{
+                      width: "18px",
+                      height: "4px",
+                      borderRadius: "999px",
+                      border: "none",
+                      background: idx === activeIndex ? "#111827" : "#E5E7EB",
+                      cursor: "pointer"
+                    }}
+                  />
+                ))}
+              </div>
+              <div style={{ display: "flex", gap: "6px" }}>
+                <button
+                  onClick={goPrev}
+                  disabled={activeIndex === 0}
+                  style={{
+                    width: "26px",
+                    height: "26px",
+                    borderRadius: "999px",
+                    border: "1px solid #D1D5DB",
+                    background: activeIndex === 0 ? "transparent" : "#FFFFFF",
+                    color: "#6B7280",
+                    cursor: activeIndex === 0 ? "not-allowed" : "pointer"
+                  }}
+                >
+                  {"<"}
+                </button>
+                <button
+                  onClick={goNext}
+                  disabled={activeIndex === scarcityCaseStudies.length - 1}
+                  style={{
+                    width: "26px",
+                    height: "26px",
+                    borderRadius: "999px",
+                    border: "1px solid #D1D5DB",
+                    background: activeIndex === scarcityCaseStudies.length - 1 ? "transparent" : "#FFFFFF",
+                    color: "#6B7280",
+                    cursor: activeIndex === scarcityCaseStudies.length - 1 ? "not-allowed" : "pointer"
+                  }}
+                >
+                  {">"}
+                </button>
+              </div>
+            </div>
+
+            <div style={{ flex: 1 }}>
+              <ScarcityCard study={scarcityCaseStudies[activeIndex]} color={scarcityColors[activeTicker]} />
+            </div>
+          </div>
+        </div>
+
+        <p style={{ fontSize: "10px", color: "#9CA3AF", textAlign: "center", marginTop: "14px", fontStyle: "italic" }}>
+          Returns shown are cumulative price returns January 2025 to January 2026. Past performance does not guarantee future results.
+        </p>
+      </div>
+    );
+  };
+
   const InsightCard = ({ title, children }) => (
     <div style={s.card}>
       <div style={{ ...s.label, color: p.accent, marginBottom: '8px' }}>KEY INSIGHT</div>
@@ -743,6 +1066,9 @@ export default function AIMarketThemesReportV8() {
         <p style={s.body}>Smaller, more flexible capital has a structural edge in constrained systems—not because it is smarter, but because it can act on insight before that insight becomes auditable, and because it can afford to be wrong on individual positions while maintaining discipline across the portfolio.</p>
         <p style={{ ...s.body, marginTop: '16px' }}>When demand collides with a bottleneck that cannot expand on investor time horizons, the usual rules change. Price does not equilibrate supply and demand. Time does. And time doesn't negotiate. When a data center operator needs power but the grid interconnection queue is 47 months deep, no amount of money accelerates that timeline. When an AI lab needs advanced packaging capacity but TSMC's CoWoS lines are fully allocated through 2026, desperation doesn't create new fabs. When a defense contractor needs rare earth magnets but China controls 90% of global processing, urgency doesn't build supply chains.</p>
         <p style={{ ...s.body, marginTop: '16px' }}>In these environments, the market asks a fundamentally different question. Not: who is producing today? But: who is most likely to control production tomorrow? That question gets answered, and stocks reprice, long before the income statement confirms it.</p>
+        <p style={{ ...s.body, marginTop: '16px' }}>Here are four examples of stocks that repriced based on scarcity theses that Broadstreet purchased.</p>
+        <p style={{ ...s.body, marginTop: '16px' }}>The graph shows annual returns for the stocks compared to SPY, a popular S&P 500 ETF. The data is not adjusted for our specific purchase and sale (if applicable) dates.</p>
+        <ScarcityCarousel />
         <p style={{ ...s.body, marginTop: '16px' }}>This distinction between control and production matters more than almost anything else in investing right now. Production is measurable. You can count units, calculate utilization, model capacity. Production shows up in earnings reports, neatly organized and audited. Production is what institutional due diligence is designed to verify. Control is different. Control is probabilistic. It exists in permits not yet issued, in relationships not yet monetized, in technical mastery not yet visible to analysts, in network positions that compound with every new connection. Control is the answer to a question about the future, not a measurement of the present.</p>
         <p style={{ ...s.body, marginTop: '16px' }}>Here is the central insight: by the time control becomes visible in the numbers, the equity return is largely behind you. Capital that waits for confirmation buys certainty at a premium. Capital that recognizes control early buys asymmetry at a discount.</p>
       </div>
