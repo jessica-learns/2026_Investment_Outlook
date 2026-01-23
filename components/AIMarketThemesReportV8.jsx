@@ -33,7 +33,7 @@ export default function AIMarketThemesReportV8() {
   // ==========================================================================
   const p = {
     surface1: '#FFFFFF', surface2: '#F0F1F4', border: '#C1C7D4',
-    neutral: '#657085', strong: '#0b0c0e', action: '#FE4207',
+    neutral: '#657085', strong: '#14161A', action: '#FE4207',
     positive: '#059669', negative: '#DC2626', accent: '#0077B6', gold: '#B8860B', warning: '#D97706',
   };
 
@@ -70,7 +70,7 @@ export default function AIMarketThemesReportV8() {
 
   const s = {
     coverTitle: { color: p.strong, fontFamily: "'Playfair Display', serif", fontSize: '72px', fontWeight: 900, lineHeight: 1.1, marginBottom: '16px' },
-    sectionNum: { color: p.border, fontFamily: "'Playfair Display', serif", fontSize: '88px', fontWeight: 300, lineHeight: 1 },
+    sectionNum: { color: p.border, fontFamily: "'Playfair Display', serif", fontSize: '96px', fontWeight: 300, lineHeight: 1 },
     sectionTitle: { color: p.strong, fontFamily: "'Playfair Display', serif", fontSize: '40px', fontWeight: 900, margin: 0 },
     themeTitle: { color: p.strong, fontFamily: "'Playfair Display', serif", fontSize: '24px', fontWeight: 600, marginBottom: '3px' },
     h4: { color: p.strong, fontFamily: "'Poppins', sans-serif", fontWeight: 800, fontSize: '22px', marginBottom: '3px' },
@@ -360,8 +360,8 @@ export default function AIMarketThemesReportV8() {
         { h: "The Bottleneck Has Shifted", t: "GPU supply is ramping quickly, but the slower-moving components that complete the system increasingly determine whether that capacity monetizes. GPUs are typically installed, powered, and expensed on schedule, yet they cannot be used productively without the connections that allow them to operate as a coordinated system." },
         { h: "Packaging Is the New Gating Factor", t: "Advanced packaging has become one of the main factors limiting how quickly AI hardware can be turned into usable capacity. This is visible in the numbers. TSMC's advanced packaging revenue expanded from roughly $120 million in 2018 to nearly $10 billion in 2025, an increase of more than 80×. That trajectory reflects persistent scarcity, not temporary imbalance or commoditization. As GPU supply accelerates, the bottleneck is shifting toward the most complex forms of packaging, where capacity, yield, and reliability vary meaningfully and scale only with time and experience. These processes rely on specialized materials, precision manufacturing, and long learning curves that do not compress on demand. As a result, the constraint remains binding even as wafer supply improves. Companies that provide the testing, inspection, and assembly infrastructure for advanced packaging benefit directly from this dynamic, as customers are forced to invest through the bottleneck rather than around it. Recent improvements in deployment timelines have come from sustained equipment investment, not easing demand, reinforcing the durability of advanced packaging as a source of pricing power and strategic leverage." },
         { h: "Revenue Depends on Connectivity", t: "Modern AI economics depend on many GPUs working together, not isolated chips running alone. When connectivity is constrained, billions of dollars of hardware earn far below their potential, utilization drops, and returns on invested capital temporarily collapse, even as demand remains strong. This dynamic creates classic bottleneck economics: optical transceivers represent roughly 10% of total AI cluster cost, yet they can block 100% of cluster revenue if unavailable or unreliable. Delays in interconnect packaging or fiber attachment similarly render revenue effectively zero until the system functions end-to-end. From a market-pricing perspective, this creates persistent mispricing risk, as investors often value these suppliers as cyclical hardware vendors while customers increasingly treat them as revenue-enabling infrastructure with growing pricing power." },
-        { h: "HBM Quality Tiering Creates a Second Bottleneck", t: "Memory has emerged as a parallel constraint that equipment makers must address. The shortage is not simply about how many HBM chips exist — it's about how many high-performance chips exist. Industry analysis flags a growing split between \"HBM bits available\" and \"HBM quality available,\" with Samsung's HBM3E described as \"sub-par\" versus Micron's 9.6 Gbps parts. HBM represents a large component of every training chip's bill of materials, and hyperscalers are responding by sourcing memory directly from suppliers to compress the dollars-per-HBM and dollars-per-FLOP that stacked vendor margins would otherwise impose. The scale of demand is staggering: one estimate suggests that OpenAI's announced power partnerships alone — requiring 30.5 GW of new capacity — would consume more than 100% of current global HBM supply if fully deployed. This creates a two-tier opportunity: memory manufacturers with top-quality output (SK hynix, Micron) capture premium pricing, while equipment companies serving memory fabs (Lam Research for etch, KLA for inspection, Teradyne for test) benefit regardless of which supplier wins share.", note: "Data in process; important stocks overseas in South Korea and not in FactSet pull." },
-        { h: "Margin Expansion Confirms Pricing Power", t: "TSMC's gross margin trajectory tells the pricing power story: expansion from 45.5% in 2010 to above 59% in 2025 demonstrates that scarcity rents are real and durable. The same dynamic extends to equipment suppliers. When a single vendor — ASML — controls the lithography tools required for every advanced node, and when yield learning at new processes (N3P, N2) forces customers to wait or redesign, the result is sustained pricing power for the entire equipment ecosystem. Geographic concentration amplifies this: Arizona's combined N5/N3 footprint remains below 15% of TSMC's total capacity, leaving most frontier logic effectively gated by Taiwan. For equipment companies, this concentration is bullish — capacity expansion anywhere requires their tools, and the demand queue extends years into the future." },
+        { h: "HBM Quality Tiering Creates a Second Bottleneck", t: "Memory has emerged as a parallel constraint that equipment makers must address. The shortage is not simply about how many HBM chips exist; it's about how many high-performance chips exist. Industry analysis flags a growing split between \"HBM bits available\" and \"HBM quality available,\" with Samsung's HBM3E described as \"sub-par\" versus Micron's 9.6 Gbps parts. HBM represents a large component of every training chip's bill of materials, and hyperscalers are responding by sourcing memory directly from suppliers to compress the dollars-per-HBM and dollars-per-FLOP that stacked vendor margins would otherwise impose. The scale of demand is staggering: one estimate suggests that OpenAI's announced power partnerships alone, requiring 30.5 GW of new capacity, would consume more than 100% of current global HBM supply if fully deployed. This creates a two-tier opportunity: memory manufacturers with top-quality output (SK hynix, Micron) capture premium pricing, while equipment companies serving memory fabs (Lam Research for etch, KLA for inspection, Teradyne for test) benefit regardless of which supplier wins share.", note: "Data in process; important stocks overseas in South Korea and not in FactSet pull." },
+        { h: "Margin Expansion Confirms Pricing Power", t: "TSMC's gross margin trajectory tells the pricing power story: expansion from 45.5% in 2010 to above 59% in 2025 demonstrates that scarcity rents are real and durable. The same dynamic extends to equipment suppliers. When a single vendor, ASML, controls the lithography tools required for every advanced node, and when yield learning at new processes (N3P, N2) forces customers to wait or redesign, the result is sustained pricing power for the entire equipment ecosystem. Geographic concentration amplifies this: Arizona's combined N5/N3 footprint remains below 15% of TSMC's total capacity, leaving most frontier logic effectively gated by Taiwan. For equipment companies, this concentration is bullish; capacity expansion anywhere requires their tools, and the demand queue extends years into the future." },
       ],
     },
     {
@@ -387,10 +387,10 @@ export default function AIMarketThemesReportV8() {
       dataKey: "defense",
       showPS: true,
       paragraphs: [
-        { h: "The End of the Peace Dividend", t: "Europe's defense awakening is accelerating into 2025 and 2026. EU member states' defense expenditure is expected to reach €381 billion in 2025, an 11% increase from €343 billion in 2024 — and a staggering 99% real increase over the past decade. In 2025, all NATO allies are expected to meet or exceed the 2% of GDP defense spending threshold, compared to only three allies in 2014. But 2% is now considered insufficient: the June 2025 NATO summit agreed to raise the target to 5% of GDP by 2035, with at least 3.5% allocated to core defense requirements. Poland has become NATO's top defense spender by GDP share at 4.12%, with plans to reach 4.7% in 2025. Lithuania is committing 5–6% of GDP to defense between 2026 and 2030. Germany approved a historic €500 billion fund for defense and infrastructure in March 2025, exempting defense spending above 1% of GDP from constitutional debt limits. This isn't cyclical budget fluctuation — it's structural rearmament that will persist for years." },
-        { h: "The Reshoring Imperative", t: "The defense industry learned a painful lesson about supply chain fragility: if you source critical components from countries that might restrict exports tomorrow, your entire industrial base stops. This is driving the most significant manufacturing shift in a generation. Today, 82% of U.S. manufacturers have either moved production back to the U.S. or are in the process of doing so — a 55% increase since the start of 2023. The reshoring isn't cheap: raw material prices in the U.S. increased 5.4% in 2025 and are projected to rise another 4.4% in 2026. Yet 69% of manufacturers are proceeding anyway because the risk of supply disruption outweighs the cost premium. For defense contractors, this creates pricing power — customers will pay more for guaranteed delivery from secure supply chains. The aerospace and defense industry now faces a $747 billion backlog, up 25% in two years, with commercial aircraft orders alone representing roughly ten years of production at current rates." },
-        { h: "Space as the New High Ground", t: "Modern defense increasingly depends on orbital infrastructure. The same technology that delivers high-speed internet to remote villages tracks hypersonic missiles flying at Mach 5. The Space Development Agency's \"proliferated architecture\" strategy abandons the old model of a few billion-dollar satellites that adversaries could easily target. Instead, the SDA is deploying hundreds of smaller, cheaper satellites — if an enemy destroys ten, the other 990 maintain network integrity. The December 2025 Tranche 3 awards demonstrate how space companies are becoming major defense contractors: Rocket Lab's $805 million contract and Lockheed Martin's $1.1 billion share show that \"small\" space companies now compete directly with legacy primes for national security work. Tranche 1 satellites are scheduled for early 2026 deployment, with monthly launches expected thereafter, providing multi-year revenue visibility for every company in the supply chain." },
-        { h: "Where Profits Accrue — Vertical Integration and Sovereign Premiums", t: "In this industrial shift, profits concentrate in specific places. Vertically integrated players capture the largest share: SpaceX builds the rocket, builds the satellite, and sells the service, avoiding markup at every layer. Their internal Starlink launch cost is estimated at $1,000 per kilogram versus $2,720 charged to external customers. This integration supports a $350 billion valuation and projected $15+ billion in 2025 revenue. The \"sovereign anchor\" provides the second profit pool — governments pay premiums for national independence. Arianespace charges roughly three times SpaceX's per-kilogram rate, yet receives steady European business because sovereignty matters more than cost optimization. The EU's ReArm Europe plan, presented in March 2025, further reinforces this dynamic by prioritizing European-made defense equipment. High-margin components represent the third opportunity: as thousands of satellites launch annually, companies supplying subsystems generate recurring revenue regardless of which constellation wins. Rocket Lab's evolution from launch-only to space infrastructure exemplifies this strategy, with component sales expanding margins even between missions." },
+        { h: "The End of the Peace Dividend", t: "Europe's defense awakening is accelerating into 2025 and 2026. EU member states' defense expenditure is expected to reach €381 billion in 2025, an 11% increase from €343 billion in 2024, and a staggering 99% real increase over the past decade. In 2025, all NATO allies are expected to meet or exceed the 2% of GDP defense spending threshold, compared to only three allies in 2014. But 2% is now considered insufficient: the June 2025 NATO summit agreed to raise the target to 5% of GDP by 2035, with at least 3.5% allocated to core defense requirements. Poland has become NATO's top defense spender by GDP share at 4.12%, with plans to reach 4.7% in 2025. Lithuania is committing 5–6% of GDP to defense between 2026 and 2030. Germany approved a historic €500 billion fund for defense and infrastructure in March 2025, exempting defense spending above 1% of GDP from constitutional debt limits. This isn't cyclical budget fluctuation; it's structural rearmament that will persist for years." },
+        { h: "The Reshoring Imperative", t: "The defense industry learned a painful lesson about supply chain fragility: if you source critical components from countries that might restrict exports tomorrow, your entire industrial base stops. This is driving the most significant manufacturing shift in a generation. Today, 82% of U.S. manufacturers have either moved production back to the U.S. or are in the process of doing so, a 55% increase since the start of 2023. The reshoring isn't cheap: raw material prices in the U.S. increased 5.4% in 2025 and are projected to rise another 4.4% in 2026. Yet 69% of manufacturers are proceeding anyway because the risk of supply disruption outweighs the cost premium. For defense contractors, this creates pricing power; customers will pay more for guaranteed delivery from secure supply chains. The aerospace and defense industry now faces a $747 billion backlog, up 25% in two years, with commercial aircraft orders alone representing roughly ten years of production at current rates." },
+        { h: "Space as the New High Ground", t: "Modern defense increasingly depends on orbital infrastructure. The same technology that delivers high-speed internet to remote villages tracks hypersonic missiles flying at Mach 5. The Space Development Agency's \"proliferated architecture\" strategy abandons the old model of a few billion-dollar satellites that adversaries could easily target. Instead, the SDA is deploying hundreds of smaller, cheaper satellites; if an enemy destroys ten, the other 990 maintain network integrity. The December 2025 Tranche 3 awards demonstrate how space companies are becoming major defense contractors: Rocket Lab's $805 million contract and Lockheed Martin's $1.1 billion share show that \"small\" space companies now compete directly with legacy primes for national security work. Tranche 1 satellites are scheduled for early 2026 deployment, with monthly launches expected thereafter, providing multi-year revenue visibility for every company in the supply chain." },
+        { h: "Where Profits Accrue; Vertical Integration and Sovereign Premiums", t: "In this industrial shift, profits concentrate in specific places. Vertically integrated players capture the largest share: SpaceX builds the rocket, builds the satellite, and sells the service, avoiding markup at every layer. Their internal Starlink launch cost is estimated at $1,000 per kilogram versus $2,720 charged to external customers. The \"sovereign anchor\" provides the second profit pool; governments pay premiums for national independence. Arianespace charges roughly three times SpaceX's per-kilogram rate, yet receives steady European business because sovereignty matters more than cost optimization. The EU's ReArm Europe plan, presented in March 2025, further reinforces this dynamic by prioritizing European-made defense equipment. High-margin components represent the third opportunity: as thousands of satellites launch annually, companies supplying subsystems generate recurring revenue regardless of which constellation wins. Rocket Lab's evolution from launch-only to space infrastructure exemplifies this strategy, with component sales expanding margins even between missions." },
       ],
     },
     {
@@ -410,7 +410,7 @@ export default function AIMarketThemesReportV8() {
   // HELPER FUNCTIONS
   // ==========================================================================
   const fmt = (v, showPlus = true) => {
-    if (v === null || v === undefined) return '—';
+    if (v === null || v === undefined) return 'N/A';
     const sign = v >= 0 && showPlus ? '+' : '';
     return `${sign}${v.toFixed(1)}%`;
   };
@@ -426,21 +426,40 @@ export default function AIMarketThemesReportV8() {
   // ==========================================================================
   const Pct = ({ v }) => <span style={{ color: v >= 0 ? p.positive : p.negative, fontWeight: 500, ...s.mono, fontSize: '13px' }}>{fmt(v)}</span>;
 
-  const SectionHeader = ({ num, title, subtitle }) => (
-    <div style={s.mb48}>
-      <div style={{ display: 'flex', alignItems: 'baseline', gap: '24px' }}>
-        <span style={s.sectionNum}>{num}</span>
-        <div>
-          <h2 style={s.sectionTitle}>{title}</h2>
+  const SectionHeader = ({ num, title, subtitle }) => {
+    const titleSize = 40;
+    const titleLine = 1.06;
+    const subtitleSize = 20;
+    const subtitleLine = 1.35;
+    const subtitleGap = 3;
+    const blockHeight = subtitle
+      ? (titleSize * titleLine) + subtitleGap + (subtitleSize * subtitleLine)
+      : (titleSize * titleLine);
+
+    return (
+      <div style={s.mb48}>
+        <div style={{ display: 'grid', gridTemplateColumns: 'auto 1fr', columnGap: '24px', rowGap: `${subtitleGap}px`, alignItems: 'start' }}>
+          <span style={{
+            ...s.sectionNum,
+            gridRow: subtitle ? '1 / span 2' : '1',
+            lineHeight: 1,
+            fontSize: `${Math.round(blockHeight)}px`,
+            alignSelf: 'start'
+          }}>
+            {num}
+          </span>
+          <h2 style={{ ...s.sectionTitle, fontSize: `${titleSize}px`, lineHeight: titleLine }}>
+            {title}
+          </h2>
           {subtitle && (
-            <p style={{ color: p.neutral, fontSize: '20px', marginTop: '8px' }}>
+            <p style={{ color: p.neutral, fontSize: `${subtitleSize}px`, lineHeight: subtitleLine, marginTop: 0 }}>
               {subtitle}
             </p>
           )}
         </div>
       </div>
-    </div>
-  );
+    );
+  };
 
   const InsightCard = ({ title, children }) => (
     <div style={s.card}>
@@ -465,7 +484,7 @@ export default function AIMarketThemesReportV8() {
     { key: 'm1', label: '1M', align: 'center', sortable: true, render: (v) => <Pct v={v} /> },
     { key: 'revGr', label: 'Rev Gr', align: 'center', sortable: true, render: (v) => v > 100 ? '>100%' : <Pct v={v} /> },
     { key: 'm3', label: '3M', align: 'center', sortable: true, render: (v) => <Pct v={v} /> },
-    { key: 'm6', label: '6M', align: 'center', sortable: true, render: (v) => v !== null ? <Pct v={v} /> : '—' },
+    { key: 'm6', label: '6M', align: 'center', sortable: true, render: (v) => v !== null ? <Pct v={v} /> : 'N/A' },
     ...(showPS ? [{ key: 'ps', label: 'P/S', align: 'center', sortable: true, render: (v) => `${v.toFixed(1)}x` }] : []),
   ];
 
@@ -529,7 +548,7 @@ export default function AIMarketThemesReportV8() {
     const columns = customColumns || defaultColumns;
     
     const parseValue = (val) => {
-      if (val === null || val === undefined || val === '-' || val === '—') return -Infinity;
+      if (val === null || val === undefined || val === '-' || val === 'N/A') return -Infinity;
       if (typeof val === 'number') return val;
       const str = String(val);
       if (str.includes('$')) {
@@ -676,9 +695,9 @@ export default function AIMarketThemesReportV8() {
             in Bottlenecks
           </h1>
           <p style={{ color: p.neutral, fontFamily: "'Poppins', sans-serif", fontSize: '28px', fontWeight: 600, lineHeight: 1.5, marginBottom: '12px' }}>
-            Why Markets Move Before Fundamentals—
+            Why Markets Move Before Fundamentals.
             <br />
-            and Where to Position in 2026
+            And Where to Position in 2026
           </p>
           <p style={{ color: p.neutral, fontSize: '21px', fontStyle: 'italic' }}>AI Chokepoints · Power Bottlenecks · Supply Chain Reshoring · Defense Modernization · Strategic Commodities</p>
         </div>
@@ -701,38 +720,38 @@ export default function AIMarketThemesReportV8() {
       <SectionHeader num="01" title="What We See & Why We Act" subtitle="The Broadstreet 2026 Outlook" />
       
       <div style={s.mb32}>
-        <p style={s.body}>In January 2023, a small Taiwanese company that few investors could name correctly held the fate of the entire artificial intelligence revolution in its hands. TSMC's advanced packaging facility—a single building in Taoyuan—had become the narrowest chokepoint in a trillion-dollar supply chain. Every AI chip that mattered passed through those doors. The company's stock had already doubled. The earnings hadn't yet moved.</p>
+        <p style={s.body}>In January 2023, a small Taiwanese company that few investors could name correctly held the fate of the entire artificial intelligence revolution in its hands. TSMC's advanced packaging facility, a single building in Taoyuan, had become the narrowest chokepoint in a trillion-dollar supply chain. Every AI chip that mattered passed through those doors. The company's stock had already doubled. The earnings hadn't yet moved.</p>
         <p style={{ ...s.body, marginTop: '16px' }}>This wasn't speculation. It was educated anticipation by a select group of investors.</p>
-        <p style={{ ...s.body, marginTop: '16px' }}>We are living through one of the great capital reallocation events in modern markets. Trillions of dollars are being repositioned around a handful of physical constraints that cannot be solved with money or urgency. The winning and losing companies of the next decade are being determined now—not in easily scannable earnings releases, but in the quiet reassignment of control over systems that the world increasingly cannot function without.</p>
+        <p style={{ ...s.body, marginTop: '16px' }}>We are living through one of the great capital reallocation events in modern markets. Trillions of dollars are being repositioned around a handful of physical constraints that cannot be solved with money or urgency. The winning and losing companies of the next decade are being determined now. It is not in easily scannable earnings releases, but in the quiet reassignment of control over systems that the world increasingly cannot function without.</p>
         <p style={{ ...s.body, marginTop: '16px' }}>Most professional capital will not capture these returns.</p>
       </div>
 
       <div style={s.mb32}>
         <h4 style={s.h4}>Why Most Money Managers Underperform</h4>
-        <p style={s.body}>According to the S&P SPIVA Scorecard, 90% of actively managed large-cap equity funds underperform the S&P 500 over a 15-year horizon. Over that same period, there is not a single fund category—domestic or international—in which a majority of active managers beat their benchmark. This is not a temporary aberration. It is a structural feature of how institutional capital operates.</p>
-        <p style={{ ...s.body, marginTop: '16px' }}>The vast majority of investable capital is concentrated in precisely the structures least capable of capturing early-stage returns. The world's 500 largest asset managers control $140 trillion in assets. The top 20 alone—firms like BlackRock, Vanguard, Fidelity, and State Street—manage $66 trillion, nearly half of the total. These are multi-billion and multi-trillion dollar portfolios, and the managers who run them are beholden to a system that makes early positioning structurally difficult.</p>
+        <p style={s.body}>According to the S&P SPIVA Scorecard, 90% of actively managed large-cap equity funds underperform the S&P 500 over a 15-year horizon. Over that same period, there is not a single fund category, domestic or international, in which a majority of active managers beat their benchmark. This is not a temporary aberration. It is a structural feature of how institutional capital operates.</p>
+        <p style={{ ...s.body, marginTop: '16px' }}>The vast majority of investable capital is concentrated in precisely the structures least capable of capturing early-stage returns. The world's 500 largest asset managers control $140 trillion in assets. The top 20 alone, firms like BlackRock, Vanguard, Fidelity, and State Street, manage $66 trillion, nearly half of the total. These are multi-billion and multi-trillion dollar portfolios, and the managers who run them are beholden to a system that makes early positioning structurally difficult.</p>
         <p style={{ ...s.body, marginTop: '16px' }}>This applies broadly to institutional capital, including large-cap asset managers, mutual funds, insurance portfolios, endowments, and advisory platforms such as wirehouses. In these environments, investment risk is not limited to portfolio drawdowns. It also includes legal liability, compliance exposure, and career risk. Portfolio managers and advisors must be able to justify decisions not only to clients, but to internal risk committees, compliance teams, auditors, and supervisors. When positions underperform, the standard is not whether the idea was insightful, but whether the decision process was prudent and defensible at the time it was made.</p>
         <p style={{ ...s.body, marginTop: '16px' }}>That requirement strongly shapes behavior. Investment theses are expected to trace cleanly to auditable inputs such as financial statements, earnings trajectories, valuation multiples, management guidance, and consensus expectations. These data points create a paper trail that can withstand retrospective scrutiny. They may lag underlying reality, but they are verifiable and institutionally acceptable.</p>
         <p style={{ ...s.body, marginTop: '16px' }}>This is especially binding in large-cap strategies. Benchmarks are explicit, peer comparisons are continuous, and deviations from consensus are highly visible. Even when a manager recognizes a structural shift or supply constraint before it appears in reported numbers, acting early exposes them to asymmetric downside. If the timing is wrong, the explanation "we anticipated a bottleneck before it showed up in the data" is not sufficient defense in a compliance review or client dispute. The result is a structural asymmetry: upside accrues to the institution, while downside attaches personally to the decision-maker. Rational actors respond by delaying action until qualitative insights translate into quantitative, auditable evidence.</p>
         <p style={{ ...s.body, marginTop: '16px' }}>This does not imply that early signals are always correct. It implies that institutional capital is structurally delayed in responding to them, even when they are economically decisive. Markets therefore tend to underweight emerging constraints not because they are unknowable, but because many of the agents controlling large pools of capital are constrained from acting on them until the evidence becomes formally defensible. By the time it does, much of the mispricing has already closed.</p>
-        <p style={{ ...s.body, marginTop: '16px' }}>This is not a critique. It is an opportunity—one that favors smaller, more flexible investors willing to do the work.</p>
+        <p style={{ ...s.body, marginTop: '16px' }}>This is not a critique. It is an opportunity, one that favors smaller, more flexible investors willing to do the work.</p>
       </div>
 
       <div style={s.mb32}>
         <h4 style={s.h4}>Where the Advantage Lives</h4>
-        <p style={s.body}>Smaller, more flexible capital has a structural edge in constrained systems—not because it is smarter, but because it can act on insight before that insight becomes auditable.</p>
+        <p style={s.body}>Smaller, more flexible capital has a structural edge in constrained systems; not because it is smarter, but because it can act on insight before that insight becomes auditable.</p>
         <p style={{ ...s.body, marginTop: '16px' }}>When demand collides with a bottleneck that cannot expand on investor time horizons, the usual rules change. Price does not equilibrate supply and demand. Time does. And time doesn't negotiate. Think about what this means. When a data center operator needs power but the grid interconnection queue is 47 months deep, no amount of money accelerates that timeline. When an AI lab needs advanced packaging capacity but TSMC's CoWoS lines are fully allocated through 2026, desperation doesn't create new fabs. When a defense contractor needs rare earth magnets but China controls 90% of global processing, urgency doesn't build supply chains.</p>
-        <p style={{ ...s.body, marginTop: '16px' }}>In these environments, the market asks a fundamentally different question. Not: who is producing today? But: who is most likely to control production tomorrow? That question gets answered—and stocks reprice—long before the income statement confirms it. Capital that can act on probabilistic control claims, rather than waiting for confirmed production, captures the steepest part of the return curve.</p>
+        <p style={{ ...s.body, marginTop: '16px' }}>In these environments, the market asks a fundamentally different question. Not: who is producing today? But: who is most likely to control production tomorrow? That question gets answered, and stocks reprice, long before the income statement confirms it. Capital that can act on probabilistic control claims, rather than waiting for confirmed production, captures the steepest part of the return curve.</p>
         <p style={{ ...s.body, marginTop: '16px' }}>This distinction between control and production matters more than almost anything else in investing right now. Production is measurable. You can count units, calculate utilization, model capacity. Production shows up in earnings reports, neatly organized and audited. Production is what institutional due diligence is designed to verify. Control is different. Control is probabilistic. It exists in permits not yet issued, in relationships not yet monetized, in technical mastery not yet visible to analysts, in network positions that compound with every new connection. Control is the answer to a question about the future, not a measurement of the present.</p>
         <p style={{ ...s.body, marginTop: '16px' }}>Here is the central insight: by the time control becomes visible in the numbers, the equity return is largely behind you. Capital that waits for confirmation buys certainty at a premium. Capital that recognizes control early buys asymmetry at a discount. This isn't reckless speculation. It's pattern recognition applied to systems under stress.</p>
         <p style={{ ...s.body, marginTop: '16px' }}>Every constrained system produces two distinct phases of equity returns. The first phase is volatile and uncomfortable. Prices move on policy signals, on technical milestones, on narrative shifts that feel more like pattern-matching than analysis. Volatility is extreme. The fundamentals are incomplete. The dispersion between winners and losers is staggering. This phase doesn't fit neatly into quarterly reviews or investment committee presentations. It requires conviction that cannot yet be fully documented. But this is where the returns are made.</p>
-        <p style={{ ...s.body, marginTop: '16px' }}>The second phase is calm and respectable. Winners have emerged. Execution matters. Margins expand. Cash flows materialize. The story is clean enough to survive due diligence. Volatility compresses. This phase is accessible to institutional capital—and priced accordingly.</p>
-        <p style={{ ...s.body, marginTop: '16px' }}>The paradox is this: the phase that looks undisciplined is where the opportunity concentrates. The phase that looks rigorous is often where it dissipates. This isn't a criticism of institutions that wait—they are doing exactly what their mandates require. It is an observation about where excess returns live, and why they persist.</p>
+        <p style={{ ...s.body, marginTop: '16px' }}>The second phase is calm and respectable. Winners have emerged. Execution matters. Margins expand. Cash flows materialize. The story is clean enough to survive due diligence. Volatility compresses. This phase is accessible to institutional capital. It is priced accordingly.</p>
+        <p style={{ ...s.body, marginTop: '16px' }}>The paradox is this: the phase that looks undisciplined is where the opportunity concentrates. The phase that looks rigorous is often where it dissipates. This isn't a criticism of institutions that wait; they are doing exactly what their mandates require. It is an observation about where excess returns live, and why they persist.</p>
       </div>
 
       <div style={s.mb32}>
         <h4 style={s.h4}>What Makes Optionality Credible</h4>
-        <p style={s.body}>Early is not the same as speculative. The difference is evidentiary quality—expert analysis from proven sources, integrated across both textual insight and quantitative signals.</p>
+        <p style={s.body}>Early is not the same as speculative. The difference is evidentiary quality; expert analysis from proven sources, integrated across both textual insight and quantitative signals.</p>
         <div style={{
           float: 'right',
           width: '360px',
@@ -773,15 +792,15 @@ export default function AIMarketThemesReportV8() {
               margin: 0
             }}>
               <span style={{ color: '#0077B6', fontWeight: 700 }}>Early is not the same as speculative.</span>{' '}
-              The difference is evidentiary quality—expert analysis from proven sources, integrated across both textual insight and quantitative signals.
+              The difference is evidentiary quality; expert analysis from proven sources, integrated across both textual insight and quantitative signals.
             </p>
           </div>
         </div>
-        <p style={{ ...s.body, marginTop: '16px' }}>A credible claim on future control usually satisfies at least one of four conditions. The company controls an asset or permit that cannot be replicated quickly—a grid interconnection, a processing license, a mineral reserve. It aligns with an explicit regulatory or policy trajectory where the direction is clear even if the timing is not. It demonstrates learning curve advantages that compound with each iteration. Or it occupies a coordination point in a complex system where capital alone cannot substitute for position. Speculation lacks these anchors. Credible optionality attracts them.</p>
-        <p style={{ ...s.body, marginTop: '16px' }}>Markets are better at making this distinction than many investors realize. The stocks that reprice early on narrative usually have something real behind them—a contract, a permit, a technical demonstration, a policy tailwind. The ones that collapse were never anchored in the first place.</p>
-        <p style={{ ...s.body, marginTop: '16px' }}>We do not rely on sell-side research as a primary source. Bank analysts produce valuable work, but their incentives are not aligned with ours. Coverage decisions follow investment banking relationships. Price targets cluster around consensus to minimize career risk. Ratings shift after stocks move, not before. This is not a critique of the analysts themselves—they operate within structures that reward certain behaviors and penalize others. But those structures introduce systematic bias that can muddy an independent outlook.</p>
-        <p style={{ ...s.body, marginTop: '16px' }}>We build conviction from nontraditional sources closer to the actual constraint. Venture capital research from firms like Sequoia and Andreessen Horowitz reveals where sophisticated private capital sees bottlenecks forming—often years before public markets price them. Specialist technical analysis from sources like SemiAnalysis provides granular insight into semiconductor supply chains that generalist coverage cannot match. Operator blogs and practitioner networks surface real-time intelligence from people building and running the systems we invest in. Primary company filings—not summaries, the actual 10-Ks, 8-Ks, and earnings transcripts—let us form independent views on management tone, capital allocation priorities, and risk disclosure.</p>
-        <p style={{ ...s.body, marginTop: '16px' }}>Every source carries bias. Venture investors talk their books. Technical specialists overweight their domains. Operators see their markets as more important than they are. This is normal, not a flaw—no external source is optimized for our specific goal of identifying asymmetric public equity opportunities in constrained systems. The edge is not in finding unbiased sources. It is in understanding the bias in each source and adjusting accordingly. We triangulate across perspectives, weight insight by track record, and pressure-test every thesis against incentives. The goal is not consensus. It is independent conviction, built from evidence that most institutional investors either cannot access or cannot act on.</p>
+        <p style={{ ...s.body, marginTop: '16px' }}>A credible claim on future control usually satisfies at least one of four conditions. The company controls an asset or permit that cannot be replicated quickly, such as a grid interconnection, a processing license, or a mineral reserve. It aligns with an explicit regulatory or policy trajectory where the direction is clear even if the timing is not. It demonstrates learning curve advantages that compound with each iteration. Or it occupies a coordination point in a complex system where capital alone cannot substitute for position. Speculation lacks these anchors. Credible optionality attracts them.</p>
+        <p style={{ ...s.body, marginTop: '16px' }}>Markets are better at making this distinction than many investors realize. The stocks that reprice early on narrative usually have something real behind them, a contract, a permit, a technical demonstration, or a policy tailwind. The ones that collapse were never anchored in the first place.</p>
+        <p style={{ ...s.body, marginTop: '16px' }}>We do not rely on sell-side research as a primary source. Bank analysts produce valuable work, but their incentives are not aligned with ours. Coverage decisions follow investment banking relationships. Price targets cluster around consensus to minimize career risk. Ratings shift after stocks move, not before. This is not a critique of the analysts themselves; they operate within structures that reward certain behaviors and penalize others. But those structures introduce systematic bias that can muddy an independent outlook.</p>
+        <p style={{ ...s.body, marginTop: '16px' }}>We build conviction from nontraditional sources closer to the actual constraint. Venture capital research from firms like Sequoia and Andreessen Horowitz reveals where sophisticated private capital sees bottlenecks forming, often years before public markets price them. Specialist technical analysis from sources like SemiAnalysis provides granular insight into semiconductor supply chains that generalist coverage cannot match. Operator blogs and practitioner networks surface real-time intelligence from people building and running the systems we invest in. Primary company filings, not summaries. The actual 10-Ks, 8-Ks, and earnings transcripts let us form independent views on management tone, capital allocation priorities, and risk disclosure.</p>
+        <p style={{ ...s.body, marginTop: '16px' }}>Every source carries bias. Venture investors talk their books. Technical specialists overweight their domains. Operators see their markets as more important than they are. This is normal, not a flaw. No external source is optimized for our specific goal of identifying asymmetric public equity opportunities in constrained systems. The edge is not in finding unbiased sources. It is in understanding the bias in each source and adjusting accordingly. We triangulate across perspectives, weight insight by track record, and pressure-test every thesis against incentives. The goal is not consensus. It is independent conviction, built from evidence that most institutional investors either cannot access or cannot act on.</p>
       </div>
 
       <div style={s.mb32}>
@@ -795,7 +814,7 @@ export default function AIMarketThemesReportV8() {
         <h4 style={s.h4}>An Invitation</h4>
         <p style={s.body}>This framework demands something uncomfortable: the willingness to act before certainty arrives.</p>
         <p style={{ ...s.body, marginTop: '16px' }}>It does not demand recklessness. It demands discipline: position sizing that reflects uncertainty, milestone tracking that triggers reassessment, and intellectual honesty about what is anchored in evidence versus what remains hope. But it does demand engagement with uncertainty rather than avoidance of it. The best investments in constrained systems look uncomfortable at the time. They only look obvious later.</p>
-        <p style={{ ...s.body, marginTop: '16px' }}>Markets are not inefficient. They are anticipatory. They move when the probability distribution of future control shifts—not when the income statement confirms it.</p>
+        <p style={{ ...s.body, marginTop: '16px' }}>Markets are not inefficient. They are anticipatory. They move when the probability distribution of future control shifts, not when the income statement confirms it.</p>
         <p style={{ ...s.body, marginTop: '16px' }}>The returns are made in the gap between recognition and confirmation. That gap is where Broadstreet operates, and why we consistently outperform the S&P 500 and other common benchmarks.</p>
       </div>
     </section>
@@ -1213,7 +1232,7 @@ export default function AIMarketThemesReportV8() {
               <div>
                 <p style={{ fontSize: '11px', fontWeight: 600, letterSpacing: '0.15em', color: p.accent, marginBottom: '8px' }}>KEY INSIGHT: Watchlist</p>
                 <p style={{ fontSize: '15px', fontWeight: 600, color: p.strong, marginBottom: '8px' }}>The Pattern: Cooling Momentum, Strong Fundamentals</p>
-                <p style={{ fontSize: '14px', color: p.neutral, lineHeight: 1.7, margin: 0 }}>When a theme's 3-month return is less than half its 6-month return, the early momentum buyers have likely taken profits. These themes aren't broken — fundamentals remain solid — but entry points matter. The watchlist serves as a re-entry queue when either (a) price pulls back to create better risk/reward, or (b) a new catalyst reignites momentum.</p>
+                <p style={{ fontSize: '14px', color: p.neutral, lineHeight: 1.7, margin: 0 }}>When a theme's 3-month return is less than half its 6-month return, the early momentum buyers have likely taken profits. These themes aren't broken; fundamentals remain solid, but entry points matter. The watchlist serves as a re-entry queue when either (a) price pulls back to create better risk/reward, or (b) a new catalyst reignites momentum.</p>
               </div>
             </div>
           </>)}
@@ -1288,7 +1307,7 @@ export default function AIMarketThemesReportV8() {
 
     return (
       <section style={s.section}>
-        <SectionHeader num="04" title={theme.title} subtitle="High Conviction Theme — Bottleneck-Based Investment Map" />
+        <SectionHeader num="04" title={theme.title} subtitle="High Conviction Theme; Bottleneck-Based Investment Map" />
 
         {/* Interleaved Paragraphs and Bucket Tables */}
         {theme.paragraphs.map((para, pIndex) => {
@@ -1342,7 +1361,7 @@ export default function AIMarketThemesReportV8() {
 
     return (
       <section style={s.section}>
-        <SectionHeader num="05" title={theme.title} subtitle="High Conviction Theme — Bottleneck-Based Investment Map" />
+        <SectionHeader num="05" title={theme.title} subtitle="High Conviction Theme; Bottleneck-Based Investment Map" />
 
         {/* Interleaved Paragraphs and Bucket Tables */}
         {theme.paragraphs.map((para, pIndex) => {
@@ -1383,8 +1402,8 @@ export default function AIMarketThemesReportV8() {
 
   const renderSection08 = () => (
     <section style={s.section}>
-      <SectionHeader num="11" title="Watchlist" subtitle="Themes with fading momentum but intact fundamentals — wait for re-entry" />
-      <p style={{ ...s.bodyLg, marginBottom: '32px' }}>These themes had strong 6-month runs but recent momentum has cooled. Fundamentals remain solid — margins are still expanding — but the 3-month returns suggest the easy gains have been made. These are candidates for re-entry on pullbacks.</p>
+      <SectionHeader num="11" title="Watchlist" subtitle="Themes with fading momentum but intact fundamentals; wait for re-entry" />
+      <p style={{ ...s.bodyLg, marginBottom: '32px' }}>These themes had strong 6-month runs but recent momentum has cooled. Fundamentals remain solid; margins are still expanding, but the 3-month returns suggest the easy gains have been made. These are candidates for re-entry on pullbacks.</p>
       <div style={{ display: 'grid', gridTemplateColumns: '1fr 1fr', gap: '16px', marginBottom: '40px' }}>
         {[
           { name: 'Precious Metals', cat: 'Decoupling', color: p.gold, m6: 102.4, m3: 15.7, margin: 9.6, note: 'Big run on gold prices; near-term momentum exhausted' },
@@ -1410,7 +1429,7 @@ export default function AIMarketThemesReportV8() {
         ))}
       </div>
       <InsightCard title="The Pattern: Strong 6M, Weaker 3M = Take Profits or Wait">
-        <p>When a theme's 3-month return is less than half its 6-month return, the early momentum buyers have likely taken profits. These themes aren't broken — fundamentals remain solid — but entry points matter. The watchlist serves as a re-entry queue when either (a) price pulls back to create better risk/reward, or (b) a new catalyst reignites momentum.</p>
+        <p>When a theme's 3-month return is less than half its 6-month return, the early momentum buyers have likely taken profits. These themes aren't broken; fundamentals remain solid, but entry points matter. The watchlist serves as a re-entry queue when either (a) price pulls back to create better risk/reward, or (b) a new catalyst reignites momentum.</p>
       </InsightCard>
     </section>
   );
@@ -1459,12 +1478,12 @@ export default function AIMarketThemesReportV8() {
       name: "Immunology Commercialization & Margin Inflection",
       intro: "Immunology is moving from experimental to operational. Autoimmune and inflammatory diseases affect roughly 1 in 10 adults globally, and that prevalence is rising faster than overall population growth due to better diagnosis and longer lifespans. Historically, most patients were treated with broad immunosuppression. Today, targeted therapies are expanding addressable populations while improving safety and durability. By 2026, targeted biologics account for more than half of new autoimmune prescriptions, compared with roughly one-third in the mid-2010s. The investment opportunity is not just scientific success, but the transition from trial-stage assets to repeat, chronic revenue with operating leverage. When immunology drugs work and gain coverage, persistence rates are high and margins expand quickly.",
       stocks: [
-        { ticker: "ALMS", company: "Alumis", mktCap: "$3.0B", return1M: "+109%", return3M: "+418%", return6M: "+594%", revGrYoY: "—", opMargin: "-5585%", pS: "112.3x", description: "High-momentum immunology platform targeting chronic inflammatory disease. Positioned for rapid repricing if trials succeed." },
+        { ticker: "ALMS", company: "Alumis", mktCap: "$3.0B", return1M: "+109%", return3M: "+418%", return6M: "+594%", revGrYoY: "N/A", opMargin: "-5585%", pS: "112.3x", description: "High-momentum immunology platform targeting chronic inflammatory disease. Positioned for rapid repricing if trials succeed." },
         { ticker: "GLUE", company: "Monte Rosa Therapeutics", mktCap: "$1.8B", return1M: "+27%", return3M: "+130%", return6M: "+323%", revGrYoY: "+39%", opMargin: "-258%", pS: "10.8x", description: "Uses targeted protein degradation to address immune pathways previously considered undruggable." },
-        { ticker: "KYTX", company: "Kyverna Therapeutics", mktCap: "$478M", return1M: "-18%", return3M: "+19%", return6M: "+105%", revGrYoY: "—", opMargin: "—", pS: "—", description: "Applies cell therapy to autoimmune disease, aiming for durable immune reset rather than symptom control." },
+        { ticker: "KYTX", company: "Kyverna Therapeutics", mktCap: "$478M", return1M: "-18%", return3M: "+19%", return6M: "+105%", revGrYoY: "N/A", opMargin: "N/A", pS: "N/A", description: "Applies cell therapy to autoimmune disease, aiming for durable immune reset rather than symptom control." },
         { ticker: "VRDN", company: "Viridian Therapeutics", mktCap: "$3.2B", return1M: "+1%", return3M: "+45%", return6M: "+98%", revGrYoY: "+81958%", opMargin: "-57%", pS: "38.4x", description: "Focused on a clearly defined autoimmune niche with strong pricing and persistence economics." },
-        { ticker: "ATXS", company: "Astria Therapeutics", mktCap: "$712M", return1M: "-3%", return3M: "+3%", return6M: "+97%", revGrYoY: "—", opMargin: "-4831%", pS: "1024.6x", description: "Develops targeted biologics for rare inflammatory diseases with high unmet need." },
-        { ticker: "IMVT", company: "Immunovant", mktCap: "$5.3B", return1M: "-1%", return3M: "+51%", return6M: "+48%", revGrYoY: "—", opMargin: "—", pS: "—", description: "FcRn-based platform with multiple autoimmune indications, positioning it as a strategic acquisition candidate." },
+        { ticker: "ATXS", company: "Astria Therapeutics", mktCap: "$712M", return1M: "-3%", return3M: "+3%", return6M: "+97%", revGrYoY: "N/A", opMargin: "-4831%", pS: "1024.6x", description: "Develops targeted biologics for rare inflammatory diseases with high unmet need." },
+        { ticker: "IMVT", company: "Immunovant", mktCap: "$5.3B", return1M: "-1%", return3M: "+51%", return6M: "+48%", revGrYoY: "N/A", opMargin: "N/A", pS: "N/A", description: "FcRn-based platform with multiple autoimmune indications, positioning it as a strategic acquisition candidate." },
         { ticker: "KNSA", company: "Kiniksa Pharmaceuticals", mktCap: "$3.0B", return1M: "-5%", return3M: "+1%", return6M: "+39%", revGrYoY: "+61%", opMargin: "13.3%", pS: "5.3x", description: "One of the cleaner execution stories in immunology, with growing revenue and improving margins." },
         { ticker: "TGTX", company: "TG Therapeutics", mktCap: "$4.9B", return1M: "-1%", return3M: "-12%", return6M: "-21%", revGrYoY: "+93%", opMargin: "18.2%", pS: "9.3x", description: "Commercial-stage immunology company benefiting from improving adoption and operating leverage." },
       ]
@@ -1475,8 +1494,8 @@ export default function AIMarketThemesReportV8() {
       intro: "Respiratory disease is one of the most under-penetrated areas in biotech despite massive need. Chronic respiratory conditions affect over 10% of the global population, yet fewer than 25% of patients receive advanced or disease-modifying therapies, largely due to limited options and delivery challenges. Hospitalizations for respiratory exacerbations remain a leading cause of preventable admissions, signaling unmet demand rather than lack of diagnosis. New inhaled biologics and gene-based approaches are changing what is treatable, not just how symptoms are managed. As of 2025, more than 40% of late-stage respiratory pipelines involve novel delivery or genetic modalities, a sharp shift from traditional small molecules. When effective therapies emerge, adoption tends to be fast because the alternative is repeated acute care.",
       stocks: [
         { ticker: "UPB", company: "Upstream Bio", mktCap: "$1.7B", return1M: "+6%", return3M: "+39%", return6M: "+184%", revGrYoY: "+13%", opMargin: "-5539%", pS: "597.3x", description: "Focused on severe respiratory disease where effective therapies can drive rapid uptake." },
-        { ticker: "SVRA", company: "Savara", mktCap: "$1.2B", return1M: "-9%", return3M: "+63%", return6M: "+152%", revGrYoY: "—", opMargin: "—", pS: "—", description: "Targets rare lung diseases with limited competition and high unmet need." },
-        { ticker: "SION", company: "Sionna Therapeutics", mktCap: "$1.7B", return1M: "-9%", return3M: "+20%", return6M: "+112%", revGrYoY: "—", opMargin: "—", pS: "—", description: "Addresses cystic fibrosis patients not well served by existing therapies." },
+        { ticker: "SVRA", company: "Savara", mktCap: "$1.2B", return1M: "-9%", return3M: "+63%", return6M: "+152%", revGrYoY: "N/A", opMargin: "N/A", pS: "N/A", description: "Targets rare lung diseases with limited competition and high unmet need." },
+        { ticker: "SION", company: "Sionna Therapeutics", mktCap: "$1.7B", return1M: "-9%", return3M: "+20%", return6M: "+112%", revGrYoY: "N/A", opMargin: "N/A", pS: "N/A", description: "Addresses cystic fibrosis patients not well served by existing therapies." },
         { ticker: "TBPH", company: "Theravance Biopharma", mktCap: "$1.0B", return1M: "+14%", return3M: "+43%", return6M: "+72%", revGrYoY: "+19%", opMargin: "-32%", pS: "12.9x", description: "Commercial respiratory portfolio with royalty-like economics and leverage to inhaled therapies." },
         { ticker: "INVA", company: "Innoviva", mktCap: "$1.5B", return1M: "-2%", return3M: "+13%", return6M: "-4%", revGrYoY: "+20%", opMargin: "31.1%", pS: "4.1x", description: "Generates high-margin cash flows tied to established respiratory drugs." },
         { ticker: "VRTX", company: "Vertex Pharmaceuticals", mktCap: "$112.0B", return1M: "-3%", return3M: "+8%", return6M: "-6%", revGrYoY: "+12%", opMargin: "41.0%", pS: "9.7x", description: "Category leader in cystic fibrosis with optionality to expand into broader pulmonary indications." },
@@ -1496,8 +1515,8 @@ export default function AIMarketThemesReportV8() {
       name: "Biotech Valuation Dislocation & Strategic M&A Optionality",
       intro: "Biotech valuations reflect capitulation, not fundamentals. Roughly 20% of public biotechs trade below net cash, an extreme rarely sustained once capital markets stabilize. At the same time, large pharmaceutical companies face a patent cliff exceeding $200 billion in revenue over the next five years, pushing them toward acquisition rather than internal development. Aggregate M&A capacity across big pharma now exceeds $1 trillion, creating an asymmetric setup where downside is limited by balance sheets while upside is driven by strategic value. In this environment, platform depth, validated modalities, and commercial traction matter more than single-trial outcomes.",
       stocks: [
-        { ticker: "ALMS", company: "Alumis", mktCap: "$3.0B", return1M: "+109%", return3M: "+418%", return6M: "+594%", revGrYoY: "—", opMargin: "-5585%", pS: "112.3x", description: "Platform depth and momentum." },
-        { ticker: "IMVT", company: "Immunovant", mktCap: "$5.3B", return1M: "-1%", return3M: "+51%", return6M: "+48%", revGrYoY: "—", opMargin: "—", pS: "—", description: "FcRn exposure with strategic relevance." },
+        { ticker: "ALMS", company: "Alumis", mktCap: "$3.0B", return1M: "+109%", return3M: "+418%", return6M: "+594%", revGrYoY: "N/A", opMargin: "-5585%", pS: "112.3x", description: "Platform depth and momentum." },
+        { ticker: "IMVT", company: "Immunovant", mktCap: "$5.3B", return1M: "-1%", return3M: "+51%", return6M: "+48%", revGrYoY: "N/A", opMargin: "N/A", pS: "N/A", description: "FcRn exposure with strategic relevance." },
         { ticker: "GLUE", company: "Monte Rosa Therapeutics", mktCap: "$1.8B", return1M: "+27%", return3M: "+130%", return6M: "+323%", revGrYoY: "+39%", opMargin: "-258%", pS: "10.8x", description: "Differentiated modality." },
         { ticker: "UPB", company: "Upstream Bio", mktCap: "$1.7B", return1M: "+6%", return3M: "+39%", return6M: "+184%", revGrYoY: "+13%", opMargin: "-5539%", pS: "597.3x", description: "Clean pulmonary acquisition target." },
       ]
@@ -1589,7 +1608,7 @@ export default function AIMarketThemesReportV8() {
         {/* Data Source Note */}
         <div style={s.calloutNote}>
           <p style={{ ...s.captionSm, margin: 0 }}>
-            <strong style={s.strong}>Data as of January 18, 2026.</strong> Rev Gr (YoY) = Revenue growth, year-over-year, most recent quarter vs same quarter prior year. "—" indicates data not available (typically pre-revenue companies). Stocks in Theme 5 (M&A Optionality) are drawn from Themes 2 and 3 based on platform depth and strategic value.
+            <strong style={s.strong}>Data as of January 18, 2026.</strong> Rev Gr (YoY) = Revenue growth, year-over-year, most recent quarter vs same quarter prior year. "N/A" indicates data not available (typically pre-revenue companies). Stocks in Theme 5 (M&A Optionality) are drawn from Themes 2 and 3 based on platform depth and strategic value.
           </p>
         </div>
       </section>
@@ -1609,8 +1628,8 @@ export default function AIMarketThemesReportV8() {
       { ticker: "FNV", company: "Franco-Nevada", mktCap: "$47B", return1M: "+10%", return3M: "+21%", return6M: "+84%", revGrYoY: "+77%*", opMargin: "72%*", pS: "24x*", description: "Purest expression of 'gold as infrastructure.' No operating risk, embedded optionality to price." },
       { ticker: "WPM", company: "Wheaton Precious Metals", mktCap: "$72B", return1M: "+9%", return3M: "+22%", return6M: "+78%", revGrYoY: "+38%", opMargin: "68%", pS: "18.5x", description: "Streaming model provides gold exposure without operating risk. Highest margins in the space." },
       { ticker: "RGLD", company: "Royal Gold", mktCap: "$16B", return1M: "+11%", return3M: "+19%", return6M: "+65%", revGrYoY: "+22%", opMargin: "58%", pS: "15.2x", description: "Royalty model with diversified portfolio. Lower risk, consistent cash flow growth." },
-      { ticker: "USAU", company: "U.S. Gold Corp", mktCap: "$180M", return1M: "+45%", return3M: "+82%", return6M: "+195%", revGrYoY: "—", opMargin: "—", pS: "—", description: "Exploration-stage gold company with U.S. assets. High optionality, development risk." },
-      { ticker: "DC", company: "Dakota Gold", mktCap: "$420M", return1M: "+38%", return3M: "+55%", return6M: "+142%", revGrYoY: "—", opMargin: "—", pS: "—", description: "Exploration in historic Homestake district. U.S.-based optionality play." },
+      { ticker: "USAU", company: "U.S. Gold Corp", mktCap: "$180M", return1M: "+45%", return3M: "+82%", return6M: "+195%", revGrYoY: "N/A", opMargin: "N/A", pS: "N/A", description: "Exploration-stage gold company with U.S. assets. High optionality, development risk." },
+      { ticker: "DC", company: "Dakota Gold", mktCap: "$420M", return1M: "+38%", return3M: "+55%", return6M: "+142%", revGrYoY: "N/A", opMargin: "N/A", pS: "N/A", description: "Exploration in historic Homestake district. U.S.-based optionality play." },
     ],
     silver: [
       { ticker: "HL", company: "Hecla Mining", mktCap: "$17.8B", return1M: "+40%", return3M: "+74%", return6M: "+341%", revGrYoY: "+67%", opMargin: "38.2%", pS: "14.6x", description: "Largest U.S. silver producer. Dual exposure to silver and gold. Highest momentum in precious metals." },
@@ -1641,19 +1660,19 @@ export default function AIMarketThemesReportV8() {
     ],
     uranium: [
       { ticker: "CCJ", company: "Cameco", mktCap: "$51B", return1M: "+15%*", return3M: "+35%*", return6M: "+78%*", revGrYoY: "+21%*", opMargin: "18%*", pS: "15x*", description: "Vertically integrated uranium giant. 49% stake in Westinghouse provides reactor exposure. $80B government partnership is a game-changer." },
-      { ticker: "UEC", company: "Uranium Energy Corp", mktCap: "$8.6B", return1M: "+47%", return3M: "+12%", return6M: "+134%", revGrYoY: "-100%", opMargin: "—", pS: "168.1x", description: "U.S.-focused uranium miner. Beneficiary of domestic supply chain push. Pre-production valuation." },
+      { ticker: "UEC", company: "Uranium Energy Corp", mktCap: "$8.6B", return1M: "+47%", return3M: "+12%", return6M: "+134%", revGrYoY: "-100%", opMargin: "N/A", pS: "168.1x", description: "U.S.-focused uranium miner. Beneficiary of domestic supply chain push. Pre-production valuation." },
       { ticker: "UUUU", company: "Energy Fuels", mktCap: "$5.2B", return1M: "+56%", return3M: "+1%", return6M: "+166%", revGrYoY: "+338%", opMargin: "-151%", pS: "64.8x", description: "Uranium + rare earths exposure. Revenue inflecting sharply higher. Only U.S. rare earth processor." },
       { ticker: "EU", company: "enCore Energy", mktCap: "$581M", return1M: "+30%", return3M: "-12%", return6M: "+6%", revGrYoY: "-4%", opMargin: "-153%", pS: "13.2x", description: "Smaller U.S. uranium producer. Higher risk, higher beta to uranium prices." },
     ],
     lithium: [
       { ticker: "ALB", company: "Albemarle", mktCap: "$19.2B", return1M: "+24%", return3M: "+72%", return6M: "+133%", revGrYoY: "-3%", opMargin: "-2.3%", pS: "3.9x", description: "Largest lithium producer globally. Integrated brine and hard rock. Margins compressed but positioned for recovery." },
       { ticker: "SGML", company: "Sigma Lithium", mktCap: "$1.4B", return1M: "+20%", return3M: "+81%", return6M: "+100%", revGrYoY: "-35%", opMargin: "-24%", pS: "9.7x", description: "Brazilian hard rock lithium. Low-cost, ESG-friendly production. Beneficiary of price recovery." },
-      { ticker: "IONR", company: "ioneer", mktCap: "$402M", return1M: "+41%", return3M: "+3%", return6M: "+108%", revGrYoY: "—", opMargin: "—", pS: "—", description: "Rhyolite Ridge project in Nevada. Domestic lithium/boron. Development stage." },
+      { ticker: "IONR", company: "ioneer", mktCap: "$402M", return1M: "+41%", return3M: "+3%", return6M: "+108%", revGrYoY: "N/A", opMargin: "N/A", pS: "N/A", description: "Rhyolite Ridge project in Nevada. Domestic lithium/boron. Development stage." },
     ],
     rareEarths: [
       { ticker: "MP", company: "MP Materials", mktCap: "$12.2B", return1M: "+29%", return3M: "-18%", return6M: "+18%", revGrYoY: "-15%", opMargin: "-98%", pS: "51.9x", description: "Only scaled rare earth mine and processor in the Western Hemisphere. Policy beneficiary." },
       { ticker: "UAMY", company: "U.S. Antimony", mktCap: "$1.2B", return1M: "+66%", return3M: "-34%", return6M: "+122%", revGrYoY: "+238%", opMargin: "-62%", pS: "30.9x", description: "Antimony is critical for defense and batteries. Extreme China dependence creates optionality." },
-      { ticker: "CRML", company: "Critical Metals", mktCap: "$2.1B", return1M: "+123%", return3M: "-9%", return6M: "+330%", revGrYoY: "—", opMargin: "—", pS: "—", description: "Tantalum and other critical minerals. Highest 1M momentum in the space." },
+      { ticker: "CRML", company: "Critical Metals", mktCap: "$2.1B", return1M: "+123%", return3M: "-9%", return6M: "+330%", revGrYoY: "N/A", opMargin: "N/A", pS: "N/A", description: "Tantalum and other critical minerals. Highest 1M momentum in the space." },
     ],
     aluminum: [
       { ticker: "AA", company: "Alcoa", mktCap: "$15.6B", return1M: "+29%", return3M: "+62%", return6M: "+111%", revGrYoY: "+3%", opMargin: "1.8%", pS: "1.2x", description: "Global aluminum producer. Margins recovering. Cheap on P/S basis." },
@@ -1705,7 +1724,7 @@ export default function AIMarketThemesReportV8() {
         
         {/* Opening context */}
         <div style={s.mb32}>
-          <p style={s.body}>From 2020 through 2025, silver rose roughly ~290%, gold gained approximately ~190%, and the S&P 500 advanced about ~110% on a price basis—meaning silver delivered nearly 3× the cumulative return of equities and gold outperformed stocks by roughly 80 percentage points over the same period. This is not typical behavior. Precious metals historically lag equities during strong risk-on markets and outperform mainly during crises. The 2020–2025 period breaks that pattern.</p>
+          <p style={s.body}>From 2020 through 2025, silver rose roughly ~290%, gold gained approximately ~190%, and the S&P 500 advanced about ~110% on a price basis. This means silver delivered nearly 3× the cumulative return of equities and gold outperformed stocks by roughly 80 percentage points over the same period. This is not typical behavior. Precious metals historically lag equities during strong risk-on markets and outperform mainly during crises. The 2020–2025 period breaks that pattern.</p>
         </div>
 
         <div style={s.mb32}>
@@ -1869,7 +1888,7 @@ export default function AIMarketThemesReportV8() {
         {/* Data Source Note */}
         <div style={s.calloutNote}>
           <p style={{ ...s.captionSm, margin: 0 }}>
-            <strong style={s.strong}>Data as of January 18, 2026.</strong> Rev Gr (YoY) = Revenue growth, year-over-year. *Indicates data sourced from web search. Streaming/royalty companies (FNV, WPM, RGLD) carry premium valuations reflecting lower operating risk. "—" indicates pre-revenue or development-stage companies.
+            <strong style={s.strong}>Data as of January 18, 2026.</strong> Rev Gr (YoY) = Revenue growth, year-over-year. *Indicates data sourced from web search. Streaming/royalty companies (FNV, WPM, RGLD) carry premium valuations reflecting lower operating risk. "N/A" indicates pre-revenue or development-stage companies.
           </p>
         </div>
       </section>
@@ -1890,7 +1909,7 @@ export default function AIMarketThemesReportV8() {
       { num: 'III', title: 'Uranium: Nuclear Renaissance and Supply Deficit',
         desc: 'Nuclear is the only scalable, baseload, zero-carbon power source. AI data center demand is accelerating buildout. Supply is structurally short after a decade of underinvestment. The $80B U.S. government partnership with Cameco/Westinghouse/Brookfield signals policy commitment.',
         stocks: metalsData.uranium,
-        hook: 'Uranium is priced for cyclical commodity dynamics, but this is infrastructure buildout. Long-term contracts are being signed at $150/lb ceilings — 2x current spot.' },
+        hook: 'Uranium is priced for cyclical commodity dynamics, but this is infrastructure buildout. Long-term contracts are being signed at $150/lb ceilings; 2x current spot.' },
       { num: 'IV', title: 'Lithium: Battery Supply Chain Rebalancing',
         desc: 'Lithium oversupply crushed prices in 2023-24, but demand from EVs and grid storage is structural. Supply discipline is returning. The survivors with low costs and Western jurisdiction will capture the recovery.',
         stocks: metalsData.lithium,
@@ -1941,7 +1960,7 @@ export default function AIMarketThemesReportV8() {
         {/* Data Source Note */}
         <div style={s.calloutNote}>
           <p style={{ ...s.captionSm, margin: 0 }}>
-            <strong style={s.strong}>Data as of January 18, 2026.</strong> Rev Gr (YoY) = Revenue growth, year-over-year, most recent quarter vs same quarter prior year. "—" indicates data not available. *AEM, FNV, CCJ, ERO data sourced from web search (not in FactSet screen). All other data from FactSet.
+            <strong style={s.strong}>Data as of January 18, 2026.</strong> Rev Gr (YoY) = Revenue growth, year-over-year, most recent quarter vs same quarter prior year. "N/A" indicates data not available. *AEM, FNV, CCJ, ERO data sourced from web search (not in FactSet screen). All other data from FactSet.
           </p>
         </div>
       </section>
@@ -1951,7 +1970,7 @@ export default function AIMarketThemesReportV8() {
   const renderSection11 = () => renderDeepDiveSection(
     "12", "Physical Buildout", "Labor and capacity constraints across infrastructure",
     "Everything Being Built Requires Labor That's Already Allocated",
-    <p>Data centers, grid upgrades, manufacturing reshoring, defense contracts — they all compete for the same skilled labor pool. Specialty contractors who can actually wire, plumb, and construct have pricing power. Low valuation (2.4x P/S), strong fundamentals (17% revenue growth).</p>,
+    <p>Data centers, grid upgrades, manufacturing reshoring, defense contracts; they all compete for the same skilled labor pool. Specialty contractors who can actually wire, plumb, and construct have pricing power. Low valuation (2.4x P/S), strong fundamentals (17% revenue growth).</p>,
     [
       { title: "Specialty Contracting", caption: "Electrical, mechanical, and building services contractors. Quality Score: 85.9.", data: stockData.contracting },
       { title: "Space & Satellites", caption: "Dual demand: commercial (LEO, imagery) and government (defense, NASA). Accelerating.", data: stockData.space,
@@ -1982,7 +2001,7 @@ export default function AIMarketThemesReportV8() {
   return (
     <div style={{ display: 'flex', minHeight: '100vh', fontFamily: "'Poppins', sans-serif" }}>
       <style>{`@import url('https://fonts.googleapis.com/css2?family=Playfair+Display:wght@400;500;600;700;800;900&family=Poppins:wght@300;400;500;600;700;800;900&family=JetBrains+Mono:wght@400;500&display=swap');`}</style>
-      <div style={{ width: '320px', backgroundColor: p.strong, padding: '24px 0', flexShrink: 0, position: 'sticky', top: 0, height: '100vh', overflowY: 'auto', display: 'flex', flexDirection: 'column' }}>
+      <div style={{ width: '340px', backgroundColor: p.strong, padding: '24px 0', flexShrink: 0, position: 'sticky', top: 0, height: '100vh', overflowY: 'auto', display: 'flex', flexDirection: 'column' }}>
         <div style={{ padding: '0 24px 20px', borderBottom: '1px solid rgba(255,255,255,0.1)', marginBottom: '16px' }}>
           <div style={{ fontSize: '11px', fontWeight: 600, letterSpacing: '0.18em', color: p.action, marginBottom: '6px' }}>BROADSTREET</div>
           <div style={{ fontSize: '20px', fontWeight: 600, color: p.surface1 }}>The Control Premium</div>
@@ -1991,8 +2010,28 @@ export default function AIMarketThemesReportV8() {
         <nav style={{ flex: 1 }}>
           {sections.map((sec, i) => (
             <button key={sec.id} onClick={() => setActiveSection(i)} style={{ display: 'flex', alignItems: 'center', gap: '14px', width: '100%', padding: '14px 24px', border: 'none', background: activeSection === i ? 'rgba(255,255,255,0.08)' : 'transparent', borderLeft: activeSection === i ? `3px solid ${p.action}` : '3px solid transparent', cursor: 'pointer', textAlign: 'left', transition: 'all 0.15s' }}>
-              <span style={{ fontSize: '17px', color: activeSection === i ? p.action : 'rgba(255,255,255,0.4)', fontWeight: 500, minWidth: '28px' }}>{sec.num || '◈'}</span>
-              <span style={{ fontSize: '18px', color: activeSection === i ? p.surface1 : 'rgba(255,255,255,0.6)' }}>{sec.title}</span>
+              <span style={{
+                fontSize: '17px',
+                color: activeSection === i ? p.action : 'rgba(255,255,255,0.4)',
+                fontWeight: 500,
+                minWidth: '28px',
+                display: 'inline-flex',
+                alignItems: 'center',
+                justifyContent: 'center',
+                width: activeSection === i ? '30px' : '28px',
+                height: activeSection === i ? '30px' : '28px',
+                borderRadius: '50%',
+                border: activeSection === i ? `1px solid ${p.action}` : '1px solid transparent'
+              }}>
+                {sec.num || '◈'}
+              </span>
+              <span style={{
+                fontSize: '15px',
+                color: activeSection === i ? p.surface1 : 'rgba(255,255,255,0.6)',
+                whiteSpace: 'nowrap'
+              }}>
+                {sec.title}
+              </span>
             </button>
           ))}
         </nav>
