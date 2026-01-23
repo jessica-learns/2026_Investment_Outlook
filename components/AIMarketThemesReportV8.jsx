@@ -265,7 +265,7 @@ export default function AIMarketThemesReportV8() {
   const spaceDefenseBuckets = [
     {
       id: 5,
-      name: "Launch, Satellite Manufacturing, & Space Infrastructure",
+      name: "Launch, Satellites, & Space Infrastructure",
       tagline: "Vertical integration from launch to on-orbit systems. The 95% cost reduction in launch has unlocked new business models.",
       insight: "Why this bucket is volatile: Pre-profitability business models with binary outcomes. Position sizing matters more than entry price.",
       stocks: [
@@ -308,7 +308,7 @@ export default function AIMarketThemesReportV8() {
     },
     {
       id: 2,
-      name: "High-Temperature Materials, Castings, & Engineered Structures",
+      name: "High-Temp Materials, Castings, & Engineering",
       tagline: "Specialty alloys, composites, and precision components with long qualification cycles and limited supplier bases.",
       insight: "Why this bucket matters: Qualification cycles create switching costs. Once designed in, these suppliers capture decades of aftermarket revenue.",
       stocks: [
@@ -333,7 +333,7 @@ export default function AIMarketThemesReportV8() {
     },
     {
       id: 4,
-      name: "Test, Integration, Sustainment, & Cleared Capacity",
+      name: "Test, Integration, Sustainment, & Capacity",
       tagline: "Clearance-heavy services where the constraint is qualified personnel, not capital.",
       insight: "Why this bucket matters: Cleared personnel are the bottleneck. Training and clearance timelines are measured in years, creating durable capacity constraints.",
       stocks: [
@@ -1478,7 +1478,7 @@ export default function AIMarketThemesReportV8() {
   const biotechThemes = [
     {
       id: 1,
-      name: "Precision Diagnostics as the Gatekeeper to Treatment",
+      name: "Diagnostics as the Gatekeeper to Treatment",
       intro: "Healthcare cannot treat what it cannot reliably detect. Precision diagnostics sit upstream of nearly every modern therapy, determining who gets treated, when, and with what. The system is shifting rapidly toward earlier, more frequent testing because treatment outcomes and costs diverge sharply depending on stage and timing. By 2025, over 70% of oncology drug trials required a companion diagnostic, up from less than 40% a decade ago, effectively turning diagnostics into mandatory infrastructure rather than optional add-ons. At the same time, multi-cancer early detection and transplant monitoring are pushing testing volumes higher without requiring new physicians or facilities. Companies embedded at this decision point benefit from rising utilization and workflow lock-in, not just innovation cycles. Once a diagnostic becomes standard of care, it controls patient flow for years.",
       stocks: [
         { ticker: "EXAS", company: "Exact Sciences", mktCap: "$19.5B", return1M: "+1%", return3M: "+67%", return6M: "+91%", revGrYoY: "+20%", opMargin: "1.9%", pS: "6.3x", description: "Leader in cancer screening and early detection. Benefits from rising testing frequency and expansion beyond colorectal cancer." },
@@ -1489,7 +1489,7 @@ export default function AIMarketThemesReportV8() {
     },
     {
       id: 2,
-      name: "Immunology Commercialization & Margin Inflection",
+      name: "Immunology Commercialization",
       intro: "Immunology is moving from experimental to operational. Autoimmune and inflammatory diseases affect roughly 1 in 10 adults globally, and that prevalence is rising faster than overall population growth due to better diagnosis and longer lifespans. Historically, most patients were treated with broad immunosuppression. Today, targeted therapies are expanding addressable populations while improving safety and durability. By 2026, targeted biologics account for more than half of new autoimmune prescriptions, compared with roughly one-third in the mid-2010s. The investment opportunity is not just scientific success, but the transition from trial-stage assets to repeat, chronic revenue with operating leverage. When immunology drugs work and gain coverage, persistence rates are high and margins expand quickly.",
       stocks: [
         { ticker: "ALMS", company: "Alumis", mktCap: "$3.0B", return1M: "+109%", return3M: "+418%", return6M: "+594%", revGrYoY: "N/A", opMargin: "-5585%", pS: "112.3x", description: "High-momentum immunology platform targeting chronic inflammatory disease. Positioned for rapid repricing if trials succeed." },
@@ -1526,7 +1526,7 @@ export default function AIMarketThemesReportV8() {
     },
     {
       id: 5,
-      name: "Biotech Valuation Dislocation & Strategic M&A Optionality",
+      name: "Biotech Valuation Dislocation & Strategic M&A",
       intro: "Biotech valuations reflect capitulation, not fundamentals. Roughly 20% of public biotechs trade below net cash, an extreme rarely sustained once capital markets stabilize. At the same time, large pharmaceutical companies face a patent cliff exceeding $200 billion in revenue over the next five years, pushing them toward acquisition rather than internal development. Aggregate M&A capacity across big pharma now exceeds $1 trillion, creating an asymmetric setup where downside is limited by balance sheets while upside is driven by strategic value. In this environment, platform depth, validated modalities, and commercial traction matter more than single-trial outcomes.",
       stocks: [
         { ticker: "ALMS", company: "Alumis", mktCap: "$3.0B", return1M: "+109%", return3M: "+418%", return6M: "+594%", revGrYoY: "N/A", opMargin: "-5585%", pS: "112.3x", description: "Platform depth and momentum." },
