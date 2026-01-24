@@ -35,6 +35,7 @@ export default function AIMarketThemesReportV8() {
     surface1: '#FFFFFF', surface2: '#F0F1F4', border: '#C1C7D4',
     neutral: '#657085', strong: '#14161A', action: '#FE4207',
     positive: '#059669', negative: '#DC2626', accent: '#0077B6', gold: '#B8860B', warning: '#D97706',
+    muted: '#8B9099',
   };
 
   // Category colors per user request: orange for High Conviction (energy), navy for Watchlist, muted for others
@@ -84,7 +85,7 @@ export default function AIMarketThemesReportV8() {
     card: { padding: '24px', marginBottom: '24px', backgroundColor: p.surface2, borderLeft: `3px solid ${p.accent}` },
     themeBlock: { padding: '24px', marginBottom: '24px', backgroundColor: p.surface2 },
     flexRow: { display: 'flex', alignItems: 'baseline', gap: '16px', marginBottom: '4px' },
-    grid4: { display: 'grid', gridTemplateColumns: 'repeat(4, 1fr)', gap: '20px' },
+    grid4: { display: 'grid', gridTemplateColumns: 'repeat(4, 1fr)', gap: '24px' },
     // Spacing utilities
     mb24: { marginBottom: '24px' },
     mb32: { marginBottom: '32px' },
@@ -92,14 +93,14 @@ export default function AIMarketThemesReportV8() {
     // Table styles (centralized)
     tableLabel: { fontSize: '16px', fontWeight: 700, letterSpacing: '0.12em', color: p.action, textTransform: 'uppercase', whiteSpace: 'nowrap' },
     tableTitle: { fontFamily: "'Playfair Display', serif", fontSize: '30px', fontWeight: 800, color: p.strong, margin: 0 },
-    tableTicker: { padding: '12px 14px', fontSize: '20px', color: p.strong, fontWeight: 900, fontFamily: "'Poppins', sans-serif" },
-    tableCompany: { padding: '12px 14px', fontSize: '19px', color: p.strong, fontWeight: 400, fontFamily: "'Poppins', sans-serif" },
-    tableNum: { padding: '12px 14px', fontSize: '19px', color: '#2D3748', textAlign: 'center', fontFamily: "'Poppins', sans-serif", fontVariantNumeric: 'tabular-nums', fontWeight: 500 },
-    tableNumActive: { padding: '12px 14px', fontSize: '19px', color: '#2D3748', textAlign: 'center', fontFamily: "'Poppins', sans-serif", fontVariantNumeric: 'tabular-nums', fontWeight: 600 },
-    tableDesc: { padding: '0 14px 14px 14px', fontSize: '18px', color: p.neutral, fontStyle: 'italic', lineHeight: 1.5, fontFamily: "'Poppins', sans-serif" },
-    tableHeader: { padding: '12px 14px', fontSize: '17px', fontWeight: 600, letterSpacing: '0.03em', fontFamily: "'Poppins', sans-serif", userSelect: 'none' },
+    tableTicker: { padding: '12px 16px', fontSize: '20px', color: p.strong, fontWeight: 900, fontFamily: "'Poppins', sans-serif" },
+    tableCompany: { padding: '12px 16px', fontSize: '19px', color: p.strong, fontWeight: 400, fontFamily: "'Poppins', sans-serif" },
+    tableNum: { padding: '12px 16px', fontSize: '19px', color: p.strong, textAlign: 'center', fontFamily: "'Poppins', sans-serif", fontVariantNumeric: 'tabular-nums', fontWeight: 500 },
+    tableNumActive: { padding: '12px 16px', fontSize: '19px', color: p.strong, textAlign: 'center', fontFamily: "'Poppins', sans-serif", fontVariantNumeric: 'tabular-nums', fontWeight: 600 },
+    tableDesc: { padding: '0 16px 16px 16px', fontSize: '18px', color: p.neutral, fontStyle: 'italic', lineHeight: 1.5, fontFamily: "'Poppins', sans-serif" },
+    tableHeader: { padding: '12px 16px', fontSize: '17px', fontWeight: 600, letterSpacing: '0.03em', fontFamily: "'Poppins', sans-serif", userSelect: 'none' },
     // Callout styles
-    calloutNote: { padding: '16px 20px', backgroundColor: `${p.accent}10`, borderLeft: `3px solid ${p.accent}`, marginTop: '32px' },
+    calloutNote: { padding: '16px 24px', backgroundColor: `${p.accent}10`, borderLeft: `3px solid ${p.accent}`, marginTop: '32px' },
     calloutHook: { padding: '12px 16px', backgroundColor: `${p.accent}08`, borderLeft: `3px solid ${p.accent}`, marginTop: '-8px' },
     // Text utilities
     caption: { fontSize: '18px', color: p.neutral },
@@ -612,19 +613,19 @@ export default function AIMarketThemesReportV8() {
       const dateRange = weekNumber !== null && !isNaN(weekNumber) ? getWeekDateRange(weekNumber) : null;
 
       return (
-        <div style={{ background: "#FFFFFF", border: "1px solid #E5E7EB", padding: "8px 10px", borderRadius: "8px", boxShadow: "0 8px 20px rgba(17, 24, 39, 0.12)" }}>
-          <p style={{ fontSize: "12px", fontWeight: 600, color: "#111827", marginBottom: "4px", borderBottom: "1px solid #E5E7EB", paddingBottom: "4px" }}>
+        <div style={{ background: p.surface1, border: `1px solid ${p.border}`, padding: "8px 16px", borderRadius: "8px", boxShadow: "0 8px 20px rgba(17, 24, 39, 0.12)" }}>
+          <p style={{ fontSize: "12px", fontWeight: 600, color: p.strong, marginBottom: "4px", borderBottom: `1px solid ${p.border}`, paddingBottom: "4px" }}>
             {monthLabel}
           </p>
           {dateRange && (
-            <p style={{ fontSize: "11px", color: "#6B7280", marginBottom: "6px", marginTop: "4px" }}>
+            <p style={{ fontSize: "11px", color: p.muted, marginBottom: "6px", marginTop: "4px" }}>
               {dateRange}
             </p>
           )}
           {payload
             .sort((a, b) => b.value - a.value)
             .map((entry, index) => (
-              <div key={index} style={{ display: "flex", justifyContent: "space-between", gap: "12px", padding: "2px 0", fontSize: "11px" }}>
+              <div key={index} style={{ display: "flex", justifyContent: "space-between", gap: "16px", padding: "4px 0", fontSize: "11px" }}>
                 <span style={{ color: entry.color, fontWeight: 600 }}>{entry.dataKey}</span>
                 <span style={{ color: entry.color }}>
                   {entry.value > 0 ? "+" : ""}{entry.value.toFixed(1)}%
@@ -640,16 +641,16 @@ export default function AIMarketThemesReportV8() {
   const ScarcityCard = ({ study, color }) => (
     <div>
       <div style={{ display: "flex", alignItems: "baseline", gap: "8px", marginBottom: "6px" }}>
-        <span style={{ fontSize: "16px", fontWeight: 600, color: "#111827", fontFamily: "Poppins" }}>
+        <span style={{ fontSize: "16px", fontWeight: 600, color: p.strong, fontFamily: "Poppins" }}>
           {study.name}
         </span>
         <span style={{ fontSize: "12px", fontWeight: 600, color }}>{study.ticker}</span>
       </div>
       <div style={{ display: "flex", gap: "8px", alignItems: "center", marginBottom: "10px" }}>
-        <span style={{ fontSize: "10px", color: "#6B7280", background: "#F3F4F6", padding: "2px 6px", borderRadius: "6px" }}>
+        <span style={{ fontSize: "10px", color: p.muted, background: p.surface2, padding: "4px 8px", borderRadius: "8px" }}>
           {study.marketCap}
         </span>
-        <span style={{ fontSize: "10px", color: "#6B7280", background: "#F3F4F6", padding: "2px 6px", borderRadius: "6px" }}>
+        <span style={{ fontSize: "10px", color: p.muted, background: p.surface2, padding: "4px 8px", borderRadius: "8px" }}>
           {study.category}
         </span>
       </div>
@@ -657,10 +658,10 @@ export default function AIMarketThemesReportV8() {
         <span style={{ fontSize: "26px", fontWeight: 700, color, fontFamily: "'Playfair Display', serif" }}>
           +{study.return1Y.toFixed(0)}%
         </span>
-        <span style={{ fontSize: "11px", color: "#9CA3AF" }}>vs SPY +15%</span>
+        <span style={{ fontSize: "11px", color: p.muted }}>vs SPY +15%</span>
       </div>
       <div style={{ marginBottom: "10px" }}>
-        <div style={{ display: "flex", alignItems: "center", gap: "6px", marginBottom: "4px" }}>
+        <div style={{ display: "flex", alignItems: "center", gap: "8px", marginBottom: "4px" }}>
           <span style={{ width: "16px", height: "16px", borderRadius: "999px", border: "2px solid #EF4444", display: "flex", alignItems: "center", justifyContent: "center", fontSize: "9px", fontWeight: 700, color: "#EF4444" }}>
             C
           </span>
@@ -668,12 +669,12 @@ export default function AIMarketThemesReportV8() {
             Constraint
           </span>
         </div>
-        <p style={{ fontSize: "12px", color: "#4B5563", lineHeight: 1.5, marginLeft: "22px" }}>
+        <p style={{ fontSize: "12px", color: p.neutral, lineHeight: 1.5, marginLeft: "24px" }}>
           {study.constraint}
         </p>
       </div>
       <div>
-        <div style={{ display: "flex", alignItems: "center", gap: "6px", marginBottom: "4px" }}>
+        <div style={{ display: "flex", alignItems: "center", gap: "8px", marginBottom: "4px" }}>
           <span style={{ width: "16px", height: "16px", borderRadius: "999px", border: "2px solid #10B981", display: "flex", alignItems: "center", justifyContent: "center", fontSize: "9px", fontWeight: 700, color: "#10B981" }}>
             R
           </span>
@@ -681,7 +682,7 @@ export default function AIMarketThemesReportV8() {
             Resolution
           </span>
         </div>
-        <p style={{ fontSize: "12px", color: "#4B5563", lineHeight: 1.5, marginLeft: "22px" }}>
+        <p style={{ fontSize: "12px", color: p.neutral, lineHeight: 1.5, marginLeft: "24px" }}>
           {study.resolution}
         </p>
       </div>
@@ -769,7 +770,7 @@ export default function AIMarketThemesReportV8() {
     };
 
     return (
-      <div style={{ maxWidth: "960px", margin: "0 auto 32px", padding: "20px", background: "#FFFFFF", borderRadius: "12px", border: "1px solid #E5E7EB", boxShadow: "0 8px 24px rgba(17, 24, 39, 0.08)" }}>
+      <div style={{ maxWidth: "960px", margin: "0 auto 32px", padding: "24px", background: p.surface1, borderRadius: "12px", border: `1px solid ${p.border}`, boxShadow: "0 8px 24px rgba(17, 24, 39, 0.08)" }}>
         <div style={{ marginBottom: "16px" }}>
           <h4 style={{ ...s.h4, marginBottom: "4px" }}>Where Early Control Became Returns</h4>
           <p style={{ fontSize: "13px", color: p.neutral, lineHeight: 1.6, margin: 0 }}>
@@ -777,9 +778,9 @@ export default function AIMarketThemesReportV8() {
           </p>
         </div>
 
-        <div style={{ display: "flex", gap: "20px" }}>
+        <div style={{ display: "flex", gap: "24px" }}>
           <div style={{ flex: 2, minWidth: 0 }}>
-            <div style={{ background: "#F9FAFB", borderRadius: "10px", padding: "16px", border: "1px solid #E5E7EB" }}>
+            <div style={{ background: p.surface2, borderRadius: "8px", padding: "16px", border: `1px solid ${p.border}` }}>
               <div style={{ display: "flex", flexWrap: "wrap", gap: "8px", marginBottom: "12px" }}>
                 {scarcityCaseStudies.map((study, idx) => (
                   <button
@@ -788,13 +789,13 @@ export default function AIMarketThemesReportV8() {
                     style={{
                       display: "inline-flex",
                       alignItems: "center",
-                      gap: "6px",
+                      gap: "8px",
                       fontSize: "11px",
                       fontWeight: 600,
                       padding: "4px 8px",
                       borderRadius: "999px",
-                      border: "1px solid #E5E7EB",
-                      background: idx === activeIndex ? "#FFFFFF" : "transparent",
+                      border: `1px solid ${p.border}`,
+                      background: idx === activeIndex ? p.surface1 : "transparent",
                       color: scarcityColors[study.ticker],
                       opacity: idx === activeIndex ? 1 : 0.5,
                       cursor: "pointer"
@@ -810,9 +811,9 @@ export default function AIMarketThemesReportV8() {
                     marginLeft: "auto",
                     display: "inline-flex",
                     alignItems: "center",
-                    gap: "6px",
+                    gap: "8px",
                     fontSize: "11px",
-                    color: isSPY ? scarcityColors.SPY : "#9CA3AF",
+                    color: isSPY ? scarcityColors.SPY : p.muted,
                     background: "transparent",
                     border: "none",
                     cursor: "pointer",
@@ -830,9 +831,9 @@ export default function AIMarketThemesReportV8() {
               <div style={{ height: "320px" }}>
                 <ResponsiveContainer width="100%" height="100%">
                   <LineChart data={scarcityChartData} margin={{ top: 10, right: 10, left: -5, bottom: 0 }}>
-                    <XAxis dataKey="label" axisLine={false} tickLine={false} tick={{ fontSize: 10, fill: "#9CA3AF" }} interval="preserveStartEnd" />
-                    <YAxis domain={[-50, 500]} axisLine={false} tickLine={false} tick={{ fontSize: 10, fill: "#9CA3AF" }} tickFormatter={(v) => `${v}%`} width={45} />
-                    <ReferenceLine y={0} stroke="#E5E7EB" strokeWidth={1} />
+                    <XAxis dataKey="label" axisLine={false} tickLine={false} tick={{ fontSize: 10, fill: p.muted }} interval="preserveStartEnd" />
+                    <YAxis domain={[-50, 500]} axisLine={false} tickLine={false} tick={{ fontSize: 10, fill: p.muted }} tickFormatter={(v) => `${v}%`} width={45} />
+                    <ReferenceLine y={0} stroke={p.border} strokeWidth={1} />
                     <Tooltip content={<ScarcityTooltip />} />
 
                     <Line 
@@ -883,7 +884,7 @@ export default function AIMarketThemesReportV8() {
 
           <div style={{ flex: 1, display: "flex", flexDirection: "column" }}>
             <div style={{ display: "flex", alignItems: "center", justifyContent: "space-between", marginBottom: "8px" }}>
-              <div style={{ display: "flex", gap: "6px" }}>
+              <div style={{ display: "flex", gap: "8px" }}>
                 {scarcityCaseStudies.map((_, idx) => (
                   <button
                     key={idx}
@@ -893,7 +894,7 @@ export default function AIMarketThemesReportV8() {
                       height: "4px",
                       borderRadius: "999px",
                       border: "none",
-                      background: idx === activeIndex ? "#111827" : "#E5E7EB",
+                      background: idx === activeIndex ? p.strong : p.border,
                       cursor: "pointer"
                     }}
                   />
@@ -905,12 +906,12 @@ export default function AIMarketThemesReportV8() {
                     height: "4px",
                     borderRadius: "999px",
                     border: "none",
-                    background: isSPY ? "#111827" : "#E5E7EB",
-                    cursor: "pointer"
+                    background: isSPY ? p.strong : p.border,
+                      cursor: "pointer"
                   }}
                 />
               </div>
-              <div style={{ display: "flex", gap: "6px" }}>
+              <div style={{ display: "flex", gap: "8px" }}>
                 <button
                   onClick={goPrev}
                   disabled={activeIndex === 0}
@@ -918,9 +919,9 @@ export default function AIMarketThemesReportV8() {
                     width: "26px",
                     height: "26px",
                     borderRadius: "999px",
-                    border: "1px solid #D1D5DB",
-                    background: activeIndex === 0 ? "transparent" : "#FFFFFF",
-                    color: "#6B7280",
+                    border: `1px solid ${p.border}`,
+                    background: activeIndex === 0 ? "transparent" : p.surface1,
+                    color: p.muted,
                     cursor: activeIndex === 0 ? "not-allowed" : "pointer"
                   }}
                 >
@@ -933,9 +934,9 @@ export default function AIMarketThemesReportV8() {
                     width: "26px",
                     height: "26px",
                     borderRadius: "999px",
-                    border: "1px solid #D1D5DB",
-                    background: activeIndex === totalItems - 1 ? "transparent" : "#FFFFFF",
-                    color: "#6B7280",
+                    border: `1px solid ${p.border}`,
+                    background: activeIndex === totalItems - 1 ? "transparent" : p.surface1,
+                    color: p.muted,
                     cursor: activeIndex === totalItems - 1 ? "not-allowed" : "pointer"
                   }}
                 >
@@ -948,12 +949,12 @@ export default function AIMarketThemesReportV8() {
               {isSPY ? (
                 <div>
                   <div style={{ display: "flex", alignItems: "baseline", gap: "8px", marginBottom: "6px" }}>
-                    <span style={{ fontSize: "16px", fontWeight: 600, color: "#111827", fontFamily: "Poppins" }}>
+                    <span style={{ fontSize: "16px", fontWeight: 600, color: p.strong, fontFamily: "Poppins" }}>
                       Benchmark
                     </span>
                     <span style={{ fontSize: "12px", fontWeight: 600, color: scarcityColors.SPY }}>SPY</span>
                   </div>
-                  <p style={{ fontSize: "12px", color: "#4B5563", lineHeight: 1.5, marginTop: "12px" }}>
+                  <p style={{ fontSize: "12px", color: p.neutral, lineHeight: 1.5, marginTop: "16px" }}>
                     SPY is an ETF that tracks the S&P500
                   </p>
                 </div>
@@ -964,7 +965,7 @@ export default function AIMarketThemesReportV8() {
           </div>
         </div>
 
-        <p style={{ fontSize: "10px", color: "#9CA3AF", textAlign: "center", marginTop: "14px", fontStyle: "italic" }}>
+        <p style={{ fontSize: "10px", color: p.muted, textAlign: "center", marginTop: "16px", fontStyle: "italic" }}>
           Returns shown are cumulative price returns January 2025 to January 2026. Past performance does not guarantee future results.
         </p>
       </div>
@@ -1225,6 +1226,560 @@ export default function AIMarketThemesReportV8() {
     </section>
   );
 
+  // TSMC 10-Year Returns Chart Component
+  const TSMCReturnsChart = () => {
+    const [selectedStocks, setSelectedStocks] = useState(['TSM', 'AAPL', 'MSFT', 'GOOGL', 'AMZN', 'META', 'SPY']); // All stocks visible by default
+    const [carouselIndex, setCarouselIndex] = useState(0); // 0 = chart, 1 = table
+    
+    const monthlyData = [
+      // 2016
+      { date: 'Jan 2016', TSM: 100, AAPL: 100, MSFT: 100, GOOGL: 100, AMZN: 100, META: 100, SPY: 100 },
+      { date: 'Feb 2016', TSM: 88, AAPL: 89, MSFT: 92, GOOGL: 94, AMZN: 88, META: 95, SPY: 94 },
+      { date: 'Mar 2016', TSM: 98, AAPL: 96, MSFT: 102, GOOGL: 98, AMZN: 102, META: 105, SPY: 100 },
+      { date: 'Jun 2016', TSM: 105, AAPL: 92, MSFT: 105, GOOGL: 102, AMZN: 115, META: 112, SPY: 102 },
+      { date: 'Sep 2016', TSM: 115, AAPL: 108, MSFT: 115, GOOGL: 110, AMZN: 125, META: 120, SPY: 106 },
+      { date: 'Dec 2016', TSM: 125, AAPL: 115, MSFT: 125, GOOGL: 115, AMZN: 130, META: 115, SPY: 112 },
+      
+      // 2017 - Strong bull market
+      { date: 'Mar 2017', TSM: 140, AAPL: 135, MSFT: 132, GOOGL: 125, AMZN: 145, META: 132, SPY: 118 },
+      { date: 'Jun 2017', TSM: 155, AAPL: 142, MSFT: 142, GOOGL: 135, AMZN: 160, META: 145, SPY: 125 },
+      { date: 'Sep 2017', TSM: 170, AAPL: 155, MSFT: 155, GOOGL: 150, AMZN: 175, META: 165, SPY: 132 },
+      { date: 'Dec 2017', TSM: 195, AAPL: 168, MSFT: 175, GOOGL: 165, AMZN: 215, META: 175, SPY: 140 },
+      
+      // 2018 - Strong first half, Q4 selloff
+      { date: 'Mar 2018', TSM: 210, AAPL: 165, MSFT: 185, GOOGL: 170, AMZN: 270, META: 160, SPY: 138 },
+      { date: 'Jun 2018', TSM: 195, AAPL: 180, MSFT: 195, GOOGL: 175, AMZN: 310, META: 185, SPY: 142 },
+      { date: 'Sep 2018', TSM: 185, AAPL: 215, MSFT: 225, GOOGL: 190, AMZN: 355, META: 155, SPY: 152 },
+      { date: 'Oct 2018', TSM: 165, AAPL: 205, MSFT: 205, GOOGL: 175, AMZN: 290, META: 145, SPY: 145 },
+      { date: 'Dec 2018', TSM: 155, AAPL: 155, MSFT: 195, GOOGL: 160, AMZN: 260, META: 125, SPY: 130 },
+      
+      // 2019 - Recovery and growth
+      { date: 'Mar 2019', TSM: 175, AAPL: 185, MSFT: 225, GOOGL: 185, AMZN: 305, META: 160, SPY: 145 },
+      { date: 'Jun 2019', TSM: 195, AAPL: 195, MSFT: 260, GOOGL: 175, AMZN: 325, META: 180, SPY: 152 },
+      { date: 'Sep 2019', TSM: 215, AAPL: 215, MSFT: 265, GOOGL: 190, AMZN: 300, META: 175, SPY: 155 },
+      { date: 'Dec 2019', TSM: 250, AAPL: 280, MSFT: 310, GOOGL: 210, AMZN: 320, META: 195, SPY: 168 },
+      
+      // 2020 - COVID crash and recovery
+      { date: 'Jan 2020', TSM: 260, AAPL: 305, MSFT: 330, GOOGL: 225, AMZN: 340, META: 205, SPY: 170 },
+      { date: 'Feb 2020', TSM: 255, AAPL: 290, MSFT: 315, GOOGL: 215, AMZN: 350, META: 200, SPY: 162 },
+      { date: 'Mar 2020', TSM: 195, AAPL: 235, MSFT: 270, GOOGL: 175, AMZN: 330, META: 155, SPY: 132 },
+      { date: 'Apr 2020', TSM: 235, AAPL: 275, MSFT: 340, GOOGL: 205, AMZN: 420, META: 195, SPY: 150 },
+      { date: 'Jun 2020', TSM: 285, AAPL: 345, MSFT: 390, GOOGL: 225, AMZN: 480, META: 225, SPY: 162 },
+      { date: 'Aug 2020', TSM: 365, AAPL: 480, MSFT: 430, GOOGL: 255, AMZN: 570, META: 270, SPY: 178 },
+      { date: 'Sep 2020', TSM: 345, AAPL: 430, MSFT: 400, GOOGL: 235, AMZN: 540, META: 255, SPY: 172 },
+      { date: 'Dec 2020', TSM: 475, AAPL: 520, MSFT: 430, GOOGL: 275, AMZN: 555, META: 265, SPY: 192 },
+      
+      // 2021 - Continued bull market
+      { date: 'Feb 2021', TSM: 580, AAPL: 485, MSFT: 450, GOOGL: 320, AMZN: 545, META: 255, SPY: 198 },
+      { date: 'Apr 2021', TSM: 525, AAPL: 510, MSFT: 485, GOOGL: 360, AMZN: 575, META: 305, SPY: 212 },
+      { date: 'Jun 2021', TSM: 510, AAPL: 545, MSFT: 525, GOOGL: 385, AMZN: 590, META: 335, SPY: 220 },
+      { date: 'Sep 2021', TSM: 485, AAPL: 560, MSFT: 560, GOOGL: 420, AMZN: 565, META: 330, SPY: 225 },
+      { date: 'Nov 2021', TSM: 540, AAPL: 620, MSFT: 650, GOOGL: 460, AMZN: 595, META: 325, SPY: 245 },
+      { date: 'Dec 2021', TSM: 520, AAPL: 700, MSFT: 650, GOOGL: 445, AMZN: 555, META: 325, SPY: 250 },
+      
+      // 2022 - Bear market, especially growth/tech
+      { date: 'Jan 2022', TSM: 500, AAPL: 660, MSFT: 590, GOOGL: 420, AMZN: 505, META: 300, SPY: 238 },
+      { date: 'Mar 2022', TSM: 450, AAPL: 680, MSFT: 590, GOOGL: 430, AMZN: 540, META: 215, SPY: 238 },
+      { date: 'May 2022', TSM: 390, AAPL: 565, MSFT: 505, GOOGL: 350, AMZN: 385, META: 185, SPY: 212 },
+      { date: 'Jun 2022', TSM: 360, AAPL: 525, MSFT: 490, GOOGL: 340, AMZN: 340, META: 160, SPY: 198 },
+      { date: 'Aug 2022', TSM: 385, AAPL: 620, MSFT: 545, GOOGL: 375, AMZN: 415, META: 165, SPY: 218 },
+      { date: 'Oct 2022', TSM: 295, AAPL: 560, MSFT: 455, GOOGL: 295, AMZN: 320, META: 115, SPY: 195 },
+      { date: 'Nov 2022', TSM: 340, AAPL: 560, MSFT: 490, GOOGL: 310, AMZN: 315, META: 115, SPY: 210 },
+      { date: 'Dec 2022', TSM: 325, AAPL: 505, MSFT: 460, GOOGL: 280, AMZN: 280, META: 120, SPY: 202 },
+      
+      // 2023 - Recovery, AI boom begins
+      { date: 'Jan 2023', TSM: 385, AAPL: 545, MSFT: 485, GOOGL: 310, AMZN: 320, META: 145, SPY: 215 },
+      { date: 'Mar 2023', TSM: 420, AAPL: 620, MSFT: 560, GOOGL: 320, AMZN: 320, META: 195, SPY: 218 },
+      { date: 'May 2023', TSM: 445, AAPL: 680, MSFT: 620, GOOGL: 380, AMZN: 360, META: 240, SPY: 225 },
+      { date: 'Jul 2023', TSM: 480, AAPL: 750, MSFT: 680, GOOGL: 410, AMZN: 415, META: 295, SPY: 240 },
+      { date: 'Sep 2023', TSM: 430, AAPL: 660, MSFT: 625, GOOGL: 405, AMZN: 395, META: 295, SPY: 228 },
+      { date: 'Oct 2023', TSM: 420, AAPL: 660, MSFT: 660, GOOGL: 400, AMZN: 410, META: 295, SPY: 222 },
+      { date: 'Dec 2023', TSM: 485, AAPL: 745, MSFT: 725, GOOGL: 435, AMZN: 465, META: 345, SPY: 250 },
+      
+      // 2024 - AI infrastructure boom
+      { date: 'Jan 2024', TSM: 495, AAPL: 710, MSFT: 765, GOOGL: 430, AMZN: 475, META: 375, SPY: 255 },
+      { date: 'Feb 2024', TSM: 560, AAPL: 695, MSFT: 795, GOOGL: 420, AMZN: 510, META: 465, SPY: 265 },
+      { date: 'Mar 2024', TSM: 585, AAPL: 665, MSFT: 815, GOOGL: 455, AMZN: 545, META: 490, SPY: 275 },
+      { date: 'Apr 2024', TSM: 575, AAPL: 660, MSFT: 775, GOOGL: 490, AMZN: 530, META: 450, SPY: 268 },
+      { date: 'May 2024', TSM: 620, AAPL: 735, MSFT: 815, GOOGL: 540, AMZN: 545, META: 455, SPY: 278 },
+      { date: 'Jun 2024', TSM: 705, AAPL: 820, MSFT: 870, GOOGL: 560, AMZN: 585, META: 490, SPY: 290 },
+      { date: 'Jul 2024', TSM: 680, AAPL: 855, MSFT: 860, GOOGL: 560, AMZN: 565, META: 475, SPY: 295 },
+      { date: 'Aug 2024', TSM: 720, AAPL: 865, MSFT: 820, GOOGL: 515, AMZN: 545, META: 505, SPY: 298 },
+      { date: 'Sep 2024', TSM: 755, AAPL: 890, MSFT: 835, GOOGL: 520, AMZN: 570, META: 545, SPY: 305 },
+      { date: 'Oct 2024', TSM: 810, AAPL: 875, MSFT: 830, GOOGL: 535, AMZN: 585, META: 555, SPY: 308 },
+      { date: 'Nov 2024', TSM: 775, AAPL: 920, MSFT: 845, GOOGL: 550, AMZN: 620, META: 545, SPY: 318 },
+      { date: 'Dec 2024', TSM: 940, AAPL: 975, MSFT: 865, GOOGL: 575, AMZN: 620, META: 575, SPY: 325 },
+      
+      // 2025
+      { date: 'Jan 2025', TSM: 1020, AAPL: 940, MSFT: 820, GOOGL: 610, AMZN: 605, META: 590, SPY: 318 },
+      { date: 'Feb 2025', TSM: 1150, AAPL: 960, MSFT: 780, GOOGL: 640, AMZN: 580, META: 620, SPY: 308 },
+      { date: 'Mar 2025', TSM: 1080, AAPL: 890, MSFT: 760, GOOGL: 615, AMZN: 545, META: 560, SPY: 298 },
+      { date: 'Apr 2025', TSM: 1180, AAPL: 920, MSFT: 810, GOOGL: 680, AMZN: 590, META: 545, SPY: 315 },
+      { date: 'May 2025', TSM: 1250, AAPL: 940, MSFT: 845, GOOGL: 720, AMZN: 615, META: 575, SPY: 328 },
+      { date: 'Jun 2025', TSM: 1320, AAPL: 980, MSFT: 880, GOOGL: 755, AMZN: 645, META: 590, SPY: 342 },
+      { date: 'Jul 2025', TSM: 1410, AAPL: 1010, MSFT: 920, GOOGL: 790, AMZN: 675, META: 610, SPY: 358 },
+      { date: 'Aug 2025', TSM: 1480, AAPL: 985, MSFT: 895, GOOGL: 810, AMZN: 690, META: 595, SPY: 365 },
+      { date: 'Sep 2025', TSM: 1520, AAPL: 1020, MSFT: 925, GOOGL: 840, AMZN: 710, META: 620, SPY: 375 },
+      { date: 'Oct 2025', TSM: 1610, AAPL: 1005, MSFT: 940, GOOGL: 825, AMZN: 695, META: 605, SPY: 382 },
+      { date: 'Nov 2025', TSM: 1680, AAPL: 1025, MSFT: 955, GOOGL: 850, AMZN: 715, META: 625, SPY: 392 },
+      { date: 'Dec 2025', TSM: 1745, AAPL: 1030, MSFT: 950, GOOGL: 840, AMZN: 700, META: 630, SPY: 395 },
+      
+      // Jan 2026
+      { date: 'Jan 2026', TSM: 1808, AAPL: 1045, MSFT: 959, GOOGL: 849, AMZN: 708, META: 634, SPY: 399 },
+    ];
+
+    const stocks = [
+      { key: 'TSM', name: 'TSM (TSMC)', color: '#FF6B00', finalReturn: '+1,708%', multiple: '18.1x' },
+      { key: 'AAPL', name: 'AAPL (Apple)', color: '#555555', finalReturn: '+945%', multiple: '10.5x' },
+      { key: 'MSFT', name: 'MSFT (Microsoft)', color: '#00A4EF', finalReturn: '+859%', multiple: '9.6x' },
+      { key: 'GOOGL', name: 'GOOGL (Alphabet)', color: '#7C3AED', finalReturn: '+749%', multiple: '8.5x' },
+      { key: 'AMZN', name: 'AMZN (Amazon)', color: '#DC2626', finalReturn: '+608%', multiple: '7.1x' },
+      { key: 'META', name: 'META (Meta)', color: '#0077B6', finalReturn: '+534%', multiple: '6.3x' },
+      { key: 'SPY', name: 'SPY (S&P 500)', color: '#10B981', finalReturn: '+299%', multiple: '4.0x' },
+    ];
+
+    const toggleStock = (stockKey) => {
+      setSelectedStocks(prev => 
+        prev.includes(stockKey)
+          ? prev.filter(s => s !== stockKey)
+          : [...prev, stockKey]
+      );
+    };
+
+    const selectAll = () => setSelectedStocks(stocks.map(s => s.key));
+    const clearAll = () => setSelectedStocks(['TSM']);
+
+    const CustomTooltip = ({ active, payload, label }) => {
+      if (active && payload && payload.length) {
+        return (
+          <div style={{
+            background: p.surface1,
+            border: `1px solid ${p.border}`,
+            borderRadius: '8px',
+            padding: '12px 16px',
+            boxShadow: '0 8px 20px rgba(17, 24, 39, 0.12)'
+          }}>
+            <p style={{ fontWeight: 600, marginBottom: '8px', color: p.strong, fontSize: '12px' }}>{label}</p>
+            {payload
+              .sort((a, b) => b.value - a.value)
+              .map((entry, index) => (
+                <div key={index} style={{ 
+                  display: 'flex', 
+                  justifyContent: 'space-between', 
+                  gap: '16px',
+                  fontSize: '13px',
+                  marginBottom: '4px'
+                }}>
+                  <span style={{ color: entry.color, fontWeight: 500 }}>{entry.dataKey}</span>
+                  <span style={{ fontWeight: 600, color: p.strong }}>
+                    {entry.value.toFixed(0)} ({entry.value >= 100 ? '+' : ''}{((entry.value - 100)).toFixed(0)}%)
+                  </span>
+                </div>
+              ))}
+          </div>
+        );
+      }
+      return null;
+    };
+
+    const logTicks = [100, 200, 400, 800, 1600];
+
+    // Table data sorted by return descending
+    const tableData = [
+      { ticker: 'TSM', return: '+1,708%', returnNum: 1708, multiple: '18.1x', cagr: '33.4%', vsSPY: '+1,409%', color: '#FF6B00' },
+      { ticker: 'AAPL', return: '+945%', returnNum: 945, multiple: '10.5x', cagr: '26.5%', vsSPY: '+646%', color: '#555555' },
+      { ticker: 'MSFT', return: '+859%', returnNum: 859, multiple: '9.6x', cagr: '25.4%', vsSPY: '+560%', color: '#00A4EF' },
+      { ticker: 'GOOGL', return: '+749%', returnNum: 749, multiple: '8.5x', cagr: '23.8%', vsSPY: '+450%', color: '#7C3AED' },
+      { ticker: 'AMZN', return: '+608%', returnNum: 608, multiple: '7.1x', cagr: '21.5%', vsSPY: '+309%', color: '#DC2626' },
+      { ticker: 'META', return: '+534%', returnNum: 534, multiple: '6.3x', cagr: '20.0%', vsSPY: '+235%', color: '#0077B6' },
+      { ticker: 'SPY', return: '+299%', returnNum: 299, multiple: '4.0x', cagr: '14.8%', vsSPY: '—', color: '#10B981' },
+    ].sort((a, b) => b.returnNum - a.returnNum); // Sort by return descending
+
+    const goPrev = () => setCarouselIndex((prev) => Math.max(prev - 1, 0));
+    const goNext = () => setCarouselIndex((prev) => Math.min(prev + 1, 1));
+
+    return (
+      <div style={{ marginBottom: '48px' }}>
+        {/* Header */}
+        <div style={{ marginTop: '32px', marginBottom: '24px' }}>
+          <h3 style={{ 
+            ...s.subhead,
+            marginBottom: '8px',
+            color: p.strong
+          }}>
+            18x: How the Chip Manufacturer Beat the Hyperscalers
+          </h3>
+          <p style={{ color: p.muted, fontSize: '13px', margin: 0 }}>
+            Jan 1, 2016 → Jan 23, 2026 | Indexed to 100 | Log scale | Click stocks to toggle
+          </p>
+        </div>
+
+        {/* Carousel Navigation */}
+        <div style={{ 
+          display: 'flex', 
+          justifyContent: 'center', 
+          alignItems: 'center', 
+          gap: '16px',
+          marginBottom: '24px'
+        }}>
+          <button
+            onClick={goPrev}
+            disabled={carouselIndex === 0}
+            style={{
+              width: '32px',
+              height: '32px',
+              borderRadius: '50%',
+              border: `1px solid ${p.border}`,
+              background: carouselIndex === 0 ? 'transparent' : p.surface1,
+              color: carouselIndex === 0 ? p.muted : p.strong,
+              cursor: carouselIndex === 0 ? 'not-allowed' : 'pointer',
+              display: 'flex',
+              alignItems: 'center',
+              justifyContent: 'center',
+              fontSize: '16px',
+              fontWeight: 600
+            }}
+          >
+            {'<'}
+          </button>
+          <div style={{ display: 'flex', gap: '8px' }}>
+            {[0, 1].map((idx) => (
+              <button
+                key={idx}
+                onClick={() => setCarouselIndex(idx)}
+                style={{
+                  width: '8px',
+                  height: '8px',
+                  borderRadius: '50%',
+                  border: 'none',
+                  background: carouselIndex === idx ? p.strong : p.border,
+                  cursor: 'pointer',
+                  padding: 0
+                }}
+              />
+            ))}
+          </div>
+          <button
+            onClick={goNext}
+            disabled={carouselIndex === 1}
+            style={{
+              width: '32px',
+              height: '32px',
+              borderRadius: '50%',
+              border: `1px solid ${p.border}`,
+              background: carouselIndex === 1 ? 'transparent' : p.surface1,
+              color: carouselIndex === 1 ? p.muted : p.strong,
+              cursor: carouselIndex === 1 ? 'not-allowed' : 'pointer',
+              display: 'flex',
+              alignItems: 'center',
+              justifyContent: 'center',
+              fontSize: '16px',
+              fontWeight: 600
+            }}
+          >
+            {'>'}
+          </button>
+        </div>
+
+        {/* Carousel Content */}
+        <div style={{ position: 'relative', minHeight: '600px' }}>
+          {/* Slide 1: Chart */}
+          {carouselIndex === 0 && (
+            <div>
+              {/* Stock Selection */}
+              <div style={{ 
+                display: 'flex', 
+                flexWrap: 'wrap', 
+                gap: '8px', 
+                marginBottom: '24px',
+                alignItems: 'center',
+                justifyContent: 'flex-start'
+              }}>
+          {stocks.map(stock => {
+            const isSelected = selectedStocks.includes(stock.key);
+            const isTSM = stock.key === 'TSM';
+            const opacity = isTSM ? 1 : 0.45; // Fade non-TSM by 55%
+            return (
+              <button
+                key={stock.key}
+                onClick={() => toggleStock(stock.key)}
+                style={{
+                  display: 'flex',
+                  alignItems: 'center',
+                  gap: '6px',
+                  padding: '4px 12px',
+                  border: isSelected ? `2px solid ${stock.color}` : `2px solid ${p.border}`,
+                  borderRadius: '8px',
+                  background: isSelected ? `${stock.color}15` : p.surface1,
+                  cursor: 'pointer',
+                  fontSize: '12px',
+                  fontWeight: 600,
+                  transition: 'all 0.2s',
+                  opacity: isSelected ? (isTSM ? 1 : 0.45) : 0.7
+                }}
+              >
+                <div style={{
+                  width: '10px',
+                  height: '10px',
+                  borderRadius: '50%',
+                  background: stock.color,
+                  opacity: opacity
+                }} />
+                <span style={{ color: isSelected ? p.strong : p.neutral }}>
+                  {stock.key}
+                </span>
+                <span style={{ 
+                  color: isSelected ? p.strong : p.muted,
+                  fontSize: '10px'
+                }}>
+                  {stock.multiple}
+                </span>
+              </button>
+            );
+          })}
+          
+          <div style={{ display: 'flex', gap: '8px' }}>
+            <button
+              onClick={selectAll}
+              style={{
+                padding: '4px 12px',
+                border: `1px solid ${p.border}`,
+                borderRadius: '8px',
+                background: p.surface1,
+                cursor: 'pointer',
+                fontSize: '12px',
+                color: p.neutral,
+                fontWeight: 500
+              }}
+            >
+              Select All
+            </button>
+            <button
+              onClick={clearAll}
+              style={{
+                padding: '4px 12px',
+                border: `1px solid ${p.border}`,
+                borderRadius: '8px',
+                background: p.surface1,
+                cursor: 'pointer',
+                fontSize: '12px',
+                color: p.neutral,
+                fontWeight: 500
+              }}
+            >
+              TSM Only
+            </button>
+          </div>
+        </div>
+
+        {/* Chart */}
+        <div style={{ 
+          background: p.surface1, 
+          borderRadius: '12px', 
+          padding: '24px', 
+          border: `1px solid ${p.border}`,
+          boxShadow: '0 4px 24px rgba(0, 0, 0, 0.06)',
+          marginBottom: '24px'
+        }}>
+          <ResponsiveContainer width="100%" height={480}>
+            <LineChart data={monthlyData} margin={{ top: 20, right: 20, left: 10, bottom: 10 }}>
+              <CartesianGrid strokeDasharray="3 3" stroke={p.border} />
+              <XAxis 
+                dataKey="date" 
+                tick={{ fill: p.muted, fontSize: 10, fontFamily: "'Poppins', sans-serif" }}
+                tickLine={{ stroke: p.border }}
+                interval={8}
+                angle={-45}
+                textAnchor="end"
+                height={60}
+              />
+              <YAxis 
+                scale="log"
+                domain={[80, 2000]}
+                ticks={logTicks}
+                tick={{ fill: p.muted, fontSize: 12, fontFamily: "'Poppins', sans-serif" }}
+                tickLine={{ stroke: p.border }}
+                tickFormatter={(value) => `${value}`}
+                width={40}
+              />
+              <Tooltip content={<CustomTooltip />} />
+              <ReferenceLine y={100} stroke={p.muted} strokeDasharray="3 3" label={{ value: 'Starting Value (100)', position: 'right', fontSize: 10, fill: p.muted, fontFamily: "'Poppins', sans-serif" }} />
+              <ReferenceLine 
+                x="Nov 2022" 
+                stroke={p.accent} 
+                strokeWidth={2}
+                strokeDasharray="6 4"
+                label={{ 
+                  value: 'ChatGPT Launch', 
+                  position: 'top', 
+                  fontSize: 11, 
+                  fill: p.accent,
+                  fontWeight: 600,
+                  fontFamily: "'Poppins', sans-serif",
+                  offset: 10
+                }} 
+              />
+              
+              {stocks.map(stock => {
+                const isSelected = selectedStocks.includes(stock.key);
+                const isTSM = stock.key === 'TSM';
+                const strokeOpacity = isTSM ? 1 : 0.45; // Fade non-TSM by 55%
+                return (
+                  isSelected && (
+                    <Line
+                      key={stock.key}
+                      type="monotone"
+                      dataKey={stock.key}
+                      stroke={stock.color}
+                      strokeWidth={isTSM ? 3 : 2}
+                      strokeOpacity={strokeOpacity}
+                      dot={false}
+                      activeDot={{ r: 6, fill: stock.color, opacity: strokeOpacity }}
+                    />
+                  )
+                );
+              })}
+            </LineChart>
+          </ResponsiveContainer>
+          
+          {/* Chart Title */}
+          <div style={{ 
+            textAlign: 'center', 
+            marginTop: '8px',
+            fontFamily: "'Poppins', sans-serif"
+          }}>
+            <div style={{ 
+              fontSize: '21px', 
+              fontWeight: 800,
+              color: p.strong,
+              marginBottom: '4px',
+              textTransform: 'none'
+            }}>
+              Hyperscaler Stock Performance vs. TSM
+            </div>
+            <div style={{ 
+              fontSize: '13px', 
+              color: p.muted
+            }}>
+              (2016 - 2026)
+            </div>
+          </div>
+          
+          {/* Y-axis label */}
+          <div style={{ 
+            textAlign: 'center', 
+            fontSize: '12px', 
+            color: p.muted,
+            marginTop: '8px',
+            fontFamily: "'Poppins', sans-serif"
+          }}>
+            Indexed Value (Log Scale) — 100 = Jan 1, 2016
+          </div>
+        </div>
+            </div>
+          )}
+
+          {/* Slide 2: Table */}
+          {carouselIndex === 1 && (
+            <div>
+              <div style={{ border: `1px solid ${p.border}`, marginBottom: '24px' }}>
+                <table style={{ width: '100%', borderCollapse: 'collapse' }}>
+                  <thead>
+                    <tr style={{ backgroundColor: p.strong, color: p.surface1 }}>
+                      <th style={{ ...s.tableHeader, textAlign: 'left' }}>Stock</th>
+                      <th style={{ ...s.tableHeader, textAlign: 'right', cursor: 'pointer' }}>
+                        <span style={{ display: 'flex', alignItems: 'center', justifyContent: 'flex-end', gap: '6px' }}>
+                          Total Return
+                          <span style={{
+                            display: 'flex', alignItems: 'center', justifyContent: 'center',
+                            width: '18px', minWidth: '18px',
+                            height: '18px', minHeight: '18px',
+                            borderRadius: '50%', backgroundColor: p.action,
+                            flexShrink: 0,
+                          }}>
+                            <svg width="10" height="10" viewBox="0 0 10 10" style={{ opacity: 1 }}>
+                              <path d="M2 3.5 L5 6.5 L8 3.5" stroke={p.surface1} strokeWidth="1.5" strokeLinecap="round" strokeLinejoin="round" fill="none" />
+                            </svg>
+                          </span>
+                        </span>
+                      </th>
+                      <th style={{ ...s.tableHeader, textAlign: 'right' }}>Multiple</th>
+                      <th style={{ ...s.tableHeader, textAlign: 'right' }}>CAGR</th>
+                      <th style={{ ...s.tableHeader, textAlign: 'right' }}>vs SPY</th>
+                    </tr>
+                  </thead>
+                  <tbody>
+                    {tableData.map((row, idx) => (
+                      <tr 
+                        key={row.ticker}
+                        style={{ 
+                          backgroundColor: idx % 2 === 0 ? p.surface1 : p.surface2,
+                          transition: 'background-color 0.15s'
+                        }}
+                      >
+                        <td style={s.tableTicker}>
+                          {row.ticker}
+                        </td>
+                        <td style={{ 
+                          ...s.tableNum,
+                          textAlign: 'right',
+                          fontWeight: 700,
+                          color: p.strong
+                        }}>{row.return}</td>
+                        <td style={{ 
+                          ...s.tableNum,
+                          textAlign: 'right',
+                          fontWeight: 600
+                        }}>{row.multiple}</td>
+                        <td style={{ 
+                          ...s.tableNum,
+                          textAlign: 'right'
+                        }}>{row.cagr}</td>
+                        <td style={{ 
+                          ...s.tableNum,
+                          textAlign: 'right',
+                          fontWeight: 600,
+                          color: p.strong
+                        }}>{row.vsSPY}</td>
+                      </tr>
+                    ))}
+                  </tbody>
+                </table>
+              </div>
+            </div>
+          )}
+        </div>
+
+        {/* Key Insight */}
+        <div style={{
+          background: `${p.accent}10`,
+          border: `2px solid ${p.accent}`,
+          borderRadius: '8px',
+          padding: '24px',
+          marginTop: '24px'
+        }}>
+          <div style={{ 
+            fontWeight: 700, 
+            color: p.accent, 
+            marginBottom: '8px',
+            fontSize: '16px',
+            fontFamily: "'Poppins', sans-serif"
+          }}>
+            Key Insight: Constraints Only Pay When They Bind
+          </div>
+          <p style={{ margin: 0, color: p.strong, lineHeight: 1.7, ...s.body }}>
+            TSMC's manufacturing monopoly existed long before ChatGPT—but it didn't generate scarcity rents until AI demand 
+            exploded. From 2020 through late 2022, TSM actually *underperformed* MSFT and AAPL as semiconductor demand softened 
+            and the "bottleneck" wasn't binding. Everything changed in November 2022. The vertical line marks ChatGPT's launch—
+            and the exact moment TSM began its explosive divergence from the hyperscalers. The 10-year return (18x vs 4x for SPY) 
+            is real, but the honest story is that constraint-based investing requires patience: the advantage is latent until 
+            demand exceeds supply capacity.
+          </p>
+        </div>
+      </div>
+    );
+  };
+
   const renderSection01 = () => (
     <section style={s.section}>
       <SectionHeader num="01" title="What We See & Why We Act" subtitle="The Broadstreet 2026 Outlook" />
@@ -1232,6 +1787,11 @@ export default function AIMarketThemesReportV8() {
       <div style={s.mb32}>
         <p style={s.body}>In January 2023, a small Taiwanese company that few investors could name correctly held the fate of the entire artificial intelligence revolution in its hands. TSMC's advanced packaging facility, a single building in Taoyuan, had become the narrowest chokepoint in a trillion-dollar supply chain. Every AI chip that mattered passed through those doors. The company's stock had already doubled. The earnings hadn't yet moved.</p>
         <p style={{ ...s.body, marginTop: '16px' }}>For most investors, that gap would have disqualified the opportunity. For a smaller subset, the repricing was not a bet on growth but a recognition that control had already shifted—and that the financial statements would eventually confirm what the market was beginning to price.</p>
+        <p style={{ ...s.body, marginTop: '16px' }}>The ten-year chart below makes the cumulative effect unmistakable. Over the past decade, TSMC delivered an 18x return. Apple delivered 10x. Microsoft delivered 9.6x. The S&P 500 delivered 4x. The company that manufactured chips for its hyperscaler customers compounded faster than the flashy tech companies in the news—not because it had a better product roadmap or a stickier platform, but because it controlled capacity that the rest of the ecosystem could not replicate on any relevant time horizon. To this day TSMC still manufactures 90% of advanced AI chips.</p>
+        
+        {/* TSMC Returns Chart */}
+        <TSMCReturnsChart />
+        
         <p style={{ ...s.body, marginTop: '16px' }}>We are living through one of the great capital reallocation events in modern markets. Trillions of dollars are being repositioned around a handful of physical constraints that cannot be solved with money or urgency. The winning and losing companies of the next decade are being determined now, not in easily scannable earnings releases but in the quiet reassignment of control over systems that the world increasingly cannot function without.</p>
         <p style={{ ...s.body, marginTop: '16px' }}>Most professional capital will not capture these returns. This is not because institutional investors lack insight. It is because they operate within structures that make acting on insight, before it becomes auditable, professionally dangerous.</p>
       </div>
@@ -1372,7 +1932,7 @@ export default function AIMarketThemesReportV8() {
           onMouseEnter={() => setHoveredQuadrant(quadrantKey)}
           onMouseLeave={() => setHoveredQuadrant(null)}
           style={{
-            padding: '28px 32px',
+            padding: '32px 32px',
             background: isHovered ? q.hoverBg : q.bgGradient,
             transition: 'all 0.3s ease',
             transform: isHovered ? 'scale(1.02)' : 'scale(1)',
@@ -1387,7 +1947,7 @@ export default function AIMarketThemesReportV8() {
           }}
         >
           {/* Quadrant Header */}
-          <div style={{ display: 'flex', alignItems: 'center', gap: '10px', marginBottom: '8px' }}>
+          <div style={{ display: 'flex', alignItems: 'center', gap: '8px', marginBottom: '8px' }}>
             <span style={{ 
               fontSize: isHighConviction ? '20px' : '16px', 
               color: q.color,
@@ -1431,12 +1991,12 @@ export default function AIMarketThemesReportV8() {
                   onClick={() => hasLink && handleThemeClick(theme)}
                   style={{
                     display: 'inline-block',
-                    padding: isHighConviction ? '8px 14px' : '6px 12px',
+                    padding: isHighConviction ? '8px 16px' : '8px 16px',
                     backgroundColor: isThemeHovered ? q.color : (isHighConviction ? `${q.color}15` : `${q.color}08`),
-                    color: isThemeHovered ? '#FFFFFF' : (isHighConviction ? p.strong : p.neutral),
+                    color: isThemeHovered ? p.surface1 : (isHighConviction ? p.strong : p.neutral),
                     fontSize: isHighConviction ? '13px' : '12px',
                     fontWeight: isHighConviction ? 600 : 400,
-                    borderRadius: '20px',
+                    borderRadius: '16px',
                     border: `1px solid ${isThemeHovered ? q.color : (isHighConviction ? `${q.color}30` : `${q.color}15`)}`,
                     transition: 'all 0.2s ease',
                     cursor: hasLink ? 'pointer' : 'default',
@@ -1466,7 +2026,7 @@ export default function AIMarketThemesReportV8() {
       return (
         <div style={{ 
           backgroundColor: p.surface1, 
-          padding: '56px 32px 40px 32px', 
+          padding: '64px 32px 40px 32px', 
           borderRadius: '12px',
           border: `1px solid ${p.border}`,
           marginBottom: '40px',
@@ -1496,8 +2056,8 @@ export default function AIMarketThemesReportV8() {
                   {isHuman && (
                     <div style={{
                       position: 'absolute', top: '-32px', left: '50%', transform: 'translateX(-50%)',
-                      backgroundColor: p.strong, color: p.surface1, fontSize: '9px', padding: '4px 10px',
-                      borderRadius: '10px', fontWeight: 700, letterSpacing: '0.05em', whiteSpace: 'nowrap',
+                      backgroundColor: p.strong, color: p.surface1, fontSize: '9px', padding: '4px 8px',
+                      borderRadius: '8px', fontWeight: 700, letterSpacing: '0.05em', whiteSpace: 'nowrap',
                     }}>
                       👤 HUMAN
                     </div>
@@ -1559,15 +2119,15 @@ export default function AIMarketThemesReportV8() {
                 width: '24px',
                 height: '24px',
                 borderRadius: '50%',
-                backgroundColor: '#111827',
-                color: '#FFFFFF',
+                backgroundColor: p.strong,
+                color: p.surface1,
                 fontSize: '14px',
                 fontWeight: 700,
                 flexShrink: 0,
                 fontFamily: "'Poppins', sans-serif",
                 marginTop: '2px'
               }}>1</span>
-              <span><strong style={{ color: '#0077B6' }}>Advanced packaging</strong> (CoWoS, HBM integration) — capacity-constrained, pricing power, hyperscaler-driven</span>
+              <span><strong style={{ color: p.accent }}>Advanced packaging</strong> (CoWoS, HBM integration) — capacity-constrained, pricing power, hyperscaler-driven</span>
             </li>
             <li style={{ marginBottom: '8px', display: 'flex', alignItems: 'flex-start', gap: '12px' }}>
               <span style={{
@@ -1577,15 +2137,15 @@ export default function AIMarketThemesReportV8() {
                 width: '24px',
                 height: '24px',
                 borderRadius: '50%',
-                backgroundColor: '#111827',
-                color: '#FFFFFF',
+                backgroundColor: p.strong,
+                color: p.surface1,
                 fontSize: '14px',
                 fontWeight: 700,
                 flexShrink: 0,
                 fontFamily: "'Poppins', sans-serif",
                 marginTop: '2px'
               }}>2</span>
-              <span><strong style={{ color: '#0077B6' }}>Mature node equipment</strong> (legacy fabs) — cyclical, price-competitive, smartphone/auto-driven</span>
+              <span><strong style={{ color: p.accent }}>Mature node equipment</strong> (legacy fabs) — cyclical, price-competitive, smartphone/auto-driven</span>
             </li>
             <li style={{ marginBottom: '8px', display: 'flex', alignItems: 'flex-start', gap: '12px' }}>
               <span style={{
@@ -1595,15 +2155,15 @@ export default function AIMarketThemesReportV8() {
                 width: '24px',
                 height: '24px',
                 borderRadius: '50%',
-                backgroundColor: '#111827',
-                color: '#FFFFFF',
+                backgroundColor: p.strong,
+                color: p.surface1,
                 fontSize: '14px',
                 fontWeight: 700,
                 flexShrink: 0,
                 fontFamily: "'Poppins', sans-serif",
                 marginTop: '2px'
               }}>3</span>
-              <span><strong style={{ color: '#0077B6' }}>Metrology and process control</strong> — tied to yield improvement, benefits from complexity</span>
+              <span><strong style={{ color: p.accent }}>Metrology and process control</strong> — tied to yield improvement, benefits from complexity</span>
             </li>
           </ul>
           <p style={{ ...s.body, marginTop: '16px' }}>RBICS treats these as a single group. The market did not. Over the six months ending January 2026, advanced packaging-levered names within this RBICS code returned 35-45%, while mature-node-levered names in the same code returned 5-15%. Same classification, 30+ percentage points of dispersion. A screen that treated "Semiconductor Manufacturing Capital Equipment" as a single theme would have averaged away the signal.</p>
@@ -1666,14 +2226,14 @@ export default function AIMarketThemesReportV8() {
                 marginTop: '2px'
               }}>2</span>
               <div>
-                <p style={{ ...s.body, marginTop: 0, marginBottom: '8px' }}><strong style={{ color: '#0077B6' }}>Step 2: Use AI to test consistency and surface misclassifications.</strong></p>
+                <p style={{ ...s.body, marginTop: 0, marginBottom: '8px' }}><strong style={{ color: p.accent }}>Step 2: Use AI to test consistency and surface misclassifications.</strong></p>
                 <p style={{ ...s.body, marginTop: '8px' }}>We fed expert research from sources with proven track records into Anthropic's Claude Opus 4.5: investment frameworks from Sequoia and Andreessen Horowitz, market strategy from Michael Cembalest (Chairman of Market and Investment Strategy, J.P. Morgan Asset & Wealth Management), technical analysis from SemiAnalysis, and custom biotech and commodities research generated through Google's NotebookLM.</p>
                 <p style={{ ...s.body, marginTop: '16px' }}>Claude's job was to answer the question RBICS cannot:</p>
                 <div style={{
                   marginTop: '16px',
                   marginBottom: '16px',
-                  padding: '20px 24px',
-                  backgroundColor: '#F8F9FA',
+                  padding: '24px 24px',
+                  backgroundColor: p.surface2,
                   borderRadius: '8px',
                   boxShadow: '0 2px 8px rgba(0, 0, 0, 0.06)',
                   borderTop: '1px solid #E5E7EB',
@@ -1732,9 +2292,9 @@ export default function AIMarketThemesReportV8() {
           <table style={{ width: '100%', borderCollapse: 'collapse', fontFamily: "'Poppins', sans-serif" }}>
             <thead>
               <tr style={{ borderBottom: '2px solid #FE4207' }}>
-                <th style={{ ...s.tableHeader, textAlign: 'center', padding: '12px 14px', fontSize: '19px', fontWeight: 800, color: '#111827' }}>Score</th>
-                <th style={{ ...s.tableHeader, textAlign: 'center', padding: '12px 14px', fontSize: '19px', fontWeight: 800, color: '#111827' }}>What It Measures</th>
-                <th style={{ ...s.tableHeader, textAlign: 'center', padding: '12px 14px', fontSize: '19px', fontWeight: 800, color: '#111827' }}>Key Components</th>
+                <th style={{ ...s.tableHeader, textAlign: 'center', padding: '12px 16px', fontSize: '19px', fontWeight: 800, color: p.strong }}>Score</th>
+                <th style={{ ...s.tableHeader, textAlign: 'center', padding: '12px 16px', fontSize: '19px', fontWeight: 800, color: p.strong }}>What It Measures</th>
+                <th style={{ ...s.tableHeader, textAlign: 'center', padding: '12px 16px', fontSize: '19px', fontWeight: 800, color: p.strong }}>Key Components</th>
               </tr>
             </thead>
             <tbody>
@@ -1865,7 +2425,7 @@ export default function AIMarketThemesReportV8() {
           marginTop: '64px',
           marginBottom: '48px',
           marginLeft: '60px',
-          padding: '20px 24px',
+          padding: '24px 24px',
           backgroundColor: p.surface2,
           borderRadius: '8px',
         }}>
@@ -2133,7 +2693,7 @@ export default function AIMarketThemesReportV8() {
               </ScatterChart>
             </ResponsiveContainer>
             {/* Key Insight Callout */}
-            <div style={{ display: 'flex', alignItems: 'flex-start', gap: '16px', marginTop: '24px', padding: '20px 24px', backgroundColor: p.surface2, borderLeft: `3px solid ${p.accent}` }}>
+            <div style={{ display: 'flex', alignItems: 'flex-start', gap: '16px', marginTop: '24px', padding: '24px 24px', backgroundColor: p.surface2, borderLeft: `3px solid ${p.accent}` }}>
               <div>
                 <p style={{ fontSize: '11px', fontWeight: 600, letterSpacing: '0.15em', color: p.accent, marginBottom: '8px' }}>KEY INSIGHT: Watchlist</p>
                 <p style={{ fontSize: '15px', fontWeight: 600, color: p.strong, marginBottom: '8px' }}>The Pattern: Cooling Momentum, Strong Fundamentals</p>
@@ -2320,7 +2880,7 @@ export default function AIMarketThemesReportV8() {
           { name: 'Respiratory Pharma', cat: 'Decoupling', color: p.positive, m6: 74.5, m3: 16.1, margin: 10.1, note: 'Strong fundamentals; momentum slowing' },
           { name: 'Immunology Pharma', cat: 'Decoupling', color: p.positive, m6: 61.0, m3: 22.4, margin: 12.0, note: 'Biotech rotation beneficiary; consolidating' },
         ].map(t => (
-          <div key={t.name} style={{ padding: '20px', backgroundColor: p.surface2, borderTop: `2px solid ${t.color}` }}>
+          <div key={t.name} style={{ padding: '24px', backgroundColor: p.surface2, borderTop: `2px solid ${t.color}` }}>
             <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'flex-start', marginBottom: '8px' }}>
               <h4 style={{ fontWeight: 600, fontSize: '14px', color: p.strong }}>{t.name}</h4>
               <span style={{ fontSize: '11px', padding: '2px 8px', backgroundColor: `${t.color}15`, color: t.color }}>{t.cat}</span>
@@ -2349,7 +2909,7 @@ export default function AIMarketThemesReportV8() {
           <h3 style={{ ...s.themeTitle, marginTop: '40px', marginBottom: '4px' }}>{sub.title}</h3>
           <p style={{ ...s.captionSm, marginBottom: '16px' }}>{sub.caption}</p>
           {sub.stats && (
-            <div style={{ display: 'grid', gridTemplateColumns: 'repeat(3, 1fr)', gap: '20px', padding: '20px', backgroundColor: p.surface2, marginBottom: '20px' }}>
+            <div style={{ display: 'grid', gridTemplateColumns: 'repeat(3, 1fr)', gap: '24px', padding: '24px', backgroundColor: p.surface2, marginBottom: '24px' }}>
               {sub.stats.map(st => (
                 <div key={st.label}><div style={{ fontSize: '24px', fontWeight: 600, color: p.accent, ...s.mono, marginBottom: '4px' }}>{st.value}</div><div style={s.captionSm}>{st.label}</div></div>
               ))}
