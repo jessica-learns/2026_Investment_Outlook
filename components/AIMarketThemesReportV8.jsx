@@ -1346,10 +1346,61 @@ export default function AIMarketThemesReportV8() {
           <h4 style={s.h4}>Where RBICS Broke Down</h4>
           <p style={s.body}>RBICS tells you what a company does. It doesn't tell you why demand exists.</p>
           <p style={{ ...s.body, marginTop: '16px' }}>This isn't a theoretical concern — it showed up directly in our data. Consider "Semiconductor Manufacturing Capital Equipment," one of the largest RBICS Industry Groups in our universe. The group contains companies serving three distinct demand drivers:</p>
-          <ul style={{ ...s.body, paddingLeft: '24px', marginTop: '16px', marginBottom: '16px' }}>
-            <li style={{ marginBottom: '8px' }}><strong>Advanced packaging</strong> (CoWoS, HBM integration) — capacity-constrained, pricing power, hyperscaler-driven</li>
-            <li style={{ marginBottom: '8px' }}><strong>Mature node equipment</strong> (legacy fabs) — cyclical, price-competitive, smartphone/auto-driven</li>
-            <li style={{ marginBottom: '8px' }}><strong>Metrology and process control</strong> — tied to yield improvement, benefits from complexity</li>
+          <ul style={{ ...s.body, paddingLeft: '0', marginTop: '16px', marginBottom: '16px', listStyle: 'none' }}>
+            <li style={{ marginBottom: '8px', display: 'flex', alignItems: 'flex-start', gap: '12px' }}>
+              <span style={{
+                display: 'flex',
+                alignItems: 'center',
+                justifyContent: 'center',
+                width: '24px',
+                height: '24px',
+                borderRadius: '50%',
+                backgroundColor: '#111827',
+                color: '#FFFFFF',
+                fontSize: '14px',
+                fontWeight: 700,
+                flexShrink: 0,
+                fontFamily: "'Poppins', sans-serif",
+                marginTop: '2px'
+              }}>1</span>
+              <span><strong style={{ color: '#0077B6' }}>Advanced packaging</strong> (CoWoS, HBM integration) — capacity-constrained, pricing power, hyperscaler-driven</span>
+            </li>
+            <li style={{ marginBottom: '8px', display: 'flex', alignItems: 'flex-start', gap: '12px' }}>
+              <span style={{
+                display: 'flex',
+                alignItems: 'center',
+                justifyContent: 'center',
+                width: '24px',
+                height: '24px',
+                borderRadius: '50%',
+                backgroundColor: '#111827',
+                color: '#FFFFFF',
+                fontSize: '14px',
+                fontWeight: 700,
+                flexShrink: 0,
+                fontFamily: "'Poppins', sans-serif",
+                marginTop: '2px'
+              }}>2</span>
+              <span><strong style={{ color: '#0077B6' }}>Mature node equipment</strong> (legacy fabs) — cyclical, price-competitive, smartphone/auto-driven</span>
+            </li>
+            <li style={{ marginBottom: '8px', display: 'flex', alignItems: 'flex-start', gap: '12px' }}>
+              <span style={{
+                display: 'flex',
+                alignItems: 'center',
+                justifyContent: 'center',
+                width: '24px',
+                height: '24px',
+                borderRadius: '50%',
+                backgroundColor: '#111827',
+                color: '#FFFFFF',
+                fontSize: '14px',
+                fontWeight: 700,
+                flexShrink: 0,
+                fontFamily: "'Poppins', sans-serif",
+                marginTop: '2px'
+              }}>3</span>
+              <span><strong style={{ color: '#0077B6' }}>Metrology and process control</strong> — tied to yield improvement, benefits from complexity</span>
+            </li>
           </ul>
           <p style={{ ...s.body, marginTop: '16px' }}>RBICS treats these as a single group. The market did not. Over the six months ending January 2026, advanced packaging-levered names within this RBICS code returned 35-45%, while mature-node-levered names in the same code returned 5-15%. Same classification, 30+ percentage points of dispersion. A screen that treated "Semiconductor Manufacturing Capital Equipment" as a single theme would have averaged away the signal.</p>
           <p style={{ ...s.body, marginTop: '16px' }}>This pattern repeated across themes. Within "Electric Utility" RBICS codes, behind-the-meter power solutions (serving data centers directly) outperformed grid-connected utilities by 40+ percentage points — not because of better management, but because interconnection queue delays of 3-5 years made distributed solutions the only way to actually deliver power to new AI capacity. RBICS classified them together. The constraint separated them completely.</p>
@@ -1369,16 +1420,100 @@ export default function AIMarketThemesReportV8() {
           <h4 style={s.h4}>The AI Overlay: Classification, Not Prediction</h4>
           <p style={s.body}>The instinct would be to ask an AI model: "What are the best stocks to buy?" That's exactly wrong.</p>
           <p style={{ ...s.body, marginTop: '16px' }}>Instead, we used AI for what it's actually good at: pattern recognition and classification at scale. The rule was simple: <strong>the LLM does tagging, you retain judgment.</strong></p>
-          <p style={{ ...s.body, marginTop: '24px', marginBottom: '8px' }}><strong>Step 1: Define the candidate themes first.</strong></p>
-          <p style={{ ...s.body, marginTop: '8px' }}>We didn't ask AI to invent themes top-down. We defined them based on macro logic and constraint analysis: Where is demand inelastic? Where is supply constrained? Which companies resolve the binding limitation?</p>
-          <p style={{ ...s.body, marginTop: '24px', marginBottom: '8px' }}><strong>Step 2: Use AI to test consistency and surface misclassifications.</strong></p>
-          <p style={{ ...s.body, marginTop: '8px' }}>We fed expert research from sources with proven track records into Anthropic's Claude Opus 4.5: investment frameworks from Sequoia and Andreessen Horowitz, market strategy from Michael Cembalest (Chairman of Market and Investment Strategy, J.P. Morgan Asset & Wealth Management), technical analysis from SemiAnalysis, and custom biotech and commodities research generated through Google's NotebookLM.</p>
-          <p style={{ ...s.body, marginTop: '16px' }}>Claude's job was to answer the question RBICS cannot: <strong>"Which RBICS Industry Groups serve the same constraint?"</strong></p>
-          <p style={{ ...s.body, marginTop: '16px' }}>The output was 17 investable themes — RBICS groups clustered by shared demand driver rather than product category. Semiconductor Manufacturing Equipment, Semiconductor Packaging, Process Control & Metrology, and Memory Semiconductors all landed in the same theme. Not because they make similar products, but because every advanced AI chip must pass through their equipment. They serve the same bottleneck.</p>
-          <p style={{ ...s.body, marginTop: '24px', marginBottom: '8px' }}><strong>Step 3: Refine stock selections with reasoning-optimized AI.</strong></p>
-          <p style={{ ...s.body, marginTop: '8px' }}>Theme construction was only half the problem. Within each theme, we needed to identify which specific companies had the cleanest exposure, the strongest fundamentals, and the most attractive entry points.</p>
-          <p style={{ ...s.body, marginTop: '16px' }}>For this, we used OpenAI's ChatGPT 5.2 Pro Thinking — feeding it the same expert research documents plus our RBICS-filtered universe. The model's extended reasoning capability allowed it to work through complex tradeoffs: a company might have strong AI exposure but deteriorating margins, or clean fundamentals but already-elevated valuation. ChatGPT 5.2 Pro Thinking surfaced candidates that passed multiple filters simultaneously, which we then validated against the quantitative screens.</p>
-          <p style={{ ...s.body, marginTop: '16px' }}><strong>The guardrail throughout:</strong> AI does classification and pattern recognition. Humans define themes, validate logic, and make investment decisions.</p>
+          <div style={{ marginTop: '24px' }}>
+            <div style={{ marginBottom: '24px', display: 'flex', alignItems: 'flex-start', gap: '12px' }}>
+              <span style={{
+                display: 'flex',
+                alignItems: 'center',
+                justifyContent: 'center',
+                width: '24px',
+                height: '24px',
+                borderRadius: '50%',
+                backgroundColor: '#111827',
+                color: '#FFFFFF',
+                fontSize: '14px',
+                fontWeight: 700,
+                flexShrink: 0,
+                fontFamily: "'Poppins', sans-serif",
+                marginTop: '2px'
+              }}>1</span>
+              <div>
+                <p style={{ ...s.body, marginTop: 0, marginBottom: '8px' }}><strong style={{ color: '#0077B6' }}>Step 1: Define the candidate themes first.</strong></p>
+                <p style={{ ...s.body, marginTop: '8px' }}>We didn't ask AI to invent themes top-down. We defined them based on macro logic and constraint analysis: Where is demand inelastic? Where is supply constrained? Which companies resolve the binding limitation?</p>
+              </div>
+            </div>
+            <div style={{ marginBottom: '24px', display: 'flex', alignItems: 'flex-start', gap: '12px' }}>
+              <span style={{
+                display: 'flex',
+                alignItems: 'center',
+                justifyContent: 'center',
+                width: '24px',
+                height: '24px',
+                borderRadius: '50%',
+                backgroundColor: '#111827',
+                color: '#FFFFFF',
+                fontSize: '14px',
+                fontWeight: 700,
+                flexShrink: 0,
+                fontFamily: "'Poppins', sans-serif",
+                marginTop: '2px'
+              }}>2</span>
+              <div>
+                <p style={{ ...s.body, marginTop: 0, marginBottom: '8px' }}><strong style={{ color: '#0077B6' }}>Step 2: Use AI to test consistency and surface misclassifications.</strong></p>
+                <p style={{ ...s.body, marginTop: '8px' }}>We fed expert research from sources with proven track records into Anthropic's Claude Opus 4.5: investment frameworks from Sequoia and Andreessen Horowitz, market strategy from Michael Cembalest (Chairman of Market and Investment Strategy, J.P. Morgan Asset & Wealth Management), technical analysis from SemiAnalysis, and custom biotech and commodities research generated through Google's NotebookLM.</p>
+                <p style={{ ...s.body, marginTop: '16px' }}>Claude's job was to answer the question RBICS cannot:</p>
+                <div style={{
+                  marginTop: '16px',
+                  marginBottom: '16px',
+                  padding: '20px 24px',
+                  backgroundColor: '#F8F9FA',
+                  borderRadius: '8px',
+                  boxShadow: '0 2px 8px rgba(0, 0, 0, 0.06)',
+                  borderTop: '1px solid #E5E7EB',
+                  borderRight: '1px solid #E5E7EB',
+                  borderBottom: '1px solid #E5E7EB',
+                  borderLeft: '1px solid #E5E7EB'
+                }}>
+                  <p style={{
+                    margin: 0,
+                    fontSize: '18px',
+                    fontStyle: 'italic',
+                    fontWeight: 600,
+                    color: '#111827',
+                    lineHeight: 1.5,
+                    fontFamily: "'Poppins', sans-serif",
+                    letterSpacing: '-0.01em'
+                  }}>
+                    "Which RBICS Industry Groups serve the same constraint?"
+                  </p>
+                </div>
+                <p style={{ ...s.body, marginTop: '16px' }}>The output was 17 investable themes — RBICS groups clustered by shared demand driver rather than product category. Semiconductor Manufacturing Equipment, Semiconductor Packaging, Process Control & Metrology, and Memory Semiconductors all landed in the same theme. Not because they make similar products, but because every advanced AI chip must pass through their equipment. They serve the same bottleneck.</p>
+              </div>
+            </div>
+            <div style={{ marginBottom: '24px', display: 'flex', alignItems: 'flex-start', gap: '12px' }}>
+              <span style={{
+                display: 'flex',
+                alignItems: 'center',
+                justifyContent: 'center',
+                width: '24px',
+                height: '24px',
+                borderRadius: '50%',
+                backgroundColor: '#111827',
+                color: '#FFFFFF',
+                fontSize: '14px',
+                fontWeight: 700,
+                flexShrink: 0,
+                fontFamily: "'Poppins', sans-serif",
+                marginTop: '2px'
+              }}>3</span>
+              <div>
+                <p style={{ ...s.body, marginTop: 0, marginBottom: '8px' }}><strong style={{ color: '#0077B6' }}>Step 3: Refine stock selections with reasoning-optimized AI.</strong></p>
+                <p style={{ ...s.body, marginTop: '8px' }}>Theme construction was only half the problem. Within each theme, we needed to identify which specific companies had the cleanest exposure, the strongest fundamentals, and the most attractive entry points.</p>
+                <p style={{ ...s.body, marginTop: '16px' }}>For this, we used OpenAI's ChatGPT 5.2 Pro Thinking — feeding it the same expert research documents plus our RBICS-filtered universe. The model's extended reasoning capability allowed it to work through complex tradeoffs: a company might have strong AI exposure but deteriorating margins, or clean fundamentals but already-elevated valuation. ChatGPT 5.2 Pro Thinking surfaced candidates that passed multiple filters simultaneously, which we then validated against the quantitative screens.</p>
+              </div>
+            </div>
+          </div>
+          <p style={{ ...s.body, marginTop: '16px' }}><strong style={{ color: '#FE4207' }}>The guardrail throughout:</strong> AI does classification and pattern recognition. Humans define themes, validate logic, and make investment decisions.</p>
         </div>
 
         {/* The Quantitative Foundation */}
@@ -1386,40 +1521,40 @@ export default function AIMarketThemesReportV8() {
           <h4 style={s.h4}>The Quantitative Foundation</h4>
           <p style={s.body}>AI clustering would be useless without quantitative validation. We built five composite scores to rank the 150 RBICS Industry Groups across different dimensions:</p>
         
-        <div style={{ marginBottom: '32px', overflowX: 'auto' }}>
+        <div style={{ marginTop: '24px', marginBottom: '32px', overflowX: 'auto' }}>
           <table style={{ width: '100%', borderCollapse: 'collapse', fontFamily: "'Poppins', sans-serif" }}>
             <thead>
-              <tr style={{ borderBottom: `2px solid ${p.border}` }}>
-                <th style={{ ...s.tableHeader, textAlign: 'left', padding: '12px 14px' }}>Score</th>
-                <th style={{ ...s.tableHeader, textAlign: 'left', padding: '12px 14px' }}>What It Measures</th>
-                <th style={{ ...s.tableHeader, textAlign: 'left', padding: '12px 14px' }}>Key Components</th>
+              <tr style={{ borderBottom: '2px solid #FE4207' }}>
+                <th style={{ ...s.tableHeader, textAlign: 'center', padding: '12px 14px', fontSize: '19px', fontWeight: 800, color: '#111827' }}>Score</th>
+                <th style={{ ...s.tableHeader, textAlign: 'center', padding: '12px 14px', fontSize: '19px', fontWeight: 800, color: '#111827' }}>What It Measures</th>
+                <th style={{ ...s.tableHeader, textAlign: 'center', padding: '12px 14px', fontSize: '19px', fontWeight: 800, color: '#111827' }}>Key Components</th>
               </tr>
             </thead>
             <tbody>
               <tr style={{ borderBottom: `1px solid ${p.border}` }}>
-                <td style={{ ...s.tableNum, textAlign: 'left', fontWeight: 700, color: p.strong }}>Overall Opportunity</td>
-                <td style={s.tableNum}>Best risk/reward combination</td>
-                <td style={s.tableNum}>Revenue growth (20%), 6M return (20%), breadth (15%), acceleration (10%), margin trend (10%), valuation (15%), mispricing signal (10%)</td>
+                <td style={{ ...s.tableNum, textAlign: 'left', fontWeight: 700, color: p.strong, fontSize: '17px' }}>Overall Opportunity</td>
+                <td style={{ ...s.tableNum, fontSize: '15px' }}>Best risk/reward combination</td>
+                <td style={{ ...s.tableNum, fontSize: '15px' }}>Revenue growth (20%), 6M return (20%), breadth (15%), acceleration (10%), margin trend (10%), valuation (15%), mispricing signal (10%)</td>
               </tr>
               <tr style={{ borderBottom: `1px solid ${p.border}` }}>
-                <td style={{ ...s.tableNum, textAlign: 'left', fontWeight: 700, color: p.strong }}>Quality Momentum</td>
-                <td style={s.tableNum}>Profitable companies with strong trends</td>
-                <td style={s.tableNum}>% profitable, % margins improving, 6M breadth, median returns</td>
+                <td style={{ ...s.tableNum, textAlign: 'left', fontWeight: 700, color: p.strong, fontSize: '17px' }}>Quality Momentum</td>
+                <td style={{ ...s.tableNum, fontSize: '15px' }}>Profitable companies with strong trends</td>
+                <td style={{ ...s.tableNum, fontSize: '15px' }}>% profitable, % margins improving, 6M breadth, median returns</td>
               </tr>
               <tr style={{ borderBottom: `1px solid ${p.border}` }}>
-                <td style={{ ...s.tableNum, textAlign: 'left', fontWeight: 700, color: p.strong }}>Emerging Growth</td>
-                <td style={s.tableNum}>Acceleration signals</td>
-                <td style={s.tableNum}>Revenue acceleration, % accelerating, margin trend, size opportunity (inverse)</td>
+                <td style={{ ...s.tableNum, textAlign: 'left', fontWeight: 700, color: p.strong, fontSize: '17px' }}>Emerging Growth</td>
+                <td style={{ ...s.tableNum, fontSize: '15px' }}>Acceleration signals</td>
+                <td style={{ ...s.tableNum, fontSize: '15px' }}>Revenue acceleration, % accelerating, margin trend, size opportunity (inverse)</td>
               </tr>
               <tr style={{ borderBottom: `1px solid ${p.border}` }}>
-                <td style={{ ...s.tableNum, textAlign: 'left', fontWeight: 700, color: p.strong }}>Mispricing</td>
-                <td style={s.tableNum}>Strong fundamentals + weak momentum</td>
-                <td style={s.tableNum}>Revenue growth, acceleration, momentum lag (inverse), low valuation — only calculated for groups with {'>'}5% median revenue growth</td>
+                <td style={{ ...s.tableNum, textAlign: 'left', fontWeight: 700, color: p.strong, fontSize: '17px' }}>Mispricing</td>
+                <td style={{ ...s.tableNum, fontSize: '15px' }}>Strong fundamentals + weak momentum</td>
+                <td style={{ ...s.tableNum, fontSize: '15px' }}>Revenue growth, acceleration, momentum lag (inverse), low valuation — only calculated for groups with {'>'}5% median revenue growth</td>
               </tr>
-              <tr>
-                <td style={{ ...s.tableNum, textAlign: 'left', fontWeight: 700, color: p.strong }}>Funded Speculation</td>
-                <td style={s.tableNum}>High-risk moonshots with runway</td>
-                <td style={s.tableNum}>Cash position, improving margins, momentum — only calculated for groups with {'<'}60% profitability</td>
+              <tr style={{ borderBottom: '2px solid #111827' }}>
+                <td style={{ ...s.tableNum, textAlign: 'left', fontWeight: 700, color: p.strong, fontSize: '17px', paddingBottom: '20px' }}>Funded Speculation</td>
+                <td style={{ ...s.tableNum, fontSize: '15px', paddingBottom: '20px' }}>High-risk moonshots with runway</td>
+                <td style={{ ...s.tableNum, fontSize: '15px', paddingBottom: '20px' }}>Cash position, improving margins, momentum — only calculated for groups with {'<'}60% profitability</td>
               </tr>
             </tbody>
           </table>
@@ -1557,56 +1692,148 @@ export default function AIMarketThemesReportV8() {
         {/* The Complete Workflow */}
         <div style={s.mb32}>
           <h4 style={s.h4}>The Complete Workflow</h4>
-          <div style={{ marginTop: '16px', marginBottom: '32px', overflowX: 'auto' }}>
-          <table style={{ width: '100%', borderCollapse: 'collapse', fontFamily: "'Poppins', sans-serif" }}>
-            <thead>
-              <tr style={{ borderBottom: `2px solid ${p.border}` }}>
-                <th style={{ ...s.tableHeader, textAlign: 'left', padding: '12px 14px' }}>Stage</th>
-                <th style={{ ...s.tableHeader, textAlign: 'left', padding: '12px 14px' }}>Input</th>
-                <th style={{ ...s.tableHeader, textAlign: 'left', padding: '12px 14px' }}>Process</th>
-                <th style={{ ...s.tableHeader, textAlign: 'left', padding: '12px 14px' }}>Output</th>
-              </tr>
-            </thead>
-            <tbody>
-              <tr style={{ borderBottom: `1px solid ${p.border}` }}>
-                <td style={{ ...s.tableNum, textAlign: 'left', fontWeight: 700, color: p.strong }}>1. Universe Construction</td>
-                <td style={s.tableNum}>FactSet growth screen</td>
-                <td style={s.tableNum}>3,021 US-listed stocks with fundamentals + momentum</td>
-                <td style={s.tableNum}>Baseline universe with RBICS classification</td>
-              </tr>
-              <tr style={{ borderBottom: `1px solid ${p.border}` }}>
-                <td style={{ ...s.tableNum, textAlign: 'left', fontWeight: 700, color: p.strong }}>2. Quantitative Screening</td>
-                <td style={s.tableNum}>Stock-level metrics</td>
-                <td style={s.tableNum}>Calculate 5 composite scores, aggregate to 150 Industry Groups</td>
-                <td style={s.tableNum}>~35-40 candidate groups in top quartile</td>
-              </tr>
-              <tr style={{ borderBottom: `1px solid ${p.border}` }}>
-                <td style={{ ...s.tableNum, textAlign: 'left', fontWeight: 700, color: p.strong }}>3. AI Theme Clustering</td>
-                <td style={s.tableNum}>Expert research (Sequoia, a16z, Cembalest, SemiAnalysis, NotebookLM)</td>
-                <td style={s.tableNum}>Claude Opus 4.5 clusters RBICS groups by shared constraint</td>
-                <td style={s.tableNum}>17 investable themes</td>
-              </tr>
-              <tr style={{ borderBottom: `1px solid ${p.border}` }}>
-                <td style={{ ...s.tableNum, textAlign: 'left', fontWeight: 700, color: p.strong }}>4. AI Stock Selection</td>
-                <td style={s.tableNum}>Same expert research + filtered universe</td>
-                <td style={s.tableNum}>ChatGPT 5.2 Pro Thinking identifies highest-conviction names within themes</td>
-                <td style={s.tableNum}>Refined stock candidates</td>
-              </tr>
-              <tr style={{ borderBottom: `1px solid ${p.border}` }}>
-                <td style={{ ...s.tableNum, textAlign: 'left', fontWeight: 700, color: p.strong }}>5. Dual-Filter Synthesis</td>
-                <td style={s.tableNum}>Theme-level momentum + fundamentals</td>
-                <td style={s.tableNum}>2×2 classification (3M/6M acceleration × margin improvement)</td>
-                <td style={s.tableNum}>4 quadrants: High Conviction, Watchlist, Avoid, Excluded</td>
-              </tr>
-              <tr>
-                <td style={{ ...s.tableNum, textAlign: 'left', fontWeight: 700, color: p.strong }}>6. Analyst Overlay</td>
-                <td style={s.tableNum}>Domain knowledge, supply chain research</td>
-                <td style={s.tableNum}>Human addition of ~40 names missed by RBICS</td>
-                <td style={s.tableNum}>Final universe: 87 stocks</td>
-              </tr>
-            </tbody>
-          </table>
-        </div>
+          <div style={{ marginTop: '24px', marginBottom: '32px' }}>
+            <div style={{ 
+              display: 'grid', 
+              gap: '20px',
+              fontFamily: "'Poppins', sans-serif"
+            }}>
+              {[
+                { stage: '1', title: 'Universe Construction', input: 'FactSet growth screen', process: '3,021 US-listed stocks with fundamentals + momentum', output: 'Baseline universe with RBICS classification' },
+                { stage: '2', title: 'Quantitative Screening', input: 'Stock-level metrics', process: 'Calculate 5 composite scores, aggregate to 150 Industry Groups', output: '~35-40 candidate groups in top quartile' },
+                { stage: '3', title: 'AI Theme Clustering', input: 'Expert research (Sequoia, a16z, Cembalest, SemiAnalysis, NotebookLM)', process: 'Claude Opus 4.5 clusters RBICS groups by shared constraint', output: '17 investable themes' },
+                { stage: '4', title: 'AI Stock Selection', input: 'Same expert research + filtered universe', process: 'ChatGPT 5.2 Pro Thinking identifies highest-conviction names within themes', output: 'Refined stock candidates' },
+                { stage: '5', title: 'Dual-Filter Synthesis', input: 'Theme-level momentum + fundamentals', process: '2×2 classification (3M/6M acceleration × margin improvement)', output: '4 quadrants: High Conviction, Watchlist, Avoid, Excluded' },
+                { stage: '6', title: 'Analyst Overlay', input: 'Domain knowledge, supply chain research', process: 'Human addition of ~40 names missed by RBICS', output: 'Final universe: 87 stocks' }
+              ].map((row, index) => (
+                <div key={index} style={{
+                  display: 'grid',
+                  gridTemplateColumns: '60px 1fr',
+                  gap: '20px',
+                  padding: '24px',
+                  backgroundColor: index % 2 === 0 ? '#FAFBFC' : '#FFFFFF',
+                  border: `1px solid ${p.border}`,
+                  borderRadius: '12px',
+                  transition: 'all 0.2s ease',
+                  borderLeft: `4px solid ${p.accent}`,
+                  boxShadow: '0 2px 8px rgba(0,0,0,0.04)'
+                }}>
+                  {/* Stage Number */}
+                  <div style={{
+                    display: 'flex',
+                    alignItems: 'flex-start',
+                    justifyContent: 'center',
+                    paddingTop: '2px'
+                  }}>
+                    <div style={{
+                      width: '44px',
+                      height: '44px',
+                      borderRadius: '50%',
+                      backgroundColor: p.accent,
+                      color: '#FFFFFF',
+                      display: 'flex',
+                      alignItems: 'center',
+                      justifyContent: 'center',
+                      fontSize: '18px',
+                      fontWeight: 700,
+                      fontFamily: "'Poppins', sans-serif",
+                      flexShrink: 0
+                    }}>
+                      {row.stage}
+                    </div>
+                  </div>
+                  
+                  {/* Content */}
+                  <div style={{ display: 'grid', gap: '16px' }}>
+                    {/* Stage Title */}
+                    <h5 style={{
+                      margin: 0,
+                      fontSize: '20px',
+                      fontWeight: 700,
+                      color: p.strong,
+                      fontFamily: "'Poppins', sans-serif",
+                      letterSpacing: '-0.01em'
+                    }}>
+                      {row.title}
+                    </h5>
+                    
+                    {/* Details Grid */}
+                    <div style={{
+                      display: 'grid',
+                      gridTemplateColumns: 'repeat(3, 1fr)',
+                      gap: '20px',
+                      marginTop: '4px'
+                    }}>
+                      <div>
+                        <div style={{
+                          fontSize: '12px',
+                          fontWeight: 600,
+                          color: p.neutral,
+                          textTransform: 'uppercase',
+                          letterSpacing: '0.05em',
+                          marginBottom: '8px',
+                          fontFamily: "'Poppins', sans-serif"
+                        }}>
+                          Input
+                        </div>
+                        <div style={{
+                          fontSize: '15px',
+                          color: '#2D3748',
+                          lineHeight: 1.5,
+                          fontFamily: "'Poppins', sans-serif"
+                        }}>
+                          {row.input}
+                        </div>
+                      </div>
+                      <div>
+                        <div style={{
+                          fontSize: '12px',
+                          fontWeight: 600,
+                          color: p.neutral,
+                          textTransform: 'uppercase',
+                          letterSpacing: '0.05em',
+                          marginBottom: '8px',
+                          fontFamily: "'Poppins', sans-serif"
+                        }}>
+                          Process
+                        </div>
+                        <div style={{
+                          fontSize: '15px',
+                          color: '#2D3748',
+                          lineHeight: 1.5,
+                          fontFamily: "'Poppins', sans-serif"
+                        }}>
+                          {row.process}
+                        </div>
+                      </div>
+                      <div>
+                        <div style={{
+                          fontSize: '12px',
+                          fontWeight: 600,
+                          color: p.neutral,
+                          textTransform: 'uppercase',
+                          letterSpacing: '0.05em',
+                          marginBottom: '8px',
+                          fontFamily: "'Poppins', sans-serif"
+                        }}>
+                          Output
+                        </div>
+                        <div style={{
+                          fontSize: '15px',
+                          color: '#2D3748',
+                          lineHeight: 1.5,
+                          fontFamily: "'Poppins', sans-serif",
+                          fontWeight: 500
+                        }}>
+                          {row.output}
+                        </div>
+                      </div>
+                    </div>
+                  </div>
+                </div>
+              ))}
+            </div>
+          </div>
 
           {/* Process Flow Diagram */}
           <ProcessFlowDiagram />
