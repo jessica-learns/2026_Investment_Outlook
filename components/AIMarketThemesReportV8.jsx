@@ -567,16 +567,60 @@ export default function AIMarketThemesReportV8() {
     SPY: "#9CA3AF"
   };
 
+  // Function to calculate week date range
+  const getWeekDateRange = (weekNumber) => {
+    // Validate weekNumber
+    const week = typeof weekNumber === 'number' ? weekNumber : parseInt(weekNumber, 10);
+    if (isNaN(week) || week < 0) {
+      return '';
+    }
+    
+    // Starting from January 6, 2025 (first Monday of January 2025)
+    const startDate = new Date(2025, 0, 6); // Month is 0-indexed (0 = January)
+    const weekStart = new Date(startDate);
+    weekStart.setDate(startDate.getDate() + (week * 7));
+    const weekEnd = new Date(weekStart);
+    weekEnd.setDate(weekStart.getDate() + 6);
+    
+    // Validate dates
+    if (isNaN(weekStart.getTime()) || isNaN(weekEnd.getTime())) {
+      return '';
+    }
+    
+    const formatDate = (date) => {
+      const month = String(date.getMonth() + 1).padStart(2, '0');
+      const day = String(date.getDate()).padStart(2, '0');
+      return `${month}/${day}`;
+    };
+    
+    return `${formatDate(weekStart)} - ${formatDate(weekEnd)}`;
+  };
+
   const ScarcityTooltip = ({ active, payload, label }) => {
     if (active && payload && payload.length) {
-      const dataPoint = scarcityChartData.find((d) => d.week === label);
+      // Get the week number from the payload data (first entry should have the full data point)
+      const payloadData = payload[0]?.payload;
+      const weekNumber = payloadData?.week !== undefined ? payloadData.week : null;
+      
+      // Find data point for month label
+      const dataPoint = weekNumber !== null 
+        ? scarcityChartData.find((d) => d.week === weekNumber)
+        : scarcityChartData.find((d) => d.label === label);
       const monthLabel = dataPoint?.label || `Week ${label}`;
+      
+      // Only show date range if we have a valid week number
+      const dateRange = weekNumber !== null && !isNaN(weekNumber) ? getWeekDateRange(weekNumber) : null;
 
       return (
         <div style={{ background: "#FFFFFF", border: "1px solid #E5E7EB", padding: "8px 10px", borderRadius: "8px", boxShadow: "0 8px 20px rgba(17, 24, 39, 0.12)" }}>
-          <p style={{ fontSize: "12px", fontWeight: 600, color: "#111827", marginBottom: "6px", borderBottom: "1px solid #E5E7EB", paddingBottom: "4px" }}>
+          <p style={{ fontSize: "12px", fontWeight: 600, color: "#111827", marginBottom: "4px", borderBottom: "1px solid #E5E7EB", paddingBottom: "4px" }}>
             {monthLabel}
           </p>
+          {dateRange && (
+            <p style={{ fontSize: "11px", color: "#6B7280", marginBottom: "6px", marginTop: "4px" }}>
+              {dateRange}
+            </p>
+          )}
           {payload
             .sort((a, b) => b.value - a.value)
             .map((entry, index) => (
@@ -646,10 +690,83 @@ export default function AIMarketThemesReportV8() {
 
   const ScarcityCarousel = () => {
     const [activeIndex, setActiveIndex] = useState(0);
-    const activeTicker = scarcityCaseStudies[activeIndex].ticker;
+    const totalItems = scarcityCaseStudies.length + 1; // 4 stocks + 1 SPY
+    const isSPY = activeIndex === scarcityCaseStudies.length;
+    const activeTicker = isSPY ? 'SPY' : scarcityCaseStudies[activeIndex].ticker;
 
     const goPrev = () => setActiveIndex((prev) => Math.max(prev - 1, 0));
-    const goNext = () => setActiveIndex((prev) => Math.min(prev + 1, scarcityCaseStudies.length - 1));
+    const goNext = () => setActiveIndex((prev) => Math.min(prev + 1, totalItems - 1));
+
+    // Custom shape component that makes the entire line path clickable
+    const ClickableLineShape = (props) => {
+      const { points, studyIndex, color, strokeWidth, strokeOpacity } = props;
+      if (!points || points.length === 0) return null;
+      
+      const validPoints = points.filter(p => p.x != null && p.y != null);
+      if (validPoints.length < 2) return null;
+      
+      // Create smooth monotone curve path
+      const createMonotonePath = (pts) => {
+        if (pts.length === 0) return '';
+        if (pts.length === 1) return `M ${pts[0].x} ${pts[0].y}`;
+        
+        let path = `M ${pts[0].x} ${pts[0].y}`;
+        
+        // For monotone curves, use cubic bezier with control points
+        for (let i = 0; i < pts.length - 1; i++) {
+          const p0 = pts[i];
+          const p1 = pts[i + 1];
+          const p2 = pts[i + 2];
+          
+          if (p2) {
+            // Calculate control points for smooth monotone curve
+            const dx = (p1.x - p0.x) / 3;
+            const dy = (p1.y - p0.y) / 3;
+            const dx2 = (p2.x - p1.x) / 3;
+            const dy2 = (p2.y - p1.y) / 3;
+            
+            const cp1x = p0.x + dx;
+            const cp1y = p0.y + dy;
+            const cp2x = p1.x - dx2;
+            const cp2y = p1.y - dy2;
+            
+            path += ` C ${cp1x} ${cp1y}, ${cp2x} ${cp2y}, ${p1.x} ${p1.y}`;
+          } else {
+            // Last segment - use linear
+            path += ` L ${p1.x} ${p1.y}`;
+          }
+        }
+        
+        return path;
+      };
+      
+      const pathData = createMonotonePath(validPoints);
+      
+      return (
+        <g>
+          {/* Invisible wide-stroke path for clicking (20px wide) */}
+          <path
+            d={pathData}
+            stroke="transparent"
+            strokeWidth={20}
+            fill="none"
+            style={{ cursor: 'pointer' }}
+            onClick={() => setActiveIndex(studyIndex)}
+          />
+          {/* Visible line path */}
+          <path
+            d={pathData}
+            stroke={color}
+            strokeWidth={strokeWidth}
+            strokeOpacity={strokeOpacity}
+            fill="none"
+            strokeLinecap="round"
+            strokeLinejoin="round"
+            style={{ pointerEvents: 'none' }}
+          />
+        </g>
+      );
+    };
 
     return (
       <div style={{ maxWidth: "960px", margin: "0 auto 32px", padding: "20px", background: "#FFFFFF", borderRadius: "12px", border: "1px solid #E5E7EB", boxShadow: "0 8px 24px rgba(17, 24, 39, 0.08)" }}>
@@ -687,10 +804,27 @@ export default function AIMarketThemesReportV8() {
                     {study.ticker}
                   </button>
                 ))}
-                <span style={{ marginLeft: "auto", display: "inline-flex", alignItems: "center", gap: "6px", fontSize: "11px", color: "#9CA3AF" }}>
-                  <span style={{ width: "10px", height: "2px", background: "#D1D5DB", borderRadius: "999px" }} />
+                <button
+                  onClick={() => setActiveIndex(scarcityCaseStudies.length)}
+                  style={{
+                    marginLeft: "auto",
+                    display: "inline-flex",
+                    alignItems: "center",
+                    gap: "6px",
+                    fontSize: "11px",
+                    color: isSPY ? scarcityColors.SPY : "#9CA3AF",
+                    background: "transparent",
+                    border: "none",
+                    cursor: "pointer",
+                    opacity: isSPY ? 1 : 0.7,
+                    padding: "4px 8px",
+                    borderRadius: "999px",
+                    border: isSPY ? `1px solid ${scarcityColors.SPY}` : "1px solid transparent"
+                  }}
+                >
+                  <span style={{ width: "10px", height: "2px", background: scarcityColors.SPY, borderRadius: "999px" }} />
                   SPY
-                </span>
+                </button>
               </div>
 
               <div style={{ height: "320px" }}>
@@ -701,8 +835,26 @@ export default function AIMarketThemesReportV8() {
                     <ReferenceLine y={0} stroke="#E5E7EB" strokeWidth={1} />
                     <Tooltip content={<ScarcityTooltip />} />
 
-                    <Line type="monotone" dataKey="SPY" stroke={scarcityColors.SPY} strokeWidth={1.5} strokeDasharray="4 2" dot={false} />
-                    {scarcityCaseStudies.map((study) => (
+                    <Line 
+                      type="monotone" 
+                      dataKey="SPY" 
+                      stroke={scarcityColors.SPY} 
+                      strokeWidth={isSPY ? 3 : 1.5} 
+                      strokeDasharray="4 2" 
+                      strokeOpacity={isSPY ? 1 : 0.5}
+                      dot={false}
+                      activeDot={false}
+                      shape={(lineProps) => (
+                        <ClickableLineShape
+                          {...lineProps}
+                          studyIndex={scarcityCaseStudies.length}
+                          color={scarcityColors.SPY}
+                          strokeWidth={isSPY ? 3 : 1.5}
+                          strokeOpacity={isSPY ? 1 : 0.5}
+                        />
+                      )}
+                    />
+                    {scarcityCaseStudies.map((study, idx) => (
                       <Line
                         key={study.ticker}
                         type="monotone"
@@ -711,6 +863,16 @@ export default function AIMarketThemesReportV8() {
                         strokeWidth={study.ticker === activeTicker ? 3 : 1.5}
                         strokeOpacity={study.ticker === activeTicker ? 1 : 0.2}
                         dot={false}
+                        activeDot={false}
+                        shape={(lineProps) => (
+                          <ClickableLineShape
+                            {...lineProps}
+                            studyIndex={idx}
+                            color={scarcityColors[study.ticker]}
+                            strokeWidth={study.ticker === activeTicker ? 3 : 1.5}
+                            strokeOpacity={study.ticker === activeTicker ? 1 : 0.2}
+                          />
+                        )}
                       />
                     ))}
                   </LineChart>
@@ -736,6 +898,17 @@ export default function AIMarketThemesReportV8() {
                     }}
                   />
                 ))}
+                <button
+                  onClick={() => setActiveIndex(scarcityCaseStudies.length)}
+                  style={{
+                    width: "18px",
+                    height: "4px",
+                    borderRadius: "999px",
+                    border: "none",
+                    background: isSPY ? "#111827" : "#E5E7EB",
+                    cursor: "pointer"
+                  }}
+                />
               </div>
               <div style={{ display: "flex", gap: "6px" }}>
                 <button
@@ -755,15 +928,15 @@ export default function AIMarketThemesReportV8() {
                 </button>
                 <button
                   onClick={goNext}
-                  disabled={activeIndex === scarcityCaseStudies.length - 1}
+                  disabled={activeIndex === totalItems - 1}
                   style={{
                     width: "26px",
                     height: "26px",
                     borderRadius: "999px",
                     border: "1px solid #D1D5DB",
-                    background: activeIndex === scarcityCaseStudies.length - 1 ? "transparent" : "#FFFFFF",
+                    background: activeIndex === totalItems - 1 ? "transparent" : "#FFFFFF",
                     color: "#6B7280",
-                    cursor: activeIndex === scarcityCaseStudies.length - 1 ? "not-allowed" : "pointer"
+                    cursor: activeIndex === totalItems - 1 ? "not-allowed" : "pointer"
                   }}
                 >
                   {">"}
@@ -772,7 +945,21 @@ export default function AIMarketThemesReportV8() {
             </div>
 
             <div style={{ flex: 1 }}>
-              <ScarcityCard study={scarcityCaseStudies[activeIndex]} color={scarcityColors[activeTicker]} />
+              {isSPY ? (
+                <div>
+                  <div style={{ display: "flex", alignItems: "baseline", gap: "8px", marginBottom: "6px" }}>
+                    <span style={{ fontSize: "16px", fontWeight: 600, color: "#111827", fontFamily: "Poppins" }}>
+                      Benchmark
+                    </span>
+                    <span style={{ fontSize: "12px", fontWeight: 600, color: scarcityColors.SPY }}>SPY</span>
+                  </div>
+                  <p style={{ fontSize: "12px", color: "#4B5563", lineHeight: 1.5, marginTop: "12px" }}>
+                    SPY is an ETF that tracks the S&P500
+                  </p>
+                </div>
+              ) : (
+                <ScarcityCard study={scarcityCaseStudies[activeIndex]} color={scarcityColors[activeTicker]} />
+              )}
             </div>
           </div>
         </div>
