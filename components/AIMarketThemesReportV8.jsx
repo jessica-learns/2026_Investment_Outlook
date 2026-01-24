@@ -964,10 +964,6 @@ export default function AIMarketThemesReportV8() {
             </div>
           </div>
         </div>
-
-        <p style={{ fontSize: "10px", color: p.muted, textAlign: "center", marginTop: "16px", fontStyle: "italic" }}>
-          Returns shown are cumulative price returns January 2025 to January 2026. Past performance does not guarantee future results.
-        </p>
       </div>
     );
   };
