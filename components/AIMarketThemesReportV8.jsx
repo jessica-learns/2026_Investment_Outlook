@@ -1778,10 +1778,10 @@ export default function AIMarketThemesReportV8() {
             You might be wondering why we didn't open our report with NVIDIA. Its roughly 35x return since 2020 is one of the most extraordinary performances in large-cap market history, but it is also not a repeatable template in our opinion because it is an extreme statistical outlier. NVIDIA simultaneously controlled multiple bottlenecks—GPU architecture, CUDA software lock-in, and high-speed data center networking following the Mellanox acquisition—at the precise moment AI demand inflected. As the trade took hold, it was absorbed into every thematic ETF, momentum strategy, and eventually major indices. Passive flows amplified what was already a fundamentally real constraint.
           </p>
           <p style={{ ...s.body, marginTop: '16px' }}>
-            TSM and ASML are the templates. And, we'll give you 4 more  examples to reinforce the superior stock performance of physical bottlenecks before this intro is done.
+            TSM and ASML are the templates. TSM is the Taiwanese foundry we described above. ASML is the Dutch equipment maker that holds a near-monopoly on the extreme ultraviolet lithography machines required to manufacture them. Unlike NVIDIA, neither required a perfect storm. Each controlled a single, binding constraint that the market systematically underweighted for years—capacity that could not be replicated on investor time horizons. That is the repeatable pattern: identify irreplaceable chokepoint ownership before financial confirmation forces the market to reprice it.
           </p>
           <p style={{ ...s.body, marginTop: '16px' }}>
-            TSM and ASML did not require a perfect storm. They controlled a single, binding constraint that the market systematically underweighted for years. That pattern—ownership of capacity that cannot be replicated on investor time horizons, recognized before financial confirmation—is repeatable. TSM proved it. ASML proved it. The next chokepoint owners are proving it now. Our strategy is designed to find them before the market does.
+            We'll give you four more examples to reinforce this framework before the introduction is done.
           </p>
         </div>
 
