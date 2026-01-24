@@ -1765,33 +1765,6 @@ export default function AIMarketThemesReportV8() {
           )}
         </div>
 
-        {/* Key Insight */}
-        <div style={{
-          background: p.surface2,
-          border: `2px solid ${p.accent}`,
-          borderRadius: '8px',
-          padding: '24px',
-          marginTop: '24px'
-        }}>
-          <div style={{ 
-            fontWeight: 700, 
-            color: p.accent, 
-            marginBottom: '8px',
-            fontSize: '16px',
-            fontFamily: "'Poppins', sans-serif"
-          }}>
-            Key Insight: Constraints Only Pay When They Bind
-          </div>
-          <p style={{ margin: 0, color: p.strong, lineHeight: 1.7, ...s.body }}>
-            TSMC's manufacturing monopoly existed long before ChatGPT—but it didn't generate scarcity rents until AI demand 
-            exploded. From 2020 through late 2022, TSM actually *underperformed* MSFT and AAPL as semiconductor demand softened 
-            and the "bottleneck" wasn't binding. Everything changed in November 2022. The vertical line marks ChatGPT's launch—
-            and the exact moment TSM began its explosive divergence from the hyperscalers. The 10-year return (18x vs 4x for SPY) 
-            is real, but the honest story is that constraint-based investing requires patience: the advantage is latent until 
-            demand exceeds supply capacity.
-          </p>
-        </div>
-
         {/* New Heading and Body Copy */}
         <div style={{ marginTop: '48px', marginBottom: '24px' }}>
           <h3 style={{ 
@@ -1802,10 +1775,13 @@ export default function AIMarketThemesReportV8() {
             How the Chokepoint Owners Beat Their Customers
           </h3>
           <p style={s.body}>
-            You might be wondering why we didn't open with NVIDIA. Its 35x return since 2020 is the strongest performance of any large-cap stock in modern market history, but it's also unrepeatable. NVIDIA controlled multiple bottlenecks simultaneously—GPU architecture, CUDA software lock-in, and data center networking after the Mellanox acquisition—while benefiting from structural tailwinds that had nothing to do with fundamentals. As the AI trade took hold, NVIDIA was added to every thematic ETF, every momentum strategy, and eventually the Dow Jones Industrial Average. Passive flows magnified active conviction. That's not a template. It's a singularity.
+            You might be wondering why we didn't open our report with NVIDIA. Its roughly 35x return since 2020 is one of the most extraordinary performances in large-cap market history, but it is also not a repeatable template in our opinion because it is an extreme statistical outlier. NVIDIA simultaneously controlled multiple bottlenecks—GPU architecture, CUDA software lock-in, and high-speed data center networking following the Mellanox acquisition—at the precise moment AI demand inflected. As the trade took hold, it was absorbed into every thematic ETF, momentum strategy, and eventually major indices. Passive flows amplified what was already a fundamentally real constraint.
           </p>
           <p style={{ ...s.body, marginTop: '16px' }}>
-            TSMC and ASML are the templates. They didn't need NVIDIA's perfect storm—just control of a single binding constraint that the market hadn't fully priced. That's enough. The underlying pattern—ownership of capacity that cannot be replicated on investor time horizons, recognized before the numbers confirm it—is repeatable. TSMC proved it. ASML proved it. The next bottleneck owners are proving it now. Our strategy is built to find them before the market does.
+            TSMC and ASML are the templates. And, we'll give you 4 more  examples to reinforce the superior stock performance of physical bottlenecks before this intro is done.
+          </p>
+          <p style={{ ...s.body, marginTop: '16px' }}>
+            TSMC and ASML did not require a perfect storm. They controlled a single, binding constraint that the market systematically underweighted for years. That pattern—ownership of capacity that cannot be replicated on investor time horizons, recognized before financial confirmation—is repeatable. TSMC proved it. ASML proved it. The next chokepoint owners are proving it now. Our strategy is designed to find them before the market does.
           </p>
         </div>
 
