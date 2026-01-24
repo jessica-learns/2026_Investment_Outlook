@@ -1106,6 +1106,21 @@ export default function AIMarketThemesReportV8() {
     const [hoveredQuadrant, setHoveredQuadrant] = useState(null);
     const [hoveredTheme, setHoveredTheme] = useState(null);
 
+    // Map theme names to section indices
+    const themeToSectionMap = {
+      'Semi Equipment': 4, // semi-equip
+      'Space & Satellites': 5, // space
+      'Defense & Aerospace': 7, // defense
+      'Power Gen Equipment': 10, // power-gen
+    };
+
+    const handleThemeClick = (theme) => {
+      const sectionIndex = themeToSectionMap[theme];
+      if (sectionIndex !== undefined) {
+        setActiveSection(sectionIndex);
+      }
+    };
+
     const quadrantData = {
       highConviction: {
         title: 'HIGH CONVICTION',
@@ -1220,11 +1235,13 @@ export default function AIMarketThemesReportV8() {
           <div style={{ display: 'flex', flexWrap: 'wrap', gap: '8px', alignContent: 'flex-start' }}>
             {q.themes.map((theme, i) => {
               const isThemeHovered = hoveredTheme === `${quadrantKey}-${i}`;
+              const hasLink = themeToSectionMap[theme] !== undefined;
               return (
                 <span
                   key={theme}
                   onMouseEnter={() => setHoveredTheme(`${quadrantKey}-${i}`)}
                   onMouseLeave={() => setHoveredTheme(null)}
+                  onClick={() => hasLink && handleThemeClick(theme)}
                   style={{
                     display: 'inline-block',
                     padding: isHighConviction ? '8px 14px' : '6px 12px',
@@ -1235,7 +1252,7 @@ export default function AIMarketThemesReportV8() {
                     borderRadius: '20px',
                     border: `1px solid ${isThemeHovered ? q.color : (isHighConviction ? `${q.color}30` : `${q.color}15`)}`,
                     transition: 'all 0.2s ease',
-                    cursor: 'pointer',
+                    cursor: hasLink ? 'pointer' : 'default',
                     transform: isThemeHovered ? 'translateY(-2px)' : 'translateY(0)',
                     boxShadow: isThemeHovered ? `0 4px 12px ${q.color}30` : 'none',
                   }}
@@ -1413,6 +1430,9 @@ export default function AIMarketThemesReportV8() {
           </ul>
           <p style={{ ...s.body, marginTop: '16px' }}>The highest-returning investment themes aren't organized by what companies make. They represent solutions to specific physical constraints preventing high-growth systems from scaling. RBICS gets you closer than GICS, but themes live at the intersection of language, intent, constraints, and time.</p>
           <p style={{ ...s.body, marginTop: '16px' }}>That intersection is where we needed AI.</p>
+          
+          {/* Process Flow Diagram */}
+          <ProcessFlowDiagram />
         </div>
 
         {/* The AI Overlay */}
@@ -1566,9 +1586,9 @@ export default function AIMarketThemesReportV8() {
         <div style={s.mb32}>
           <h4 style={s.h4}>The Dual-Filter Synthesis</h4>
           <p style={s.body}>The final classification uses a 2×2 framework measuring momentum trajectory against fundamentals quality:</p>
-          <p style={{ ...s.body, marginTop: '16px' }}><strong>X-Axis: Momentum Acceleration</strong><br />Is the 3-month return greater than 50% of the 6-month return? If recent performance exceeds what "steady state" would predict, momentum is accelerating.</p>
-          <p style={{ ...s.body, marginTop: '16px' }}><strong>Y-Axis: Fundamentals Quality</strong><br />Are more than 50% of constituents showing margin improvement? Is profitability stable or expanding?</p>
-          <p style={{ ...s.body, marginTop: '16px' }}>Themes landing in the upper-right quadrant — accelerating momentum plus improving fundamentals — became <strong>High Conviction</strong>. Themes with intact fundamentals but fading momentum became <strong>Watchlist</strong> (quality intact, wait for re-entry). Negative momentum plus compressing margins meant <strong>Avoid</strong>. Strong performance but outside the AI/growth thesis meant <strong>Excluded</strong>.</p>
+          <p style={{ ...s.body, marginTop: '16px' }}><strong style={{ color: '#0077B6' }}>X-Axis: Momentum Acceleration</strong><br />Is the 3-month return greater than 50% of the 6-month return? If recent performance exceeds what "steady state" would predict, momentum is accelerating.</p>
+          <p style={{ ...s.body, marginTop: '16px' }}><strong style={{ color: '#0077B6' }}>Y-Axis: Fundamentals Quality</strong><br />Are more than 50% of constituents showing margin improvement? Is profitability stable or expanding?</p>
+          <p style={{ ...s.body, marginTop: '16px' }}>Themes landing in the upper-right quadrant — accelerating momentum plus improving fundamentals — became <strong style={{ color: '#FE4207' }}>High Conviction</strong>. Themes with intact fundamentals but fading momentum became <strong>Watchlist</strong> (quality intact, wait for re-entry). Negative momentum plus compressing margins meant <strong>Avoid</strong>. Strong performance but outside the AI/growth thesis meant <strong>Excluded</strong>.</p>
         </div>
 
         {/* Quadrant Section Header */}
@@ -1588,13 +1608,13 @@ export default function AIMarketThemesReportV8() {
           borderRadius: '12px',
           overflow: 'visible',
           boxShadow: '0 4px 24px rgba(0, 0, 0, 0.06)',
-          marginLeft: '60px',
+          marginLeft: '110px',
           marginBottom: '80px',
         }}>
           {/* Y-Axis Label (Fundamentals - Left side, pointing UP) */}
           <div style={{ 
             position: 'absolute', 
-            left: '-70px', 
+            left: '-120px', 
             top: '50%',
             transform: 'translateY(-50%) rotate(-90deg)',
             transformOrigin: 'center',
@@ -1834,9 +1854,6 @@ export default function AIMarketThemesReportV8() {
               ))}
             </div>
           </div>
-
-          {/* Process Flow Diagram */}
-          <ProcessFlowDiagram />
         </div>
 
         {/* Why This Approach */}
