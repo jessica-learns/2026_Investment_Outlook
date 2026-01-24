@@ -1802,7 +1802,10 @@ export default function AIMarketThemesReportV8() {
             How the Chokepoint Owners Beat Their Customers
           </h3>
           <p style={s.body}>
-            You might be wondering why we didn't open with NVIDIA.  Its 35x return since 2020 is the strongest performance of any large-cap stock in modern market history, but it's also unrepeatable. NVIDIA controlled multiple bottlenecks simultaneously—GPU architecture, CUDA software lock-in, and data center networking after the Mellanox acquisition—while benefiting from structural tailwinds that had nothing to do with fundamentals. As the AI trade took hold, NVIDIA was added to every thematic ETF, every momentum strategy, and eventually the Dow Jones Industrial Average. Passive flows magnified active conviction. That's not a template; it's a singularity. So, as an extreme outlier its less useful as a template for finding the next out performers. But the broader pattern holds. And, if you can master the identification of stocks that fit the bottleneck criteria, you will likely outperform the market.
+            You might be wondering why we didn't open with NVIDIA. Its 35x return since 2020 is the strongest performance of any large-cap stock in modern market history, but it's also unrepeatable. NVIDIA controlled multiple bottlenecks simultaneously—GPU architecture, CUDA software lock-in, and data center networking after the Mellanox acquisition—while benefiting from structural tailwinds that had nothing to do with fundamentals. As the AI trade took hold, NVIDIA was added to every thematic ETF, every momentum strategy, and eventually the Dow Jones Industrial Average. Passive flows magnified active conviction. That's not a template. It's a singularity.
+          </p>
+          <p style={{ ...s.body, marginTop: '16px' }}>
+            TSMC and ASML are the templates. They didn't need NVIDIA's perfect storm—just control of a single binding constraint that the market hadn't fully priced. That's enough. The underlying pattern—ownership of capacity that cannot be replicated on investor time horizons, recognized before the numbers confirm it—is repeatable. TSMC proved it. ASML proved it. The next bottleneck owners are proving it now. Our strategy is built to find them before the market does.
           </p>
         </div>
 
