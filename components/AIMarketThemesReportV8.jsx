@@ -1230,6 +1230,7 @@ export default function AIMarketThemesReportV8() {
   const TSMCReturnsChart = () => {
     const [selectedStocks, setSelectedStocks] = useState(['TSM', 'AAPL', 'MSFT', 'GOOGL', 'AMZN', 'META', 'SPY']); // All stocks visible by default
     const [carouselIndex, setCarouselIndex] = useState(0); // 0 = chart, 1 = table
+    const [highlightedStock, setHighlightedStock] = useState('TSM'); // Track which stock is highlighted
     
     const monthlyData = [
       // 2016
@@ -1339,15 +1340,25 @@ export default function AIMarketThemesReportV8() {
     ];
 
     const toggleStock = (stockKey) => {
-      setSelectedStocks(prev => 
-        prev.includes(stockKey)
-          ? prev.filter(s => s !== stockKey)
-          : [...prev, stockKey]
-      );
+      // Only highlight the stock, don't toggle selection
+      // Ensure the stock is selected first if it's not already
+      setSelectedStocks(prev => {
+        if (!prev.includes(stockKey)) {
+          return [...prev, stockKey];
+        }
+        return prev;
+      });
+      setHighlightedStock(stockKey);
     };
 
-    const selectAll = () => setSelectedStocks(stocks.map(s => s.key));
-    const clearAll = () => setSelectedStocks(['TSM']);
+    const selectAll = () => {
+      setSelectedStocks(stocks.map(s => s.key));
+      setHighlightedStock('TSM'); // Default to TSM when selecting all
+    };
+    const clearAll = () => {
+      setSelectedStocks(['TSM']);
+      setHighlightedStock('TSM');
+    };
 
     const CustomTooltip = ({ active, payload, label }) => {
       if (active && payload && payload.length) {
@@ -1497,8 +1508,9 @@ export default function AIMarketThemesReportV8() {
               }}>
           {stocks.map(stock => {
             const isSelected = selectedStocks.includes(stock.key);
-            const isTSM = stock.key === 'TSM';
-            const opacity = isTSM ? 1 : 0.45; // Fade non-TSM by 55%
+            const isHighlighted = stock.key === highlightedStock;
+            const buttonOpacity = isSelected ? (isHighlighted ? 1 : 0.45) : 0.7; // Highlighted stock fully visible, others faded
+            const dotOpacity = isSelected ? (isHighlighted ? 1 : 0.45) : 0.7;
             return (
               <button
                 key={stock.key}
@@ -1515,7 +1527,9 @@ export default function AIMarketThemesReportV8() {
                   fontSize: '12px',
                   fontWeight: 600,
                   transition: 'all 0.2s',
-                  opacity: isSelected ? (isTSM ? 1 : 0.45) : 0.7
+                  opacity: buttonOpacity,
+                  transform: isHighlighted ? 'scale(1.05)' : 'scale(1)',
+                  boxShadow: isHighlighted ? `0 2px 8px ${stock.color}40` : 'none'
                 }}
               >
                 <div style={{
@@ -1523,7 +1537,7 @@ export default function AIMarketThemesReportV8() {
                   height: '10px',
                   borderRadius: '50%',
                   background: stock.color,
-                  opacity: opacity
+                  opacity: dotOpacity
                 }} />
                 <span style={{ color: isSelected ? p.strong : p.neutral }}>
                   {stock.key}
@@ -1622,8 +1636,9 @@ export default function AIMarketThemesReportV8() {
               
               {stocks.map(stock => {
                 const isSelected = selectedStocks.includes(stock.key);
-                const isTSM = stock.key === 'TSM';
-                const strokeOpacity = isTSM ? 1 : 0.45; // Fade non-TSM by 55%
+                const isHighlighted = stock.key === highlightedStock;
+                const strokeOpacity = isHighlighted ? 1 : 0.45; // Highlighted stock fully visible, others faded
+                const strokeWidth = isHighlighted ? 3 : 2; // Thicker line for highlighted stock
                 return (
                   isSelected && (
                     <Line
@@ -1631,7 +1646,7 @@ export default function AIMarketThemesReportV8() {
                       type="monotone"
                       dataKey={stock.key}
                       stroke={stock.color}
-                      strokeWidth={isTSM ? 3 : 2}
+                      strokeWidth={strokeWidth}
                       strokeOpacity={strokeOpacity}
                       dot={false}
                       activeDot={{ r: 6, fill: stock.color, opacity: strokeOpacity }}
@@ -1800,6 +1815,7 @@ export default function AIMarketThemesReportV8() {
   // AI Bottleneck Monopolies Chart Component
   const BottleneckMonopoliesChart = () => {
     const [selectedStocks, setSelectedStocks] = useState(['NVDA', 'TSM', 'ASML', 'GOOGL', 'AAPL', 'META', 'MSFT', 'AMZN', 'SPY']); // All stocks visible, NVDA highlighted
+    const [highlightedStock, setHighlightedStock] = useState('NVDA'); // Track which stock is highlighted
     
     const monthlyData = [
       // 2020 - COVID crash and recovery
@@ -1865,15 +1881,25 @@ export default function AIMarketThemesReportV8() {
     ];
 
     const toggleStock = (stockKey) => {
-      setSelectedStocks(prev => 
-        prev.includes(stockKey)
-          ? prev.filter(s => s !== stockKey)
-          : [...prev, stockKey]
-      );
+      // Only highlight the stock, don't toggle selection
+      // Ensure the stock is selected first if it's not already
+      setSelectedStocks(prev => {
+        if (!prev.includes(stockKey)) {
+          return [...prev, stockKey];
+        }
+        return prev;
+      });
+      setHighlightedStock(stockKey);
     };
 
-    const selectAll = () => setSelectedStocks(stocks.map(s => s.key));
-    const selectBottlenecks = () => setSelectedStocks(['NVDA', 'TSM', 'ASML']);
+    const selectAll = () => {
+      setSelectedStocks(stocks.map(s => s.key));
+      setHighlightedStock('NVDA'); // Default to NVDA when selecting all
+    };
+    const selectBottlenecks = () => {
+      setSelectedStocks(['NVDA', 'TSM', 'ASML']);
+      setHighlightedStock('NVDA'); // Default to NVDA when selecting bottlenecks
+    };
 
     const CustomTooltip = ({ active, payload, label }) => {
       if (active && payload && payload.length) {
@@ -1924,9 +1950,9 @@ export default function AIMarketThemesReportV8() {
         }}>
           {stocks.map(stock => {
             const isSelected = selectedStocks.includes(stock.key);
-            const isNVDA = stock.key === 'NVDA';
-            const buttonOpacity = isSelected ? (isNVDA ? 1 : 0.25) : 0.4; // Fade non-NVDA significantly when selected
-            const dotOpacity = isSelected ? (isNVDA ? 1 : 0.25) : 0.4;
+            const isHighlighted = stock.key === highlightedStock;
+            const buttonOpacity = isSelected ? (isHighlighted ? 1 : 0.25) : 0.4; // Highlighted stock fully visible, others faded
+            const dotOpacity = isSelected ? (isHighlighted ? 1 : 0.25) : 0.4;
             return (
               <button
                 key={stock.key}
@@ -1943,7 +1969,9 @@ export default function AIMarketThemesReportV8() {
                   fontSize: '12px',
                   fontWeight: 600,
                   transition: 'all 0.2s',
-                  opacity: buttonOpacity
+                  opacity: buttonOpacity,
+                  transform: isHighlighted ? 'scale(1.05)' : 'scale(1)',
+                  boxShadow: isHighlighted ? `0 2px 8px ${stock.color}40` : 'none'
                 }}
               >
                 <div style={{
@@ -2050,8 +2078,9 @@ export default function AIMarketThemesReportV8() {
               
               {stocks.map(stock => {
                 const isSelected = selectedStocks.includes(stock.key);
-                const isNVDA = stock.key === 'NVDA';
-                const strokeOpacity = isNVDA ? 1 : 0.25; // Fade non-NVDA significantly (75% fade)
+                const isHighlighted = stock.key === highlightedStock;
+                const strokeOpacity = isHighlighted ? 1 : 0.25; // Highlighted stock fully visible, others faded
+                const strokeWidth = isHighlighted ? 3 : 2; // Thicker line for highlighted stock
                 return (
                   isSelected && (
                     <Line
@@ -2059,7 +2088,7 @@ export default function AIMarketThemesReportV8() {
                       type="monotone"
                       dataKey={stock.key}
                       stroke={stock.color}
-                      strokeWidth={isNVDA ? 3 : 2}
+                      strokeWidth={strokeWidth}
                       strokeOpacity={strokeOpacity}
                       dot={false}
                       activeDot={{ r: 6, fill: stock.color, opacity: strokeOpacity }}
