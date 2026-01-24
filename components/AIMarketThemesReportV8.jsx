@@ -1752,7 +1752,7 @@ export default function AIMarketThemesReportV8() {
 
         {/* Key Insight */}
         <div style={{
-          background: `${p.accent}10`,
+          background: p.surface2,
           border: `2px solid ${p.accent}`,
           borderRadius: '8px',
           padding: '24px',
@@ -1776,6 +1776,334 @@ export default function AIMarketThemesReportV8() {
             demand exceeds supply capacity.
           </p>
         </div>
+
+        {/* New Heading and Body Copy */}
+        <div style={{ marginTop: '48px', marginBottom: '24px' }}>
+          <h3 style={{ 
+            ...s.subhead,
+            marginBottom: '16px',
+            color: p.strong
+          }}>
+            How the Chokepoint Owners Beat Their Customers
+          </h3>
+          <p style={s.body}>
+            You might be wondering why we didn't open with NVIDIA.  Its 35x return since 2020 is the strongest performance of any large-cap stock in modern market history, but it's also unrepeatable. NVIDIA controlled multiple bottlenecks simultaneously—GPU architecture, CUDA software lock-in, and data center networking after the Mellanox acquisition—while benefiting from structural tailwinds that had nothing to do with fundamentals. As the AI trade took hold, NVIDIA was added to every thematic ETF, every momentum strategy, and eventually the Dow Jones Industrial Average. Passive flows magnified active conviction. That's not a template; it's a singularity. So, as an extreme outlier its less useful as a template for finding the next out performers. But the broader pattern holds. And, if you can master the identification of stocks that fit the bottleneck criteria, you will likely outperform the market.
+          </p>
+        </div>
+
+        {/* AI Bottleneck Monopolies Chart */}
+        <BottleneckMonopoliesChart />
+      </div>
+    );
+  };
+
+  // AI Bottleneck Monopolies Chart Component
+  const BottleneckMonopoliesChart = () => {
+    const [selectedStocks, setSelectedStocks] = useState(['NVDA', 'TSM', 'ASML', 'GOOGL', 'AAPL', 'META', 'MSFT', 'AMZN', 'SPY']); // All stocks visible, NVDA highlighted
+    
+    const monthlyData = [
+      // 2020 - COVID crash and recovery
+      { date: 'Jan 2020', NVDA: 100, TSM: 100, ASML: 100, AAPL: 100, MSFT: 100, GOOGL: 100, AMZN: 100, META: 100, SPY: 100 },
+      { date: 'Feb 2020', NVDA: 115, TSM: 102, ASML: 105, AAPL: 103, MSFT: 102, GOOGL: 102, AMZN: 106, META: 103, SPY: 97 },
+      { date: 'Mar 2020', NVDA: 85, TSM: 78, ASML: 78, AAPL: 84, MSFT: 87, GOOGL: 83, AMZN: 100, META: 78, SPY: 79 },
+      { date: 'Apr 2020', NVDA: 115, TSM: 88, ASML: 95, AAPL: 102, MSFT: 105, GOOGL: 95, AMZN: 120, META: 95, SPY: 88 },
+      { date: 'Jun 2020', NVDA: 150, TSM: 114, ASML: 124, AAPL: 123, MSFT: 126, GOOGL: 107, AMZN: 145, META: 113, SPY: 97 },
+      { date: 'Sep 2020', NVDA: 215, TSM: 138, ASML: 129, AAPL: 153, MSFT: 129, GOOGL: 111, AMZN: 164, META: 128, SPY: 103 },
+      { date: 'Dec 2020', NVDA: 210, TSM: 190, ASML: 161, AAPL: 185, MSFT: 139, GOOGL: 131, AMZN: 168, META: 133, SPY: 115 },
+      
+      // 2021 - Bull market
+      { date: 'Mar 2021', NVDA: 214, TSM: 210, ASML: 183, AAPL: 173, MSFT: 145, GOOGL: 152, AMZN: 165, META: 138, SPY: 119 },
+      { date: 'Jun 2021', NVDA: 316, TSM: 204, ASML: 210, AAPL: 194, MSFT: 169, GOOGL: 183, AMZN: 179, META: 168, SPY: 132 },
+      { date: 'Sep 2021', NVDA: 329, TSM: 194, ASML: 231, AAPL: 200, MSFT: 181, GOOGL: 199, AMZN: 171, META: 166, SPY: 135 },
+      { date: 'Nov 2021', NVDA: 475, TSM: 216, ASML: 266, AAPL: 221, MSFT: 210, GOOGL: 218, AMZN: 180, META: 163, SPY: 147 },
+      { date: 'Dec 2021', NVDA: 470, TSM: 208, ASML: 244, AAPL: 250, MSFT: 210, GOOGL: 211, AMZN: 168, META: 163, SPY: 150 },
+      
+      // 2022 - Bear market
+      { date: 'Mar 2022', NVDA: 431, TSM: 180, ASML: 210, AAPL: 242, MSFT: 190, GOOGL: 204, AMZN: 164, META: 108, SPY: 143 },
+      { date: 'Jun 2022', NVDA: 240, TSM: 144, ASML: 149, AAPL: 187, MSFT: 158, GOOGL: 161, AMZN: 103, META: 80, SPY: 119 },
+      { date: 'Sep 2022', NVDA: 194, TSM: 128, ASML: 129, AAPL: 192, MSFT: 147, GOOGL: 147, AMZN: 105, META: 68, SPY: 117 },
+      { date: 'Oct 2022', NVDA: 189, TSM: 118, ASML: 115, AAPL: 199, MSFT: 147, GOOGL: 140, AMZN: 97, META: 58, SPY: 117 },
+      { date: 'Nov 2022', NVDA: 232, TSM: 136, ASML: 142, AAPL: 199, MSFT: 158, GOOGL: 147, AMZN: 95, META: 58, SPY: 126 },
+      { date: 'Dec 2022', NVDA: 232, TSM: 130, ASML: 148, AAPL: 180, MSFT: 148, GOOGL: 133, AMZN: 85, META: 60, SPY: 121 },
+      
+      // 2023 - AI boom begins
+      { date: 'Jan 2023', NVDA: 304, TSM: 154, ASML: 176, AAPL: 194, MSFT: 156, GOOGL: 147, AMZN: 97, META: 73, SPY: 129 },
+      { date: 'Mar 2023', NVDA: 444, TSM: 168, ASML: 190, AAPL: 221, MSFT: 181, GOOGL: 152, AMZN: 97, META: 98, SPY: 131 },
+      { date: 'May 2023', NVDA: 610, TSM: 178, ASML: 200, AAPL: 242, MSFT: 200, GOOGL: 180, AMZN: 109, META: 120, SPY: 135 },
+      { date: 'Jul 2023', NVDA: 725, TSM: 192, ASML: 231, AAPL: 267, MSFT: 219, GOOGL: 194, AMZN: 126, META: 148, SPY: 144 },
+      { date: 'Sep 2023', NVDA: 699, TSM: 172, ASML: 197, AAPL: 235, MSFT: 202, GOOGL: 192, AMZN: 120, META: 148, SPY: 137 },
+      { date: 'Dec 2023', NVDA: 789, TSM: 194, ASML: 231, AAPL: 265, MSFT: 234, GOOGL: 206, AMZN: 141, META: 173, SPY: 150 },
+      
+      // 2024 - AI infrastructure boom
+      { date: 'Feb 2024', NVDA: 1120, TSM: 224, ASML: 288, AAPL: 248, MSFT: 257, GOOGL: 199, AMZN: 155, META: 233, SPY: 159 },
+      { date: 'Apr 2024', NVDA: 1312, TSM: 230, ASML: 312, AAPL: 235, MSFT: 250, GOOGL: 232, AMZN: 161, META: 226, SPY: 161 },
+      { date: 'Jun 2024', NVDA: 1950, TSM: 282, ASML: 346, AAPL: 292, MSFT: 281, GOOGL: 265, AMZN: 177, META: 246, SPY: 174 },
+      { date: 'Aug 2024', NVDA: 1861, TSM: 288, ASML: 298, AAPL: 308, MSFT: 265, GOOGL: 244, AMZN: 165, META: 253, SPY: 179 },
+      { date: 'Oct 2024', NVDA: 2193, TSM: 324, ASML: 244, AAPL: 312, MSFT: 268, GOOGL: 253, AMZN: 177, META: 278, SPY: 185 },
+      { date: 'Dec 2024', NVDA: 2155, TSM: 376, ASML: 231, AAPL: 347, MSFT: 279, GOOGL: 272, AMZN: 188, META: 288, SPY: 195 },
+      
+      // 2025
+      { date: 'Mar 2025', NVDA: 1822, TSM: 432, ASML: 244, AAPL: 317, MSFT: 245, GOOGL: 291, AMZN: 165, META: 281, SPY: 179 },
+      { date: 'Jun 2025', NVDA: 2371, TSM: 528, ASML: 298, AAPL: 349, MSFT: 284, GOOGL: 358, AMZN: 195, META: 296, SPY: 205 },
+      { date: 'Sep 2025', NVDA: 2882, TSM: 608, ASML: 356, AAPL: 363, MSFT: 299, GOOGL: 398, AMZN: 215, META: 311, SPY: 225 },
+      { date: 'Dec 2025', NVDA: 3099, TSM: 698, ASML: 400, AAPL: 367, MSFT: 307, GOOGL: 398, AMZN: 212, META: 316, SPY: 237 },
+      
+      // Jan 2026
+      { date: 'Jan 2026', NVDA: 3548, TSM: 723, ASML: 452, AAPL: 372, MSFT: 310, GOOGL: 402, AMZN: 215, META: 318, SPY: 239 },
+    ];
+
+    const stocks = [
+      { key: 'NVDA', name: 'NVDA (NVIDIA)', color: '#FF6B00', finalReturn: '+3,448%', multiple: '35.5x' },
+      { key: 'TSM', name: 'TSM (TSMC)', color: '#FF8C00', finalReturn: '+623%', multiple: '7.2x' },
+      { key: 'ASML', name: 'ASML', color: '#FFA500', finalReturn: '+352%', multiple: '4.5x' },
+      { key: 'GOOGL', name: 'GOOGL (Alphabet)', color: '#7C3AED', finalReturn: '+302%', multiple: '4.0x' },
+      { key: 'AAPL', name: 'AAPL (Apple)', color: '#555555', finalReturn: '+272%', multiple: '3.7x' },
+      { key: 'META', name: 'META (Meta)', color: '#0077B6', finalReturn: '+218%', multiple: '3.2x' },
+      { key: 'MSFT', name: 'MSFT (Microsoft)', color: '#00A4EF', finalReturn: '+210%', multiple: '3.1x' },
+      { key: 'AMZN', name: 'AMZN (Amazon)', color: '#DC2626', finalReturn: '+115%', multiple: '2.2x' },
+      { key: 'SPY', name: 'SPY (S&P 500)', color: '#10B981', finalReturn: '+139%', multiple: '2.4x' },
+    ];
+
+    const toggleStock = (stockKey) => {
+      setSelectedStocks(prev => 
+        prev.includes(stockKey)
+          ? prev.filter(s => s !== stockKey)
+          : [...prev, stockKey]
+      );
+    };
+
+    const selectAll = () => setSelectedStocks(stocks.map(s => s.key));
+    const selectBottlenecks = () => setSelectedStocks(['NVDA', 'TSM', 'ASML']);
+
+    const CustomTooltip = ({ active, payload, label }) => {
+      if (active && payload && payload.length) {
+        return (
+          <div style={{
+            background: p.surface1,
+            border: `1px solid ${p.border}`,
+            borderRadius: '8px',
+            padding: '12px 16px',
+            boxShadow: '0 8px 20px rgba(17, 24, 39, 0.12)'
+          }}>
+            <p style={{ fontWeight: 600, marginBottom: '8px', color: p.strong, fontSize: '12px' }}>{label}</p>
+            {payload
+              .sort((a, b) => b.value - a.value)
+              .map((entry, index) => (
+                <div key={index} style={{ 
+                  display: 'flex', 
+                  justifyContent: 'space-between', 
+                  gap: '16px',
+                  fontSize: '13px',
+                  marginBottom: '4px'
+                }}>
+                  <span style={{ color: entry.color, fontWeight: 500 }}>{entry.dataKey}</span>
+                  <span style={{ fontWeight: 600, color: p.strong }}>
+                    {entry.value >= 1000 ? `${(entry.value/1000).toFixed(1)}k` : entry.value.toFixed(0)} ({entry.value >= 100 ? '+' : ''}{((entry.value - 100)).toFixed(0)}%)
+                  </span>
+                </div>
+              ))}
+          </div>
+        );
+      }
+      return null;
+    };
+
+    const logTicks = [100, 200, 400, 800, 1600, 3200];
+
+    return (
+      <div style={{ marginBottom: '48px' }}>
+        {/* Stock Selection */}
+        <div style={{ 
+          display: 'flex', 
+          flexWrap: 'wrap', 
+          gap: '8px', 
+          marginBottom: '24px',
+          marginTop: '32px',
+          alignItems: 'center',
+          justifyContent: 'flex-start'
+        }}>
+          {stocks.map(stock => {
+            const isSelected = selectedStocks.includes(stock.key);
+            const isNVDA = stock.key === 'NVDA';
+            const buttonOpacity = isSelected ? (isNVDA ? 1 : 0.25) : 0.4; // Fade non-NVDA significantly when selected
+            const dotOpacity = isSelected ? (isNVDA ? 1 : 0.25) : 0.4;
+            return (
+              <button
+                key={stock.key}
+                onClick={() => toggleStock(stock.key)}
+                style={{
+                  display: 'flex',
+                  alignItems: 'center',
+                  gap: '6px',
+                  padding: '4px 12px',
+                  border: isSelected ? `2px solid ${stock.color}` : `2px solid ${p.border}`,
+                  borderRadius: '8px',
+                  background: isSelected ? `${stock.color}15` : p.surface1,
+                  cursor: 'pointer',
+                  fontSize: '12px',
+                  fontWeight: 600,
+                  transition: 'all 0.2s',
+                  opacity: buttonOpacity
+                }}
+              >
+                <div style={{
+                  width: '10px',
+                  height: '10px',
+                  borderRadius: '50%',
+                  background: stock.color,
+                  opacity: dotOpacity
+                }} />
+                <span style={{ color: isSelected ? p.strong : p.neutral }}>
+                  {stock.key}
+                </span>
+                <span style={{ 
+                  color: isSelected ? p.strong : p.muted,
+                  fontSize: '10px'
+                }}>
+                  {stock.multiple}
+                </span>
+              </button>
+            );
+          })}
+          
+          <div style={{ display: 'flex', gap: '8px' }}>
+            <button
+              onClick={selectAll}
+              style={{
+                padding: '4px 12px',
+                border: `1px solid ${p.border}`,
+                borderRadius: '8px',
+                background: p.surface1,
+                cursor: 'pointer',
+                fontSize: '12px',
+                color: p.neutral,
+                fontWeight: 500
+              }}
+            >
+              Select All
+            </button>
+            <button
+              onClick={selectBottlenecks}
+              style={{
+                padding: '4px 12px',
+                border: `1px solid ${p.border}`,
+                borderRadius: '8px',
+                background: p.surface1,
+                cursor: 'pointer',
+                fontSize: '12px',
+                color: p.neutral,
+                fontWeight: 500
+              }}
+            >
+              Bottlenecks Only
+            </button>
+          </div>
+        </div>
+
+        {/* Chart */}
+        <div style={{ 
+          background: p.surface1, 
+          borderRadius: '12px', 
+          padding: '24px', 
+          border: `1px solid ${p.border}`,
+          boxShadow: '0 4px 24px rgba(0, 0, 0, 0.06)',
+          marginBottom: '24px'
+        }}>
+          <ResponsiveContainer width="100%" height={480}>
+            <LineChart data={monthlyData} margin={{ top: 20, right: 20, left: 10, bottom: 10 }}>
+              <CartesianGrid strokeDasharray="3 3" stroke={p.border} />
+              <XAxis 
+                dataKey="date" 
+                tick={{ fill: p.muted, fontSize: 10, fontFamily: "'Poppins', sans-serif" }}
+                tickLine={{ stroke: p.border }}
+                interval={3}
+                angle={-45}
+                textAnchor="end"
+                height={60}
+              />
+              <YAxis 
+                scale="log"
+                domain={[50, 4000]}
+                ticks={logTicks}
+                tick={{ fill: p.muted, fontSize: 12, fontFamily: "'Poppins', sans-serif" }}
+                tickLine={{ stroke: p.border }}
+                tickFormatter={(value) => value >= 1000 ? `${value/1000}k` : value}
+                width={40}
+              />
+              <Tooltip content={<CustomTooltip />} />
+              <ReferenceLine y={100} stroke={p.muted} strokeDasharray="3 3" label={{ value: 'Starting Value (100)', position: 'right', fontSize: 10, fill: p.muted, fontFamily: "'Poppins', sans-serif" }} />
+              <ReferenceLine 
+                x="Nov 2022" 
+                stroke={p.accent} 
+                strokeWidth={2}
+                strokeDasharray="6 4"
+                label={{ 
+                  value: 'ChatGPT Launch', 
+                  position: 'top', 
+                  fontSize: 11, 
+                  fill: p.accent,
+                  fontWeight: 600,
+                  fontFamily: "'Poppins', sans-serif",
+                  offset: 10
+                }} 
+              />
+              
+              {stocks.map(stock => {
+                const isSelected = selectedStocks.includes(stock.key);
+                const isNVDA = stock.key === 'NVDA';
+                const strokeOpacity = isNVDA ? 1 : 0.25; // Fade non-NVDA significantly (75% fade)
+                return (
+                  isSelected && (
+                    <Line
+                      key={stock.key}
+                      type="monotone"
+                      dataKey={stock.key}
+                      stroke={stock.color}
+                      strokeWidth={isNVDA ? 3 : 2}
+                      strokeOpacity={strokeOpacity}
+                      dot={false}
+                      activeDot={{ r: 6, fill: stock.color, opacity: strokeOpacity }}
+                    />
+                  )
+                );
+              })}
+            </LineChart>
+          </ResponsiveContainer>
+          
+          {/* Chart Title */}
+          <div style={{ 
+            textAlign: 'center', 
+            marginTop: '8px',
+            fontFamily: "'Poppins', sans-serif"
+          }}>
+            <div style={{ 
+              fontSize: '21px', 
+              fontWeight: 800,
+              color: p.strong,
+              marginBottom: '4px',
+              textTransform: 'none'
+            }}>
+              Hyperscaler Stock Performance vs. AI Bottleneck Monopolies
+            </div>
+            <div style={{ 
+              fontSize: '13px', 
+              color: p.muted
+            }}>
+              (2020 - 2026)
+            </div>
+          </div>
+          
+          {/* Y-axis label */}
+          <div style={{ 
+            textAlign: 'center', 
+            fontSize: '12px', 
+            color: p.muted,
+            marginTop: '8px',
+            fontFamily: "'Poppins', sans-serif"
+          }}>
+            Indexed Value (Log Scale) — 100 = Jan 1, 2020
+          </div>
+        </div>
       </div>
     );
   };
@@ -1785,7 +2113,7 @@ export default function AIMarketThemesReportV8() {
       <SectionHeader num="01" title="What We See & Why We Act" subtitle="The Broadstreet 2026 Outlook" />
       
       <div style={s.mb32}>
-        <p style={s.body}>In January 2023, a small Taiwanese company that few investors could name correctly held the fate of the entire artificial intelligence revolution in its hands. TSMC's advanced packaging facility, a single building in Taoyuan, had become the narrowest chokepoint in a trillion-dollar supply chain. Every AI chip that mattered passed through those doors. The company's stock had already doubled. The earnings hadn't yet moved.</p>
+        <p style={s.body}>In January 2023, a small Taiwanese company that few investors could name held the fate of the entire artificial intelligence revolution in its hands. TSMC's advanced packaging facility, a single building in Taoyuan, had become the narrowest chokepoint in a trillion-dollar supply chain. Every AI chip that mattered passed through those doors. The company's stock had already doubled. The earnings hadn't yet moved.</p>
         <p style={{ ...s.body, marginTop: '16px' }}>For most investors, that gap would have disqualified the opportunity. For a smaller subset, the repricing was not a bet on growth but a recognition that control had already shifted—and that the financial statements would eventually confirm what the market was beginning to price.</p>
         <p style={{ ...s.body, marginTop: '16px' }}>The ten-year chart below makes the cumulative effect unmistakable. Over the past decade, TSMC delivered an 18x return. Apple delivered 10x. Microsoft delivered 9.6x. The S&P 500 delivered 4x. The company that manufactured chips for its hyperscaler customers compounded faster than the flashy tech companies in the news—not because it had a better product roadmap or a stickier platform, but because it controlled capacity that the rest of the ecosystem could not replicate on any relevant time horizon. To this day TSMC still manufactures 90% of advanced AI chips.</p>
         
