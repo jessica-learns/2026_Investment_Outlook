@@ -2785,7 +2785,7 @@ export default function AIMarketThemesReportV8() {
           <p style={s.body}>Here's the structural reality: RBICS misses stocks.</p>
           <p style={{ ...s.body, marginTop: '16px' }}>A semiconductor packaging company might be classified under "Electronic Components" if packaging isn't their majority revenue segment. A defense contractor with emerging space exposure might sit in "Aerospace & Defense" without any flag for satellite manufacturing. The automated classification is backward-looking by design — it reflects where revenue came from last year, not where demand is going next year.</p>
           <p style={{ ...s.body, marginTop: '16px' }}>The analyst overlay adds approximately 40 names that share demand drivers with our themes but were missed by RBICS classification. This step exists because of a structural advantage smaller mandates have over larger ones. A portfolio manager deploying $500 million into a theme cannot manually tag 3,000 stocks based on supply chain research — it doesn't scale, and the tracking error implications are too large. Systematic classification is the only practical choice at that scale.</p>
-          <p style={{ ...s.body, marginTop: '16px' }}>But systematic classification means systematically missing the stocks that don't fit neatly into existing boxes. That's exactly the universe where mispricing persists. The Broadstreet sleeve, at $5-6 million, can afford to be manual where it matters.</p>
+          <p style={{ ...s.body, marginTop: '16px' }}>But systematic classification means systematically missing the stocks that don't fit neatly into existing boxes. That's exactly the universe where mispricing persists. At this point, Broadstreet integrates human analysts into our analytics flow where the ROI is highest. These high human-ROI areas tend to be where LLMs are weak because they are trained on "common" investment approaches that aren't optimized for our strategy.</p>
         </div>
 
         {/* The Complete Workflow */}
@@ -3770,9 +3770,6 @@ export default function AIMarketThemesReportV8() {
     <p>Data centers, grid upgrades, manufacturing reshoring, defense contracts; they all compete for the same skilled labor pool. Specialty contractors who can actually wire, plumb, and construct have pricing power. Low valuation (2.4x P/S), strong fundamentals (17% revenue growth).</p>,
     [
       { title: "Specialty Contracting", caption: "Electrical, mechanical, and building services contractors. Quality Score: 85.9.", data: stockData.contracting },
-      { title: "Space & Satellites", caption: "Dual demand: commercial (LEO, imagery) and government (defense, NASA). Accelerating.", data: stockData.space,
-        columns: [{ key: 'ticker', label: 'Ticker' }, { key: 'name', label: 'Company' }, { key: 'mktCap', label: 'Mkt Cap', align: 'center', render: fmtCap }, { key: 'revGr', label: 'Rev Gr', align: 'center', render: (v) => v > 100 ? '>100%' : <Pct v={v} /> }, { key: 'm1', label: '1M', align: 'center', render: (v) => <Pct v={v} /> }, { key: 'm6', label: '6M', align: 'center', render: (v) => <Pct v={v} /> }],
-        note: "Note: Extreme P/S ratios reflect pre-revenue businesses. Moonshot positions, not core." },
     ]
   );
 
@@ -3849,7 +3846,7 @@ export default function AIMarketThemesReportV8() {
       <div style={{ flex: 1, backgroundColor: p.surface1, minHeight: '100vh' }}>
         {sectionContent[activeSection]}
         <footer style={{ padding: '24px 48px', borderTop: `1px solid ${p.border}`, textAlign: 'center' }}>
-          <p style={{ fontSize: '14px', color: p.neutral, marginBottom: '4px' }}>Broadstreet High Growth Sleeve · Leveraging Bottlenecks to Generate Alpha · January 2026</p>
+          <p style={{ fontSize: '14px', color: p.neutral, marginBottom: '4px' }}>Broadstreet High Growth Portfolio · Leveraging Bottlenecks to Generate Alpha · January 2026</p>
           <p style={{ fontSize: '13px', color: p.border }}>Data as of January 18, 2026 · For internal use only</p>
         </footer>
       </div>
