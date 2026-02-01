@@ -2351,9 +2351,9 @@ export default function AIMarketThemesReportV8() {
       const steps = [
         { id: 1, label: "UNIVERSE", value: "3,021", desc: "US-listed stocks from FactSet growth screen", type: "auto" },
         { id: 2, label: "QUANT SCREEN", value: "RBICS", desc: "Filter by momentum, growth, and margin trajectory", type: "auto" },
-        { id: 3, label: "AI CLUSTERING", value: "17", desc: "Claude groups industries by shared constraints", type: "auto" },
-        { id: 4, label: "ANALYST OVERLAY", value: "+40", desc: "Human review adds names missed by RBICS", type: "human" },
-        { id: 5, label: "FINAL UNIVERSE", value: "87", desc: "Curated stocks across 3 high-conviction themes", type: "auto" },
+        { id: 3, label: "AI THEMES", value: "17", desc: "Claude groups industries by shared constraints", type: "auto" },
+        { id: 4, label: "EQUITIES ADDED", value: "+40", desc: "Human review adds names missed by RBICS", type: "human" },
+        { id: 5, label: "FINAL EQUITY COUNT", value: "87", desc: "Curated stocks across 4 high-conviction themes", type: "auto" },
       ];
       return (
         <div style={{ 
@@ -2430,10 +2430,10 @@ export default function AIMarketThemesReportV8() {
           <h4 style={s.h4}>Why Standard Classifications Exist, And Why We Needed Something Different</h4>
           <p style={s.body}>Every investment framework starts with a classification system. Most start with GICS — the Global Industry Classification Standard that sorts companies into 11 sectors and 163 sub-industries. GICS is how Bloomberg organizes your screen. It's how ETFs get built. It's how $11+ trillion in indexed assets gets allocated.</p>
           <p style={{ ...s.body, marginTop: '16px' }}>GICS is excellent at what it was designed for: reporting, benchmarking, and portfolio construction. When you're managing a $50 billion fund and need to ensure sector diversification, decompose risk exposures, or track performance against an index, GICS delivers. It's universal, stable, and everyone uses the same definitions.</p>
-          <p style={{ ...s.body, marginTop: '16px' }}>But we're not building a benchmark-tracking portfolio. We're hunting for mispriced SMID-caps with 40%+ upside before institutional money discovers them. For that objective, GICS has structural limitations.</p>
+          <p style={{ ...s.body, marginTop: '16px' }}>But we're not building a benchmark-tracking portfolio. We're hunting for mispriced SMID-caps with 40%+ upside per year before institutional money discovers them. For that objective, GICS has structural limitations.</p>
           <p style={{ ...s.body, marginTop: '16px' }}>GICS groups companies by how they're reported and marketed, and it updates slowly by design — stability is a feature, not a bug, when trillions of dollars depend on consistent classification. But that stability means NVIDIA and Cisco both land in "Technology" despite serving completely different demand drivers. Amazon sits in Consumer Discretionary despite AWS generating the majority of operating profits. A semiconductor packaging company pivoting to advanced AI chip packaging might still be classified by its legacy PCB business. By the time GICS reclassifies it, the stock has already re-rated.</p>
           <p style={{ ...s.body, marginTop: '16px' }}>We started with something better: FactSet's RBICS (Revere Business Industry Classification System). RBICS groups companies by what they actually do economically, not what sector they're assigned to. It updates annually based on actual revenue breakdowns. It has 1,814 activity codes instead of 163 sub-industries. It lets you screen at the level that actually matters — advanced packaging versus legacy packaging, power electronics versus general industrial, optical components versus commodity cables.</p>
-          <p style={{ ...s.body, marginTop: '16px' }}>Our initial universe: 3,021 US-listed stocks from a FactSet growth screen, classified across 150 RBICS Industry Groups. We attached fundamentals (revenue growth, margins, capex, FCF), momentum data (1M/3M/6M returns, breadth, price versus moving averages), and valuation metrics (P/S, EV/Sales). RBICS was doing exactly what it should: narrowing the universe by economic activity, not marketing label.</p>
+          <p style={{ ...s.body, marginTop: '16px' }}>Our initial universe: 3,021 US-listed stocks from a FactSet growth screen, classified across 150 RBICS Industry Groups. We attached fundamentals (revenue growth, margins, capex, FCF), momentum data (1M/3M/6M returns, price versus moving averages), and valuation metrics (P/S, EV/Sales, P/E). RBICS was doing exactly what it should: narrowing the universe by economic activity, not marketing label.</p>
           <p style={{ ...s.body, marginTop: '16px' }}>Then we hit the wall.</p>
         </div>
 
@@ -2939,7 +2939,7 @@ export default function AIMarketThemesReportV8() {
         <div style={s.mb32}>
           <h4 style={s.h4}>Why This Approach</h4>
           <p style={s.body}>Classification systems are designed for different objectives than ours. GICS and RBICS serve portfolio construction, risk decomposition, and benchmark tracking — problems that require stability, universality, and backward-looking accuracy. We're solving a different problem: identifying constraint-resolution opportunities before they're priced.</p>
-          <p style={{ ...s.body, marginTop: '16px' }}>This methodology is built for aggressive growth mandates targeting 40%+ upside in the SMID-cap universe. It prioritizes companies solving binding constraints in high-growth systems — where scarcity rents accrue to bottleneck owners, not consensus large-cap positions already reflected in index weights. Mispricing persists longer in this universe precisely because standard screens weren't designed to find it.</p>
+          <p style={{ ...s.body, marginTop: '16px' }}>This methodology is built for aggressive growth mandates targeting 40%+ upside per year in the SMID-cap universe. It prioritizes companies solving binding constraints in high-growth systems — where scarcity rents accrue to bottleneck owners, not consensus large-cap positions already reflected in index weights. Mispricing persists longer in this universe precisely because standard screens weren't designed to find it.</p>
           <p style={{ ...s.body, marginTop: '16px' }}>The constraint-based framework doesn't replace fundamental analysis. It focuses it. Instead of asking "which technology stocks look cheap," we ask "which companies resolve the binding limitation preventing AI infrastructure from scaling?" The answer leads to semiconductor packaging companies, not software platforms. Power generation equipment, not utilities. Behind-the-meter solutions, not grid-connected developers.</p>
           <p style={{ ...s.body, marginTop: '16px' }}>The bottleneck is where the returns are. That's where we're looking.</p>
         </div>
