@@ -2633,7 +2633,7 @@ export default function AIMarketThemesReportV8() {
               <tr style={{ borderBottom: `1px solid ${p.border}` }}>
                 <td style={{ ...s.tableNum, textAlign: 'left', fontWeight: 700, color: p.strong, fontSize: '17px' }}>Overall Opportunity</td>
                 <td style={{ ...s.tableNum, fontSize: '15px' }}>Best risk/reward combination</td>
-                <td style={{ ...s.tableNum, fontSize: '15px' }}>Revenue growth (20%), 6M return (20%), breadth (15%), acceleration (10%), margin trend (10%), valuation (15%), mispricing signal (10%)</td>
+                <td style={{ ...s.tableNum, fontSize: '15px' }}>Revenue growth (20%), 6M stock return (20%), breadth (15%), acceleration (10%), margin trend (10%), valuation (15%), mispricing relative to peers signal (10%)</td>
               </tr>
               <tr style={{ borderBottom: `1px solid ${p.border}` }}>
                 <td style={{ ...s.tableNum, textAlign: 'left', fontWeight: 700, color: p.strong, fontSize: '17px' }}>Quality Momentum</td>
@@ -2643,7 +2643,7 @@ export default function AIMarketThemesReportV8() {
               <tr style={{ borderBottom: `1px solid ${p.border}` }}>
                 <td style={{ ...s.tableNum, textAlign: 'left', fontWeight: 700, color: p.strong, fontSize: '17px' }}>Emerging Growth</td>
                 <td style={{ ...s.tableNum, fontSize: '15px' }}>Acceleration signals</td>
-                <td style={{ ...s.tableNum, fontSize: '15px' }}>Revenue acceleration, % accelerating, margin trend, size opportunity (inverse)</td>
+                <td style={{ ...s.tableNum, fontSize: '15px' }}>Revenue acceleration, margin trend, size opportunity (inverse)</td>
               </tr>
               <tr style={{ borderBottom: `1px solid ${p.border}` }}>
                 <td style={{ ...s.tableNum, textAlign: 'left', fontWeight: 700, color: p.strong, fontSize: '17px' }}>Mispricing</td>
@@ -2658,16 +2658,16 @@ export default function AIMarketThemesReportV8() {
             </tbody>
           </table>
         </div>
-          <p style={{ ...s.body, marginTop: '16px' }}>Each score uses percentile ranks within the universe, ensuring comparability across groups with different characteristics. The output: ~35-40 candidate industry groups that scored in the top quartile on at least one dimension.</p>
+          <p style={{ ...s.body, marginTop: '16px' }}>Each score uses percentile ranks within the universe, ensuring comparability across groups with different characteristics. The output: ~35-40 candidate industry groups that scored in the top quartile on at least one dimension are rolled up into the 17 themes that are clustered around bottleneck and their respective demand drivers.</p>
         </div>
 
         {/* The Dual-Filter Synthesis */}
         <div style={s.mb32}>
           <h4 style={s.h4}>The Dual-Filter Synthesis</h4>
           <p style={s.body}>The final classification uses a 2×2 framework measuring momentum trajectory against fundamentals quality:</p>
-          <p style={{ ...s.body, marginTop: '16px' }}><strong style={{ color: '#0077B6' }}>X-Axis: Momentum Acceleration</strong><br />Is the 3-month return greater than 50% of the 6-month return? If recent performance exceeds what "steady state" would predict, momentum is accelerating.</p>
+          <p style={{ ...s.body, marginTop: '16px' }}><strong style={{ color: '#0077B6' }}>X-Axis: Momentum Acceleration</strong><br />Is the three month stock return greater than 50% of the 6-month return? If recent performance exceeds what "steady state" would predict, momentum is accelerating.</p>
           <p style={{ ...s.body, marginTop: '16px' }}><strong style={{ color: '#0077B6' }}>Y-Axis: Fundamentals Quality</strong><br />Are more than 50% of constituents showing margin improvement? Is profitability stable or expanding?</p>
-          <p style={{ ...s.body, marginTop: '16px' }}>Themes landing in the upper-right quadrant — accelerating momentum plus improving fundamentals — became <strong style={{ color: '#FE4207' }}>High Conviction</strong>. Themes with intact fundamentals but fading momentum became <strong>Watchlist</strong> (quality intact, wait for re-entry). Negative momentum plus compressing margins meant <strong>Avoid</strong>. Strong performance but outside the AI/growth thesis meant <strong>Excluded</strong>.</p>
+          <p style={{ ...s.body, marginTop: '16px' }}>Themes landing in the upper-right quadrant — accelerating momentum plus improving fundamentals — became <strong style={{ color: '#FE4207' }}>High Conviction</strong>. Themes with intact fundamentals but fading momentum became <strong>Watchlist</strong> (quality intact, wait for re-entry). Negative momentum plus compressing margins meant <strong>Avoid</strong>. Strong performance but unlikely to continue.</p>
         </div>
 
         {/* Quadrant Section Header */}
