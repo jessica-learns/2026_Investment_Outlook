@@ -1173,7 +1173,7 @@ export default function AIMarketThemesReportV8() {
     { id: 'cover', num: '', title: 'Cover' },
     { id: 'why', num: '01', title: 'What We See & Why We Act' },
     { id: 'methodology', num: '02', title: 'Analytical Methodology' },
-    { id: 'analysis', num: '03', title: 'Theme Analysis' },
+    { id: 'analysis', num: '03', title: 'Theme Analysis (TBD)' },
     { id: 'semi-equip', num: '04', title: 'Semiconductor Equip.' },
     { id: 'space', num: '05', title: 'Space & Satellites' },
     { id: 'biotech', num: '06', title: 'Biotech' },
@@ -2981,10 +2981,22 @@ export default function AIMarketThemesReportV8() {
       </div>
     );
 
+    // Toggle to show/hide charts - set to true when ready to display
+    const showCharts = false;
+
     return (
       <section style={s.section}>
-        <SectionHeader num="03" title="Theme Analysis" subtitle="Visualizing momentum, returns, and fundamentals across all themes" />
+        <SectionHeader num="03" title="Theme Analysis (TBD)" subtitle="Visualizing momentum, returns, and fundamentals across all themes" />
 
+        {/* Message when charts are hidden */}
+        {!showCharts && (
+          <div style={{ ...s.card, padding: '48px', textAlign: 'center' }}>
+            <p style={{ ...s.body, fontSize: '18px', color: p.neutral, margin: 0 }}>This data is being updated and calculated. Come back later.</p>
+          </div>
+        )}
+
+        {/* Charts hidden for updates - set showCharts to true above to re-enable */}
+        {showCharts && (<>
         {/* Tabs */}
         <div style={{ display: 'flex', gap: '32px', marginBottom: '32px', borderBottom: `1px solid ${p.border}` }}>
           {['momentum', 'fundamentals'].map(view => (
@@ -3061,6 +3073,7 @@ export default function AIMarketThemesReportV8() {
             </div>
           </>)}
         </div>
+        </>)}
       </section>
     );
   };
