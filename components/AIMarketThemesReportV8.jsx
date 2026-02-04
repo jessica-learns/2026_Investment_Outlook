@@ -399,7 +399,7 @@ export default function AIMarketThemesReportV8() {
       ],
     },
     {
-      title: "AI Infrastructure",
+      title: "Behind The Meter Energy",
       color: p.gold,
       stats: { m6: 29.1, m3: 18.2, margin: 11.6 },
       dataKey: "powerGen",
@@ -1201,7 +1201,7 @@ export default function AIMarketThemesReportV8() {
     { id: 'why', num: '01', title: 'What We See & Why We Act' },
     { id: 'methodology', num: '02', title: 'Analytical Methodology' },
     { id: 'analysis', num: '03', title: 'Theme Analysis (TBD)' },
-    { id: 'power-gen', num: '04', title: 'AI Infrastructure' },
+    { id: 'power-gen', num: '04', title: 'BTM Energy' },
     { id: 'semi-equip', num: '05', title: 'Semiconductor Equip.' },
     { id: 'space', num: '06', title: 'Space & Satellites' },
     { id: 'biotech', num: '07', title: 'Biotech' },
@@ -3249,7 +3249,7 @@ export default function AIMarketThemesReportV8() {
     const theme = highConvictionThemes[3];
     return (
       <section style={s.section}>
-        <SectionHeader num="04" title={theme.title} subtitle="High Conviction Theme" />
+        <SectionHeader num="04" title={theme.title} subtitle="Electric Solutions That Don't Depend on the Grid" />
         
         <div style={{ display: 'flex', flexDirection: 'column', gap: '20px', marginBottom: '32px' }}>
           {theme.paragraphs.map((para, i) => (
