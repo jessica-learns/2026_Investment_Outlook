@@ -138,6 +138,10 @@ export default function AIMarketThemesReportV8() {
       { ticker: "RCAT", name: "Red Cat Holdings", mktCap: 892, revGr: 245.0, m1: 38.2, m3: 42.1, m6: 68.4, ps: 28.7 },
     ],
     powerGen: [
+      { ticker: "BE", name: "Bloom Energy", mktCap: 8200, revGr: 25.0, m1: 26.3, m3: 119.6, m6: 210.1, ps: 4.5 },
+      { ticker: "OKLO", name: "Oklo", mktCap: 1200, revGr: 0.0, m1: 88.8, m3: 101.8, m6: 177.4, ps: 0.0 },
+      { ticker: "SEI", name: "Seabridge Gold", mktCap: 1850, revGr: 0.0, m1: 15.0, m3: 35.0, m6: 65.0, ps: 0.0 },
+      { ticker: "PSIX", name: "Power Solutions International", mktCap: 850, revGr: 12.0, m1: 18.0, m3: 28.0, m6: 45.0, ps: 1.2 },
       { ticker: "VRT", name: "Vertiv Holdings", mktCap: 48920, revGr: 26.4, m1: 15.2, m3: 22.8, m6: 38.4, ps: 5.8 },
       { ticker: "GEV", name: "GE Vernova", mktCap: 98450, revGr: 8.2, m1: 18.4, m3: 24.1, m6: 42.6, ps: 2.9 },
       { ticker: "POWL", name: "Powell Industries", mktCap: 3820, revGr: 48.7, m1: 12.8, m3: 19.4, m6: 35.2, ps: 3.2 },
@@ -999,6 +1003,18 @@ export default function AIMarketThemesReportV8() {
     { key: 'revGr', label: 'Rev Gr', align: 'center', sortable: true, render: (v) => v > 100 ? '>100%' : <Pct v={v} /> },
     { key: 'm3', label: '3M', align: 'center', sortable: true, render: (v) => <Pct v={v} /> },
     { key: 'm6', label: '6M', align: 'center', sortable: true, render: (v) => v !== null ? <Pct v={v} /> : 'N/A' },
+    ...(showPS ? [{ key: 'ps', label: 'P/S', align: 'center', sortable: true, render: (v) => `${v.toFixed(1)}x` }] : []),
+  ];
+
+  // Columns without color coding (for AI Infrastructure section)
+  const stdColsNoColor = (showPS = true) => [
+    { key: 'ticker', label: 'Ticker', align: 'left', sortable: true },
+    { key: 'name', label: 'Company', align: 'left', sortable: true },
+    { key: 'mktCap', label: 'Mkt Cap', align: 'center', sortable: true, render: fmtCap },
+    { key: 'm1', label: '1M', align: 'center', sortable: true, render: (v) => <span style={{ ...s.mono, fontSize: '13px' }}>{fmt(v)}</span> },
+    { key: 'revGr', label: 'Rev Gr', align: 'center', sortable: true, render: (v) => v > 100 ? '>100%' : <span style={{ ...s.mono, fontSize: '13px' }}>{fmt(v)}</span> },
+    { key: 'm3', label: '3M', align: 'center', sortable: true, render: (v) => <span style={{ ...s.mono, fontSize: '13px' }}>{fmt(v)}</span> },
+    { key: 'm6', label: '6M', align: 'center', sortable: true, render: (v) => v !== null ? <span style={{ ...s.mono, fontSize: '13px' }}>{fmt(v)}</span> : 'N/A' },
     ...(showPS ? [{ key: 'ps', label: 'P/S', align: 'center', sortable: true, render: (v) => `${v.toFixed(1)}x` }] : []),
   ];
 
@@ -3215,7 +3231,26 @@ export default function AIMarketThemesReportV8() {
     );
   };
   const renderSection06Theme = () => renderThemeSection(2, '08');
-  const renderSection07Theme = () => renderThemeSection(3, '04');
+  const renderSection07Theme = () => {
+    const theme = highConvictionThemes[3];
+    return (
+      <section style={s.section}>
+        <SectionHeader num="04" title={theme.title} subtitle="High Conviction Theme" />
+        
+        <div style={{ display: 'flex', flexDirection: 'column', gap: '20px', marginBottom: '32px' }}>
+          {theme.paragraphs.map((para, i) => (
+            <div key={i}>
+              {para.h && <h4 style={s.h4}>{para.h}</h4>}
+              <p style={s.body}>{para.t}</p>
+            </div>
+          ))}
+        </div>
+        
+        <SortableStockTable data={stockData[theme.dataKey]} columns={stdColsNoColor(theme.showPS)} defaultSort={{ key: 'm1', direction: 'desc' }} showDescriptions={false} />
+        {theme.note && <p style={{ fontSize: '12px', color: p.neutral, fontStyle: 'italic', marginTop: '-16px' }}>{theme.note}</p>}
+      </section>
+    );
+  };
 
   const renderSection08 = () => (
     <section style={s.section}>
