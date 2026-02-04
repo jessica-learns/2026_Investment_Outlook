@@ -1798,7 +1798,7 @@ export default function AIMarketThemesReportV8() {
             How the Chokepoint Owners Beat Their Customers
           </h3>
           <p style={s.body}>
-            You might be wondering why we didn't open our report with NVIDIA. Its roughly 35x return since 2020 is one of the most extraordinary performances in large-cap market history, but it is also not a repeatable template in our opinion because it is an extreme statistical outlier. NVIDIA simultaneously controlled multiple bottlenecks—GPU architecture, CUDA software lock-in, and high-speed data center networking following the Mellanox acquisition—at the precise moment AI demand inflected. As the trade took hold, it was absorbed into every thematic ETF, momentum strategy, and eventually major indices. Passive flows amplified what was already a fundamentally real constraint.
+            You might be wondering why we didn't open our report with NVIDIA. Its roughly 35x return since 2020 is one of the most extraordinary performances in large-cap market history. But we opened with TSM because it represents a repeatable pattern, not a statistical outlier. TSM controlled one binding constraint; NVIDIA controlled several simultaneously. NVIDIA simultaneously controlled multiple bottlenecks—GPU architecture, CUDA software lock-in, and high-speed data center networking following the Mellanox acquisition—at the precise moment AI demand inflected. As the trade took hold, it was absorbed into every thematic ETF, momentum strategy, and eventually major indices. Passive flows amplified what was already a fundamentally real constraint.
           </p>
           <p style={{ ...s.body, marginTop: '16px' }}>
             TSM and ASML are the templates. TSM is the Taiwanese foundry we described above. ASML is the Dutch equipment maker that holds a near-monopoly on the extreme ultraviolet lithography machines required to manufacture them. Unlike NVIDIA, neither required a perfect storm. Each controlled a single, binding constraint that the market systematically underweighted for years—capacity that could not be replicated on investor time horizons. That is the repeatable pattern: identify irreplaceable chokepoint ownership before financial confirmation forces the market to reprice it.
@@ -3142,38 +3142,43 @@ export default function AIMarketThemesReportV8() {
       { paragraphIndex: 4, bucketIds: [3] },         // "Margin Expansion" → Core Lithography
     ];
 
+    // Collect all buckets that should be displayed
+    const allBuckets = [];
+    paragraphBucketMap.forEach(mapping => {
+      mapping.bucketIds.forEach(id => {
+        const bucket = semiEquipmentBuckets.find(b => b.id === id);
+        if (bucket && !allBuckets.find(b => b.id === bucket.id)) {
+          allBuckets.push(bucket);
+        }
+      });
+    });
+    // Sort buckets by ID in numeric order
+    allBuckets.sort((a, b) => a.id - b.id);
+
     return (
       <section style={s.section}>
         <SectionHeader num="05" title={theme.title} subtitle="High Conviction Theme; Bottleneck-Based Investment Map" />
 
-        {/* Interleaved Paragraphs and Bucket Tables */}
-        {theme.paragraphs.map((para, pIndex) => {
-          const mapping = paragraphBucketMap.find(m => m.paragraphIndex === pIndex);
-          const relatedBuckets = mapping ? mapping.bucketIds.map(id => semiEquipmentBuckets.find(b => b.id === id)).filter(Boolean) : [];
-          
-          return (
-            <div key={pIndex} style={{ marginBottom: '40px' }}>
-              {/* Narrative Section */}
-              <div style={{ marginBottom: '24px' }}>
-                {para.h && <h4 style={s.h4}>{para.h}</h4>}
-                <p style={s.body}>{para.t}</p>
-                {/* Note after paragraph if present */}
-                {para.note && (
-                  <p style={{ fontSize: '12px', color: p.neutral, fontStyle: 'italic', marginTop: '12px', padding: '12px 16px', backgroundColor: p.surface2, borderLeft: `2px solid ${p.border}` }}>{para.note}</p>
-                )}
-              </div>
-              
-              {/* Related Bucket Tables */}
-              {relatedBuckets.length > 0 && (
-                <div style={{ marginLeft: '0px', paddingLeft: '0px' }}>
-                  {relatedBuckets.map(bucket => (
-                    <BucketTable key={bucket.id} bucket={bucket} />
-                  ))}
-                </div>
-              )}
-            </div>
-          );
-        })}
+        {/* All Paragraphs First */}
+        {theme.paragraphs.map((para, pIndex) => (
+          <div key={pIndex} style={{ marginBottom: '40px' }}>
+            {para.h && <h4 style={s.h4}>{para.h}</h4>}
+            <p style={s.body}>{para.t}</p>
+            {/* Note after paragraph if present */}
+            {para.note && (
+              <p style={{ fontSize: '12px', color: p.neutral, fontStyle: 'italic', marginTop: '12px', padding: '12px 16px', backgroundColor: p.surface2, borderLeft: `2px solid ${p.border}` }}>{para.note}</p>
+            )}
+          </div>
+        ))}
+
+        {/* All Bucket Tables After Paragraphs */}
+        {allBuckets.length > 0 && (
+          <div style={{ marginTop: '48px' }}>
+            {allBuckets.map(bucket => (
+              <BucketTable key={bucket.id} bucket={bucket} />
+            ))}
+          </div>
+        )}
 
         {/* Data Source Note */}
         <div style={s.calloutNote}>
@@ -3196,34 +3201,39 @@ export default function AIMarketThemesReportV8() {
       { paragraphIndex: 5, bucketIds: [] },        // "Where Value Accrues" → Summary, no table
     ];
 
+    // Collect all buckets that should be displayed
+    const allBuckets = [];
+    paragraphBucketMap.forEach(mapping => {
+      mapping.bucketIds.forEach(id => {
+        const bucket = spaceDefenseBuckets.find(b => b.id === id);
+        if (bucket && !allBuckets.find(b => b.id === bucket.id)) {
+          allBuckets.push(bucket);
+        }
+      });
+    });
+    // Sort buckets by ID in numeric order
+    allBuckets.sort((a, b) => a.id - b.id);
+
     return (
       <section style={s.section}>
         <SectionHeader num="06" title={theme.title} subtitle="High Conviction Theme; Bottleneck-Based Investment Map" />
 
-        {/* Interleaved Paragraphs and Bucket Tables */}
-        {theme.paragraphs.map((para, pIndex) => {
-          const mapping = paragraphBucketMap.find(m => m.paragraphIndex === pIndex);
-          const relatedBuckets = mapping ? mapping.bucketIds.map(id => spaceDefenseBuckets.find(b => b.id === id)).filter(Boolean) : [];
-          
-          return (
-            <div key={pIndex} style={{ marginBottom: '40px' }}>
-              {/* Narrative Section */}
-              <div style={{ marginBottom: '24px' }}>
-                {para.h && <h4 style={s.h4}>{para.h}</h4>}
-                <p style={s.body}>{para.t}</p>
-              </div>
-              
-              {/* Related Bucket Tables */}
-              {relatedBuckets.length > 0 && (
-                <div style={{ marginLeft: '0px', paddingLeft: '0px' }}>
-                  {relatedBuckets.map(bucket => (
-                    <BucketTable key={bucket.id} bucket={bucket} />
-                  ))}
-                </div>
-              )}
-            </div>
-          );
-        })}
+        {/* All Paragraphs First */}
+        {theme.paragraphs.map((para, pIndex) => (
+          <div key={pIndex} style={{ marginBottom: '40px' }}>
+            {para.h && <h4 style={s.h4}>{para.h}</h4>}
+            <p style={s.body}>{para.t}</p>
+          </div>
+        ))}
+
+        {/* All Bucket Tables After Paragraphs */}
+        {allBuckets.length > 0 && (
+          <div style={{ marginTop: '48px' }}>
+            {allBuckets.map(bucket => (
+              <BucketTable key={bucket.id} bucket={bucket} />
+            ))}
+          </div>
+        )}
 
         {/* Data Source Note */}
         <div style={s.calloutNote}>
@@ -3443,20 +3453,31 @@ export default function AIMarketThemesReportV8() {
       <section style={s.section}>
         <SectionHeader num="07" title="Biotech" subtitle="Regulatory constraint easing creates asymmetric opportunity" />
 
-        {/* Main Themes */}
+        {/* All Theme Headers and Intro Paragraphs First */}
         {biotechThemes.map((theme) => (
           <div key={theme.id} style={s.mb48}>
-            <TableHeader label="THEME" id={theme.id} title={theme.name} />
+            <TableHeader label="" id="" title={theme.name} />
             <p style={{ ...s.body, marginBottom: '20px' }}>{theme.intro}</p>
-            <SortableStockTable stocks={theme.stocks} showDescriptions={true} />
           </div>
         ))}
 
-        {/* Other Healthcare Categories */}
+        {/* Other Healthcare Heading and Intro */}
         <div style={s.dividerTop}>
           <h3 style={{ ...s.h4, fontSize: '20px', marginBottom: '8px' }}>Other Healthcare</h3>
           <p style={{ ...s.body, marginBottom: '32px' }}>Additional stocks meeting growth criteria (revenue growth, margin expansion, 3M return &gt;25%) that do not fit neatly into the five themes above.</p>
-          
+        </div>
+
+        {/* All Theme Tables After Paragraphs */}
+        <div style={{ marginTop: '48px' }}>
+          {biotechThemes.map((theme) => (
+            <div key={`table-${theme.id}`} style={{ marginBottom: '48px' }}>
+              <SortableStockTable stocks={theme.stocks} showDescriptions={true} />
+            </div>
+          ))}
+        </div>
+
+        {/* All Other Healthcare Category Tables */}
+        <div style={{ marginTop: '48px' }}>
           {otherHealthcareCategories.map((cat, idx) => (
             <div key={cat.name} style={{ marginBottom: '36px' }}>
               <h4 style={{ ...s.h4, fontSize: '16px', marginBottom: '12px' }}>{cat.name}</h4>
