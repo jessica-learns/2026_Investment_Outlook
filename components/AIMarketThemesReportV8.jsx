@@ -395,14 +395,19 @@ export default function AIMarketThemesReportV8() {
       ],
     },
     {
-      title: "Power Generation Equipment",
+      title: "AI Infrastructure",
       color: p.gold,
       stats: { m6: 29.1, m3: 18.2, margin: 11.6 },
       dataKey: "powerGen",
       showPS: true,
       paragraphs: [
-        { h: "Power Is a Revenue Gate, Not an Operating Cost", t: "Every 1 GW of delayed capacity costs ~$10–12B per year in foregone AI revenue. Even 200 MW brought online six months earlier is worth $1–1.2B. In that context, higher-cost behind-the-meter power is not expensive. Waiting is." },
-        { h: null, t: "Data center power demand is creating a structural shortage in generation and distribution equipment. Lead times for transformers and switchgear have extended to 2+ years. Companies with existing capacity and backlog are seeing strong pricing power and margin expansion." },
+        { h: "The Most Expensive Real Estate in Tech Isn't in San Francisco", t: null },
+        { h: null, t: "A single gigawatt of AI datacenter capacity can generate $10 to $12 billion in annual revenue—if it's actually running. Read that again. One gigawatt. Ten billion dollars. Annually. For context, that's roughly what Disney+ makes in a year. Except instead of streaming Marvel content to 150 million subscribers, you're just keeping a building full of GPUs humming. This math has broken the American power grid." },
+        { h: "I. Datacenters Are Becoming Power Companies (Because They Have To)", t: "In Texas, somewhere between 1% and 5% of requested megawatt-scale grid connections get approved on time. Queue times stretch two to five years. AI deployment cycles? Quarterly. When waiting for the grid costs billions in forgone earnings, operators stop waiting. They build their own power plants. This isn't metaphor. OpenAI and Oracle jointly ordered 2.3 gigawatts of gas turbines in Texas. xAI deployed 100,000 GPUs with 500 megawatts of mobile gas generation—in four months. These aren't datacenters with backup generators. They're private power plants that happen to run AI. The industry calls them \"behind-the-meter\" (BTM) solutions—meaning the power never touches the public grid. Operators control provisioning, permitting, and pricing. More than 80% of new AI datacenters are now pursuing BTM. Orders are expected to exceed 10 gigawatts by mid-2026, more than double the prior year. As Dylan Patel of SemiAnalysis put it in December: \"The grid is sold out. Nobody's waiting on chips—they're waiting on power. The people who win are the ones who can get megawatts fastest.\" The competitive moat in AI infrastructure has shifted. Forget land, fiber, or cooling. The new moat is turbine lead time. Fuel access. Regulatory arbitrage. The companies that figure out how to generate their own electricity—fast—will capture that $10B-per-gigawatt prize. Everyone else will wait in queue. Tickers to explore: BE, GEV, SEI, OKLO, PSIX, AMZN, MSFT, ORCL" },
+        { h: "II. The Capacity Is Built. The Revenue Isn't.", t: "Here's the awkward part: that $10–12 billion revenue figure comes with an asterisk. It only counts if the datacenter is being used for inference—meaning production workloads that customers pay for. Training generates no revenue. It's R&D. Capex disguised as OpEx. Right now, most of the shiny new infrastructure is training, not earning. Gavin Baker framed this bluntly on a16z's Runtime podcast: \"Those Blackwells are being used for training, and there's no ROI on training. The ROI comes from inference.\" This creates what you might call an ROIC air gap. Capital has been deployed. Operating costs are climbing. Revenue hasn't started. The sector is entering a two-to-three quarter window where return metrics will deteriorate even as investment accelerates. This isn't a bubble in the traditional sense. It's a timing mismatch with a measurable downside. The question isn't whether AI infrastructure will generate returns—it's whether your cost of capital can survive the wait." },
+        { h: "III. The $3,600 Problem with $880 Customers", t: "Between early 2023 and late 2025, the cost of generating a token fell more than 240x. Spectacular progress. Except monetization didn't follow. OpenAI's average paid user brings in about $880 per year. Heavy users cost $3,000–$3,600 per year to serve. This isn't a scaling problem that efficiency will fix. It's architectural. Traditional SaaS is a fixed-cost business: build the software once, sell it a million times, print money. AI doesn't work that way. Every query requires real-time computation. Each token consumes compute, electricity, and memory. This is software that behaves like a utility. In SaaS, more engagement means better margins. In AI, more engagement increases cost. That inverts everything we think we know about software economics." },
+        { h: "IV. The Margin Compression Trap (And Who Falls Into It)", t: "This dynamic is already repricing businesses. JPMorgan estimates that public SaaS companies embedding generative AI saw 400–600 basis points of gross margin erosion in 2025. Top-line lift? Limited. The reason is mechanical: inference is expensive. AI-native businesses operate at 35–45% gross margins not by accident, but by design. That's their cost structure. Public incumbents can't easily follow. Their multiples depend on the illusion of software-like margins. This is the innovator's dilemma happening in public markets, in real time. Public SaaS companies are rewarded for adding \"AI features\" that demo well but trigger minimal inference cost. Meanwhile, vertical AI startups can accept 50–60% margins, deliver actual performance, and win customers. Baker again: \"SaaS companies with 80% gross margins cannot bolt on AI agents and survive. It's a completely different cost structure.\" The market already noticed. Software (Application) was the worst-performing tech subsector in 2025, down more than 28%. Hardware and semiconductors outperformed. The margin narrative broke. There's a tell in earnings calls: management that describes AI as a \"margin opportunity\" is likely optimizing for optics. Those framing it as \"market expansion\" are likely engineering for performance. One group will defend their valuation. The other might actually earn it. Tickers to explore: DDOG, SNOW, AI, PLTR, NOW, TSLA, GOOGL, AMZN" },
+        { h: "The Setup", t: "Four structural shifts. One throughline. The power grid can't keep up, so datacenters are becoming energy companies. The capacity exists, but it's training, not earning. Token costs collapsed, but AI economics invert software margins. And public SaaS is trapped between admitting the problem and pretending AI is free. This isn't a thesis about which company wins. It's a framework for understanding why the sector will keep repricing—and where the constraints are tight enough to create asymmetric upside. The moat moved. Follow the megawatts." },
       ],
     },
   ];
@@ -1174,13 +1179,13 @@ export default function AIMarketThemesReportV8() {
     { id: 'why', num: '01', title: 'What We See & Why We Act' },
     { id: 'methodology', num: '02', title: 'Analytical Methodology' },
     { id: 'analysis', num: '03', title: 'Theme Analysis (TBD)' },
-    { id: 'semi-equip', num: '04', title: 'Semiconductor Equip.' },
-    { id: 'space', num: '05', title: 'Space & Satellites' },
-    { id: 'biotech', num: '06', title: 'Biotech' },
-    { id: 'defense', num: '07', title: 'Defense & Aerospace' },
-    { id: 'silver-gold', num: '08', title: 'Silver & Gold' },
-    { id: 'metals-materials', num: '09', title: 'Strategic Metals & Materials' },
-    { id: 'power-gen', num: '10', title: 'Power Generation' },
+    { id: 'power-gen', num: '04', title: 'AI Infrastructure' },
+    { id: 'semi-equip', num: '05', title: 'Semiconductor Equip.' },
+    { id: 'space', num: '06', title: 'Space & Satellites' },
+    { id: 'biotech', num: '07', title: 'Biotech' },
+    { id: 'defense', num: '08', title: 'Defense & Aerospace' },
+    { id: 'silver-gold', num: '09', title: 'Silver & Gold' },
+    { id: 'metals-materials', num: '10', title: 'Strategic Metals & Materials' },
     { id: 'watchlist', num: '11', title: 'Watchlist' },
     { id: 'buildout', num: '12', title: 'Physical Buildout' },
   ];
@@ -3117,7 +3122,7 @@ export default function AIMarketThemesReportV8() {
 
     return (
       <section style={s.section}>
-        <SectionHeader num="04" title={theme.title} subtitle="High Conviction Theme; Bottleneck-Based Investment Map" />
+        <SectionHeader num="05" title={theme.title} subtitle="High Conviction Theme; Bottleneck-Based Investment Map" />
 
         {/* Interleaved Paragraphs and Bucket Tables */}
         {theme.paragraphs.map((para, pIndex) => {
@@ -3171,7 +3176,7 @@ export default function AIMarketThemesReportV8() {
 
     return (
       <section style={s.section}>
-        <SectionHeader num="05" title={theme.title} subtitle="High Conviction Theme; Bottleneck-Based Investment Map" />
+        <SectionHeader num="06" title={theme.title} subtitle="High Conviction Theme; Bottleneck-Based Investment Map" />
 
         {/* Interleaved Paragraphs and Bucket Tables */}
         {theme.paragraphs.map((para, pIndex) => {
@@ -3207,8 +3212,8 @@ export default function AIMarketThemesReportV8() {
       </section>
     );
   };
-  const renderSection06Theme = () => renderThemeSection(2, '07');
-  const renderSection07Theme = () => renderThemeSection(3, '10');
+  const renderSection06Theme = () => renderThemeSection(2, '08');
+  const renderSection07Theme = () => renderThemeSection(3, '04');
 
   const renderSection08 = () => (
     <section style={s.section}>
@@ -3391,7 +3396,7 @@ export default function AIMarketThemesReportV8() {
   const renderSection09 = () => {
     return (
       <section style={s.section}>
-        <SectionHeader num="06" title="Biotech" subtitle="Regulatory constraint easing creates asymmetric opportunity" />
+        <SectionHeader num="07" title="Biotech" subtitle="Regulatory constraint easing creates asymmetric opportunity" />
 
         {/* Main Themes */}
         {biotechThemes.map((theme) => (
@@ -3530,7 +3535,7 @@ export default function AIMarketThemesReportV8() {
 
     return (
       <section style={s.section}>
-        <SectionHeader num="08" title="Silver & Gold" subtitle="Balance sheets, not cycles, are driving returns" />
+        <SectionHeader num="09" title="Silver & Gold" subtitle="Balance sheets, not cycles, are driving returns" />
         
         {/* Opening context */}
         <div style={s.mb32}>
@@ -3736,7 +3741,7 @@ export default function AIMarketThemesReportV8() {
 
     return (
       <section style={s.section}>
-        <SectionHeader num="09" title="Strategic Metals & Materials" subtitle="When prices move in months and supply moves in decades" />
+        <SectionHeader num="10" title="Strategic Metals & Materials" subtitle="When prices move in months and supply moves in decades" />
         
         <div style={s.mb32}>
           <h4 style={s.h4}>Why Metals Markets Repeatedly Reprice Instead of Cycling</h4>
@@ -3791,13 +3796,13 @@ export default function AIMarketThemesReportV8() {
     renderSection01(),
     renderSection02(),
     renderSection03(),
-    renderSection04(),
-    renderSection05Theme(),
-    renderSection09(),          // Biotech (06)
-    renderSection06Theme(),     // Defense (07)
-    renderSectionSilverGold(),  // Silver & Gold (08)
-    renderSection10(),          // Metals & Materials (09)
-    renderSection07Theme(),     // Power Generation (10)
+    renderSection07Theme(),     // AI Infrastructure (04)
+    renderSection04(),          // Semiconductor Equip. (05)
+    renderSection05Theme(),     // Space & Satellites (06)
+    renderSection09(),          // Biotech (07)
+    renderSection06Theme(),     // Defense (08)
+    renderSectionSilverGold(),  // Silver & Gold (09)
+    renderSection10(),          // Metals & Materials (10)
     renderSection08(),          // Watchlist (11)
     renderSection11()           // Physical Buildout (12)
   ];
