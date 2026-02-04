@@ -1015,10 +1015,10 @@ export default function AIMarketThemesReportV8() {
     { key: 'ticker', label: 'Ticker', align: 'left', sortable: true },
     { key: 'name', label: 'Company', align: 'left', sortable: true },
     { key: 'mktCap', label: 'Mkt Cap', align: 'center', sortable: true, render: fmtCap },
-    { key: 'm1', label: '1M', align: 'center', sortable: true, render: (v) => <span style={{ ...s.mono, fontSize: '13px' }}>{fmt(v)}</span> },
-    { key: 'revGr', label: 'Rev Gr', align: 'center', sortable: true, render: (v) => v > 100 ? '>100%' : <span style={{ ...s.mono, fontSize: '13px' }}>{fmt(v)}</span> },
-    { key: 'm3', label: '3M', align: 'center', sortable: true, render: (v) => <span style={{ ...s.mono, fontSize: '13px' }}>{fmt(v)}</span> },
-    { key: 'm6', label: '6M', align: 'center', sortable: true, render: (v) => v !== null ? <span style={{ ...s.mono, fontSize: '13px' }}>{fmt(v)}</span> : 'N/A' },
+    { key: 'm1', label: '1M', align: 'center', sortable: true, render: (v) => <span style={{ fontFamily: "'Poppins', sans-serif", fontSize: '19px', fontVariantNumeric: 'tabular-nums', fontWeight: 500 }}>{fmt(v)}</span> },
+    { key: 'revGr', label: 'Rev Gr', align: 'center', sortable: true, render: (v) => v > 100 ? '>100%' : <span style={{ fontFamily: "'Poppins', sans-serif", fontSize: '19px', fontVariantNumeric: 'tabular-nums', fontWeight: 500 }}>{fmt(v)}</span> },
+    { key: 'm3', label: '3M', align: 'center', sortable: true, render: (v) => <span style={{ fontFamily: "'Poppins', sans-serif", fontSize: '19px', fontVariantNumeric: 'tabular-nums', fontWeight: 500 }}>{fmt(v)}</span> },
+    { key: 'm6', label: '6M', align: 'center', sortable: true, render: (v) => v !== null ? <span style={{ fontFamily: "'Poppins', sans-serif", fontSize: '19px', fontVariantNumeric: 'tabular-nums', fontWeight: 500 }}>{fmt(v)}</span> : 'N/A' },
     ...(showPS ? [{ key: 'ps', label: 'P/S', align: 'center', sortable: true, render: (v) => `${v.toFixed(1)}x` }] : []),
   ];
 
